@@ -16,6 +16,8 @@ class CreateCompetenciesTable extends Migration
         Schema::create('competencies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('matrix_id')->unsigned();
+            $table->foreign('matrix_id')->references('id')->on('matrixes');
             $table->timestamps();
         });
     }

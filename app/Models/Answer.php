@@ -6,5 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-    //
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'answers';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'questionnaire_application_id',
+        'questionnaire_question_id',
+        'scale_id',
+        'value'
+    ];
+
+    public function scale()
+    {
+        return $this->belongsTo('App\Models\Scale', 'scale_id', 'id');
+    }
 }

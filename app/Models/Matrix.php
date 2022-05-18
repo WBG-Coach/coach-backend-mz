@@ -6,5 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Matrix extends Model
 {
-    //
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'matrixes';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+    ];
+
+    public function matrix()
+    {
+        return $this->hasMany('App\Models\Competence', 'matrix_id', 'id');
+    }
 }

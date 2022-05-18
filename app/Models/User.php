@@ -43,4 +43,14 @@ class Usuario extends Authenticatable
     {
         return $this->hasMany('App\Models\UserSchool', 'user_id', 'id');
     }
+
+    public function appliedQuestionnaires()
+    {
+        return $this->hasMany('App\Models\QuestionnaireApplication', 'coach_id', 'id');
+    }
+
+    public function receivedQuestionnaires()
+    {
+        return $this->hasMany('App\Models\QuestionnaireApplication', 'teacher_id', 'id');
+    }
 }
