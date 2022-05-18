@@ -8,11 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
     - name: 📂 Sync files
       uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.coach_ssh_key }}
         REMOTE_HOST: ${{ secrets.coach_server }}
         REMOTE_USER: ${{ secrets.coach_username }}
-        TARGET: ${{ secrets.coach_target }}
