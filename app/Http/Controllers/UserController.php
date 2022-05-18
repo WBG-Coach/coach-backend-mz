@@ -4,81 +4,79 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Usuario;
+use App\Models\User;
 
-class UsuarioController extends Controller
+class UserController extends Controller
 {
-    public function pesquisar(Request $request)
+    public function search(Request $request)
     {
         if ($request->id) {
-            return Usuario::find($request->id);
+            return User::find($request->id);
         }
 
-        $busca = Usuario::select('*');
-        if ($request->ativos) {
-            $busca->where('deletado', 'N');
+        $search = User::select('*');
+        if ($request->name) {
+            $search->whereRaw("name like '%".$request->name."%'");
         }
-        if ($request->deletados) {
-            $busca->where('deletado', 'S');
+        if ($request->email) {
+            $search->whereRaw("email like '%".$request->email."%'");
         }
-        if ($request->nome) {
-            $busca->whereRaw("nome like '%".$request->nome."%'");
+        if ($request->profile_id) {
+            $search->where("profile_id", $request->profile_id);
         }
-        if ($request->username) {
-            $busca->whereRaw("username like '%".$request->username."%'");
+        if ($request->pagination) {
+            return $search->paginate($request->pagination);
         }
-        return $busca->get();
+        return $search->get();
     }
 
-    public function salvar(Request $request)
+    public function save(Request $request)
     {
         \DB::beginTransaction();
 
         try {
-
-            $usuario = new Usuario();
-            $usuario->fill($request->all());
-            $usuario->password = bcrypt($request->password);
-            $usuario->save();
+            $user = new User();
+            $user->fill($request->all());
+            $user->password = bcrypt($request->password);
+            $user->save();
 
             \DB::commit();
-            return $usuario->id;
+            return $user->id;
         } catch (\Exception $e) {
             \DB::rollback();
             abort(500, $e);
         }
     }
 
-    public function atualizar(Request $request)
+    public function update(Request $request)
     {
         \DB::beginTransaction();
 
         try {
 
-            $usuario = Usuario::find($request->id);
-            $usuario->fill($request->all());
+            $user = User::find($request->id);
+            $user->fill($request->all());
             if ($request->password) {
-                $usuario->password = bcrypt($request->password);
+                $user->password = bcrypt($request->password);
             }
-            $usuario->update();
+            $user->update();
 
             \DB::commit();
-            return "true";
+            return $request->id;
         } catch (\Exception $e) {
             \DB::rollback();
             abort(500, $e);
         }
     }
 
-    public function deletar($id)
+    public function delete($id)
     {
         \DB::beginTransaction();
 
         try {
-            Usuario::find($id)->update(['deletado' => 'S']);
-
+            User::find($id)->update(['deleted_at' => date('Y-m-d H:i:s')]);
             \DB::commit();
-            return 'true';
+            return $id;
         } catch (\Exception $e) {
             \DB::rollback();
             abort(500, $e);
