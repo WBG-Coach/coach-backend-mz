@@ -14,7 +14,7 @@
 // URL::forceScheme('https');
 
 Route::get('/', function () {
-    dd("Hello WB :)");
+    return "Hello WB :)";
 });
 
 Route::post('/login', ['as' => 'login', 'uses' => 'LoginController@login']);
