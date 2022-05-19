@@ -17,10 +17,6 @@ Route::get('/', function () {
     return "Hello WB :)";
 });
 
-Route::get('/test', function () {
-    return "server route tests";
-});
-
 Route::post('/login', ['as' => 'login', 'uses' => 'LoginController@login']);
 Route::post('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
