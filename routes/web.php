@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,15 +13,6 @@
 |
 */
 
-// URL::forceScheme('https');
-
 Route::get('/', function () {
-    return "Hello WB :)";
-});
-
-Route::post('/login', ['as' => 'login', 'uses' => 'LoginController@login']);
-Route::post('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
-
-Route::group(['middleware'=>'auth'], function(){
-    //  
+    return view('welcome');
 });
