@@ -21,7 +21,8 @@ class Question extends Model
      * @var array
      */
     protected $fillable = [
-        'competency_id'
+        'competency_id',
+        'text'
     ];
 
     public function competence()

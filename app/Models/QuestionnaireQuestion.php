@@ -21,7 +21,8 @@ class QuestionnaireQuestion extends Model
      * @var array
      */
     protected $fillable = [
-        'question_id'
+        'question_id',
+        'questionnaire_id'
     ];
 
     public function question()

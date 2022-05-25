@@ -60,14 +60,22 @@ Route::controller(QuestionnaireController::class)->group(function () {
 
 use App\Http\Controllers\QuestionnaireApplicationController;
 Route::controller(QuestionnaireApplicationController::class)->group(function () {
-    Route::post('/questionnaire-application/search', 'search');
-    Route::post('/questionnaire-application', 'save');
-    Route::put('/questionnaire-application', 'update');
-    Route::delete('/questionnaire-application/{id}', 'delete');
+    Route::post('/questionnaire-applications/search', 'search');
+    Route::post('/questionnaire-applications', 'save');
+    Route::put('/questionnaire-applications', 'update');
+    Route::delete('/questionnaire-applications/{id}', 'delete');
 });
 
 use App\Http\Controllers\CoachController;
 Route::controller(CoachController::class)->group(function () {
     Route::post('/coaches/questionnaire-applications/schools', 'questionnaireSchools');
     Route::post('/coaches/questionnaire-applications/teachers', 'questionnaireTeachers');
+});
+
+use App\Http\Controllers\QuestionnaireQuestionsController;
+Route::controller(QuestionnaireQuestionsController::class)->group(function () {
+    Route::post('/questionnaire-questions/search', 'search');
+    Route::post('/questionnaire-questions', 'save');
+    Route::put('/questionnaire-questions', 'update');
+    Route::delete('/questionnaire-questions/{id}', 'delete');
 });
