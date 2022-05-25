@@ -24,7 +24,8 @@ class Answer extends Model
         'questionnaire_application_id',
         'questionnaire_question_id',
         'scale_id',
-        'value'
+        'value',
+        'notes'
     ];
 
     public function scale()

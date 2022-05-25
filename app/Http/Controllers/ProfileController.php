@@ -34,14 +34,13 @@ class ProfileController extends Controller
             $profile->fill($request->all());
             $profile->save();
 
-            if (!isset($request->permissions)) {
-                abort(500, 'Please informe the permissions of this profile.');
-            }
-            foreach ($request->permissions as $permission) {
-                $permission = new Permission();
-                $permission->fill($permission);
-                $permission->profile_id = $profile->id;
-                $permission->save();
+            if (isset($request->permissions)) {
+                foreach ($request->permissions as $permission) {
+                    $permission = new Permission();
+                    $permission->fill($permission);
+                    $permission->profile_id = $profile->id;
+                    $permission->save();
+                }
             }
 
             \DB::commit();
@@ -87,7 +86,7 @@ class ProfileController extends Controller
 
         try {
             if(User::where('profile_id', $id)->exists()) {
-                abort(500, 'This profile is in use.')
+                abort(500, 'This profile is in use.');
             }
             
             Permission::where('profile_id', $id)->delete();

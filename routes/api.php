@@ -26,7 +26,6 @@ Route::controller(SchoolController::class)->group(function () {
     Route::delete('/schools/{id}', 'delete');
 });
 
-
 use App\Http\Controllers\ProfileController;
 Route::controller(ProfileController::class)->group(function () {
     Route::post('/profiles/search', 'search');
@@ -35,10 +34,40 @@ Route::controller(ProfileController::class)->group(function () {
     Route::delete('/profiles/{id}', 'delete');
 });
 
+use App\Http\Controllers\PermissionController;
+Route::controller(PermissionController::class)->group(function () {
+    Route::post('/permissions/search', 'search');
+    Route::post('/permissions', 'save');
+    Route::put('/permissions', 'update');
+    Route::delete('/permissions/{id}', 'delete');
+});
+
 use App\Http\Controllers\UserController;
 Route::controller(UserController::class)->group(function () {
     Route::post('/users/search', 'search');
     Route::post('/users', 'save');
     Route::put('/users', 'update');
     Route::delete('/users/{id}', 'delete');
+});
+
+use App\Http\Controllers\QuestionnaireController;
+Route::controller(QuestionnaireController::class)->group(function () {
+    Route::post('/questionnaires/search', 'search');
+    Route::post('/questionnaires', 'save');
+    Route::put('/questionnaires', 'update');
+    Route::delete('/questionnaires/{id}', 'delete');
+});
+
+use App\Http\Controllers\QuestionnaireApplicationController;
+Route::controller(QuestionnaireApplicationController::class)->group(function () {
+    Route::post('/questionnaire-application/search', 'search');
+    Route::post('/questionnaire-application', 'save');
+    Route::put('/questionnaire-application', 'update');
+    Route::delete('/questionnaire-application/{id}', 'delete');
+});
+
+use App\Http\Controllers\CoachController;
+Route::controller(CoachController::class)->group(function () {
+    Route::post('/coaches/questionnaire-applications/schools', 'questionnaireSchools');
+    Route::post('/coaches/questionnaire-applications/teachers', 'questionnaireTeachers');
 });

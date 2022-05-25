@@ -24,11 +24,6 @@ class QuestionnaireQuestion extends Model
         'question_id'
     ];
 
-    public function notes()
-    {
-        return $this->hasMany('App\Models\Note', 'questionnaire_question_id', 'id');
-    }
-
     public function question()
     {
         return $this->belongsTo('App\Models\Question', 'question_id', 'id');

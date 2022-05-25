@@ -23,8 +23,14 @@ class QuestionnaireApplication extends Model
     protected $fillable = [
         'questionnaire_id',
         'coach_id',
-        'teacher_id'
+        'teacher_id',
+        'school_id'
     ];
+
+    public function school()
+    {
+        return $this->belongsTo('App\Models\School', 'school_id', 'id');
+    }
 
     public function questionnaire()
     {
