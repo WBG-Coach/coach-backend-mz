@@ -20,9 +20,11 @@ class Matrix extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name'
+    ];
 
-    public function matrix()
+    public function competences()
     {
         return $this->hasMany('App\Models\Competence', 'matrix_id', 'id');
     }

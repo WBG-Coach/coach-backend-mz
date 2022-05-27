@@ -18,14 +18,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-use App\Http\Controllers\SchoolController;
-Route::controller(SchoolController::class)->group(function () {
-    Route::post('/schools/search', 'search');
-    Route::post('/schools', 'save');
-    Route::put('/schools', 'update');
-    Route::delete('/schools/{id}', 'delete');
-});
-
 use App\Http\Controllers\ProfileController;
 Route::controller(ProfileController::class)->group(function () {
     Route::post('/profiles/search', 'search');
@@ -48,6 +40,30 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/users', 'save');
     Route::put('/users', 'update');
     Route::delete('/users/{id}', 'delete');
+});
+
+use App\Http\Controllers\SchoolController;
+Route::controller(SchoolController::class)->group(function () {
+    Route::post('/schools/search', 'search');
+    Route::post('/schools', 'save');
+    Route::put('/schools', 'update');
+    Route::delete('/schools/{id}', 'delete');
+});
+
+use App\Http\Controllers\MatrixController;
+Route::controller(MatrixController::class)->group(function () {
+    Route::post('/matrixes/search', 'search');
+    Route::post('/matrixes', 'save');
+    Route::put('/matrixes', 'update');
+    Route::delete('/matrixes/{id}', 'delete');
+});
+
+use App\Http\Controllers\CompetenceController;
+Route::controller(CompetenceController::class)->group(function () {
+    Route::post('/competencies/search', 'search');
+    Route::post('/competencies', 'save');
+    Route::put('/competencies', 'update');
+    Route::delete('/competencies/{id}', 'delete');
 });
 
 use App\Http\Controllers\QuestionnaireController;
