@@ -74,6 +74,14 @@ Route::controller(QuestionnaireController::class)->group(function () {
     Route::delete('/questionnaires/{id}', 'delete');
 });
 
+use App\Http\Controllers\QuestionController;
+Route::controller(QuestionController::class)->group(function () {
+    Route::post('/questions/search', 'search');
+    Route::post('/questions', 'save');
+    Route::put('/questions', 'update');
+    Route::delete('/questions/{id}', 'delete');
+});
+
 use App\Http\Controllers\QuestionnaireApplicationController;
 Route::controller(QuestionnaireApplicationController::class)->group(function () {
     Route::post('/questionnaire-applications/search', 'search');
