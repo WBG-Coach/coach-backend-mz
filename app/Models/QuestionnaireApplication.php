@@ -24,7 +24,8 @@ class QuestionnaireApplication extends Model
         'questionnaire_id',
         'coach_id',
         'teacher_id',
-        'school_id'
+        'school_id',
+        'status' // TODO
     ];
 
     public function school()
