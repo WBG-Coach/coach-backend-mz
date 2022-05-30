@@ -18,7 +18,7 @@ class QuestionnaireQuestionsController extends Controller
         $search = QuestionnaireQuestion::with('question.competence')->select('*');
         if($request->questionnaire_id) {
             return [
-                'questions' => QuestionnaireQuestion::with('question.competence')->select('*')->where('questionnaire_id', $request->questionnaire_id)->get(),
+                'questions' => QuestionnaireQuestion::with('question.competence', 'question.scale')->select('*')->where('questionnaire_id', $request->questionnaire_id)->get(),
                 'questionnaire' => Questionnaire::find($request->questionnaire_id)
             ];
         }
