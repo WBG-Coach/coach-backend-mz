@@ -103,3 +103,11 @@ Route::controller(CoachController::class)->group(function () {
     Route::post('/coaches/questionnaire-applications/schools', 'questionnaireSchools');
     Route::post('/coaches/questionnaire-applications/teachers', 'questionnaireTeachers');
 });
+
+use App\Http\Controllers\ScaleController;
+Route::controller(ScaleController::class)->group(function () {
+    Route::post('/scales/search', 'search');
+    Route::post('/scales', 'save');
+    Route::put('/scales', 'update');
+    Route::delete('/scales/{id}', 'delete');
+});
