@@ -111,3 +111,9 @@ Route::controller(ScaleController::class)->group(function () {
     Route::put('/scales', 'update');
     Route::delete('/scales/{id}', 'delete');
 });
+
+use App\Http\Controllers\AnswerController;
+Route::controller(AnswerController::class)->group(function () {
+    Route::post('/answers/search', 'search');
+    Route::post('/answers', 'save');
+});
