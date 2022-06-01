@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Answers\StoreRequest;
 
 use App\Models\Answer;
 
@@ -33,7 +34,7 @@ class AnswerController extends Controller
         return $search->get();
     }
 
-    public function save(Request $request)
+    public function save(StoreRequest $request)
     {
         \DB::beginTransaction();
 
