@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Schools\StoreRequest;
+use App\Http\Requests\Schools\UpdateRequest;
 
 use App\Models\School;
 
@@ -24,7 +26,7 @@ class SchoolController extends Controller
         return $search->get();
     }
 
-    public function save(Request $request)
+    public function save(StoreRequest $request)
     {
         \DB::beginTransaction();
 
@@ -41,7 +43,7 @@ class SchoolController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(UpdateRequest $request)
     {
         \DB::beginTransaction();
 
