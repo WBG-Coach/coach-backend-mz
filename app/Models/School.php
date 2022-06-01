@@ -22,6 +22,13 @@ class School extends Model
      */
     protected $fillable = [
         'name',
-        'image_url'
+        'image_url',
+        'address',
+        'country',
+        'state',
+        'city',
+        'town',
+        'village',
+        'district'
     ];
 }

@@ -22,6 +22,7 @@ class Competence extends Model
      */
     protected $fillable = [
         'name',
+        'description',
         'matrix_id'
     ];
 
