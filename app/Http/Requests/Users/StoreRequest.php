@@ -24,12 +24,12 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name': 'required|max:255',
-            'email': 'required|unique:users|max:255',
-            'password': 'required|max:255',
-            'image_url': 'max:255',
-            'profile_id': 'required|exists:profiles',
-            'subject': 'max:255'
+            'name' => 'required|max:255',
+            'email' => 'required|unique:users|max:255',
+            'password' => 'required|max:255',
+            'image_url' => 'max:255',
+            'profile_id' => 'required|exists:profiles,id',
+            'subject' => 'max:255'
         ];
     }
 }
