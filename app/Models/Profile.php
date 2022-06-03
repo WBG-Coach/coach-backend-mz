@@ -21,7 +21,8 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'external_role_id'
     ];
 
     public function permissions()

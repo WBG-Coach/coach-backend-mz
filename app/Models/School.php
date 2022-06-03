@@ -29,6 +29,7 @@ class School extends Model
         'city',
         'town',
         'village',
-        'district'
+        'district',
+        'external_group_id'
     ];
 }
