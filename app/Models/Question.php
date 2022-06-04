@@ -22,8 +22,7 @@ class Question extends Model
      */
     protected $fillable = [
         'competency_id',
-        'text',
-        'scale_id'
+        'text'
     ];
 
     public function competence()
@@ -31,8 +30,4 @@ class Question extends Model
         return $this->belongsTo('App\Models\Competence', 'competency_id', 'id');
     }
 
-    public function scale()
-    {
-        return $this->belongsTo('App\Models\Scale', 'scale_id', 'id');
-    }
 }

@@ -22,9 +22,6 @@ class AnswerController extends Controller
         if($request->questionnaire_question_id) {
             $search->where('questionnaire_question_id', $request->questionnaire_question_id);
         }
-        if($request->scale_id) {
-            $search->where('scale_id', $request->scale_id);
-        }
         if($request->notes) {
             $search->whereRaw("notes like '%".$request->notes."%'")
         }

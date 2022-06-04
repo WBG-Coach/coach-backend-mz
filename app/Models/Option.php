@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Scale extends Model
+class Option extends Model
 {
     use HasFactory;
     /**
@@ -13,7 +13,7 @@ class Scale extends Model
      *
      * @var string
      */
-    protected $table = 'scales';
+    protected $table = 'options';
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +21,14 @@ class Scale extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'type'
+        'question_id',
+        'text',
+        'selected_color',
+        'selected_icon'
     ];
+
+    public function question()
+    {
+        return $this->belongsTo('App\Models\Question');
+    }
 }

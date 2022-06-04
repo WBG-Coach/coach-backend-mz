@@ -23,13 +23,8 @@ class Answer extends Model
     protected $fillable = [
         'questionnaire_application_id',
         'questionnaire_question_id',
-        'scale_id',
         'value',
         'notes'
     ];
 
-    public function scale()
-    {
-        return $this->belongsTo('App\Models\Scale', 'scale_id', 'id');
-    }
 }
