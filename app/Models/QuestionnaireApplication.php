@@ -25,7 +25,6 @@ class QuestionnaireApplication extends Model
         'coach_id',
         'teacher_id',
         'school_id',
-        'status', // TODO
         'application_date'
     ];
 
