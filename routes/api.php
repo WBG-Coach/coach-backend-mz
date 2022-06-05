@@ -104,6 +104,14 @@ Route::controller(CoachController::class)->group(function () {
     Route::post('/coaches/questionnaire-applications/teachers', 'questionnaireTeachers');
 });
 
+use App\Http\Controllers\OptionController;
+Route::controller(OptionController::class)->group(function () {
+    Route::post('/options/search', 'search');
+    Route::post('/options', 'save');
+    Route::put('/options', 'update');
+    Route::delete('/options/{id}', 'delete');
+});
+
 use App\Http\Controllers\AnswerController;
 Route::controller(AnswerController::class)->group(function () {
     Route::post('/answers/search', 'search');
