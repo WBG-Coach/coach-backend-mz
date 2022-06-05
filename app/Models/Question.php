@@ -30,4 +30,9 @@ class Question extends Model
         return $this->belongsTo('App\Models\Competence', 'competency_id', 'id');
     }
 
+    public function options()
+    {
+        return $this->hasMany('App\Models\Option', 'question_id', 'id');
+    }
+
 }

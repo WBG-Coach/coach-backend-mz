@@ -24,7 +24,8 @@ class Answer extends Model
         'questionnaire_application_id',
         'questionnaire_question_id',
         'value',
-        'notes'
+        'notes',
+        'option_id'
     ];
 
 }

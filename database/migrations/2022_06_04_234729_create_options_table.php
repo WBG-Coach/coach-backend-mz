@@ -14,7 +14,7 @@ class CreateOptionsTable extends Migration
     public function up()
     {
         Schema::create('options', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('question_id')->unsigned()->nullable();
             $table->foreign('question_id')->references('id')->on('questions');
             $table->text('text', 5000)->nullable();

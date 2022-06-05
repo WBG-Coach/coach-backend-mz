@@ -26,7 +26,7 @@ class AddTextColumnIntoQuestionsTable extends Migration
     public function down()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->dropForeign('text');
+            $table->dropColumn('text');
         });
     }
 }
