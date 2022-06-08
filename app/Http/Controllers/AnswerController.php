@@ -15,7 +15,7 @@ class AnswerController extends Controller
             return Answer::find($request->id);
         }
 
-        $search = Answer::select('*');
+        $search = Answer::with('option')->select('*');
         if($request->questionnaire_application_id) {
             $search->where('questionnaire_application_id', $request->questionnaire_application_id);
         }

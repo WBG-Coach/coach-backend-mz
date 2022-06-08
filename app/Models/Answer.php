@@ -28,4 +28,9 @@ class Answer extends Model
         'option_id'
     ];
 
+    public function option()
+    {
+        return $this->belongsTo('App\Models\Option', 'option_id', 'id');
+    }
+
 }
