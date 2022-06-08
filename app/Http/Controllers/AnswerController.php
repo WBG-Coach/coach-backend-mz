@@ -23,7 +23,7 @@ class AnswerController extends Controller
             $search->where('questionnaire_question_id', $request->questionnaire_question_id);
         }
         if($request->notes) {
-            $search->whereRaw("notes like '%".$request->notes."%'")
+            $search->whereRaw("notes like '%".$request->notes."%'");
         }
         if ($request->pagination) {
             return $search->paginate($request->pagination);
