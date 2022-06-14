@@ -21,7 +21,8 @@ class Questionnaire extends Model
      * @var array
      */
     protected $fillable = [
-        'title'
+        'title',
+        'type'
     ];
 
     public function applications()
