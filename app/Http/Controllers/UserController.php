@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Users\StoreRequest;
 use App\Http\Requests\Users\UpdateRequest;
+use App\Http\Requests\Users\LastAnswerRequest;
 use App\Models\User;
+use App\Models\QuestionnaireApplication;
+use App\Models\Answer;
 
 class UserController extends Controller
 {
@@ -29,6 +32,12 @@ class UserController extends Controller
             return $search->paginate($request->pagination);
         }
         return $search->get();
+    }
+
+    public function lastAnswers(LastAnswerRequest $request)
+    {
+        $lastApplication = QuestionnaireApplication::where('teacher_id', $request->teacher_id)->orderBy('id', 'desc')->first();
+        return Answer::with('option.question')->where('questionnaire_application_id', $lastApplication->id)->get();
     }
 
     public function save(StoreRequest $request)

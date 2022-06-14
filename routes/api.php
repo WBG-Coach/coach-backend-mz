@@ -40,6 +40,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/users', 'save');
     Route::put('/users', 'update');
     Route::delete('/users/{id}', 'delete');
+    Route::post('/users/lastAnswers', 'lastAnswers');
 });
 
 use App\Http\Controllers\SchoolController;

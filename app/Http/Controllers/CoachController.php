@@ -19,6 +19,14 @@ class CoachController extends Controller
 
     public function questionnaireTeachers(Request $request)
     {
-        return User::whereRaw("id in (select qa.teacher_id from questionnaire_applications qa where qa.coach_id = ".$request->coach_id." and qa.school_id = ".$request->school_id.")")->get();
+        $teachers = User::with('lastAnswers')->whereRaw("id in (
+                select qa.teacher_id 
+                  from questionnaire_applications qa 
+                 where qa.coach_id = ".$request->coach_id." 
+                   and qa.school_id = ".$request->school_id."
+                )")
+        ->get();
+
+        return $teachers;
     }
 }
