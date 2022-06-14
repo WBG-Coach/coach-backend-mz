@@ -23,7 +23,6 @@ class Answer extends Model
     protected $fillable = [
         'questionnaire_application_id',
         'questionnaire_question_id',
-        'value',
         'notes',
         'option_id'
     ];

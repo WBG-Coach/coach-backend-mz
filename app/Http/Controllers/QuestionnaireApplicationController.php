@@ -14,7 +14,7 @@ class QuestionnaireApplicationController extends Controller
             return QuestionnaireApplication::find($request->id);
         }
 
-        $search = QuestionnaireApplication::with('questionnaire')->select('*');
+        $search = QuestionnaireApplication::with('questionnaire', 'feedback', 'review')->select('*');
         if($request->questionnaire_id) {
             $search->where('questionnaire_id', $request->questionnaire_id);
         }
