@@ -18,8 +18,14 @@ class CompetenceController extends Controller
         if($request->matrix_id) {
             $search->where("matrix_id", $request->matrix_id);
         }
-        if($request->name) {
-            $search->whereRaw("name like '%".$request->name."%'");
+        if($request->title) {
+            $search->whereRaw("title like '%".$request->title."%'");
+        }
+        if($request->subtitle) {
+            $search->whereRaw("subtitle like '%".$request->subtitle."%'");
+        }
+        if($request->description) {
+            $search->whereRaw("description like '%".$request->description."%'");
         }
         if ($request->pagination) {
             return $search->paginate($request->pagination);
