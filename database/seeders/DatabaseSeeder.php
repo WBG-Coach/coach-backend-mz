@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
+        \DB::statement("delete from answers");
         \DB::statement("delete from questionnaire_questions");
         \DB::statement("delete from options");
         \DB::statement("delete from questions");
