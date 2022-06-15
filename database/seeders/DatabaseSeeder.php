@@ -13,78 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\Profile::insert([
-        //     [
-        //         'id' => 1,
-        //         'name' => 'admin'
-        //     ],
-        //     [
-        //         'id' => 2,
-        //         'name' => 'teacher'
-        //     ],
-        //     [
-        //         'id' => 3,
-        //         'name' => 'coach'
-        //     ]
-        // ]);
-
-        // \App\Models\User::insert([
-        //     [
-        //         'id' => 1,
-        //         'name' => 'admin 1',
-        //         'email' => 'admin_1@email.com',
-        //         'profile_id' => 1,
-        //         'password' => bcrypt('pass123')
-        //     ],
-        //     [
-        //         'id' => 2,
-        //         'name' => 'teacher 1',
-        //         'email' => 'teacher_1@email.com',
-        //         'profile_id' => 2,
-        //         'password' => bcrypt('pass123')
-        //     ],
-        //     [
-        //         'id' => 3,
-        //         'name' => 'teacher 2',
-        //         'email' => 'teacher_2@email.com',
-        //         'profile_id' => 2,
-        //         'password' => bcrypt('pass123')
-        //     ],
-        //     [
-        //         'id' => 4,
-        //         'name' => 'coach 1',
-        //         'email' => 'coach_1@email.com',
-        //         'profile_id' => 3,
-        //         'password' => bcrypt('pass123')
-        //     ],
-        // ]);
-
-        // \App\Models\School::insert([
-        //     [
-        //         'id' => 1,
-        //         'name' => 'school 1'
-        //     ]
-        // ]);
-
-        // \App\Models\UserSchool::insert([
-        //     [
-        //         'id' => 1,
-        //         'user_id' => 2,
-        //         'school_id' => 1
-        //     ],
-        //     [
-        //         'id' => 2,
-        //         'user_id' => 3,
-        //         'school_id' => 1
-        //     ],
-        //     [
-        //         'id' => 3,
-        //         'user_id' => 4,
-        //         'school_id' => 1
-        //     ],
-        // ]);
         
-        \DB::statement("delete from answers");
         \DB::statement("delete from questionnaire_questions");
         \DB::statement("delete from options");
         \DB::statement("delete from questions");
@@ -92,6 +21,114 @@ class DatabaseSeeder extends Seeder
         \DB::statement("delete from questionnaires");
         \DB::statement("delete from competencies");
         \DB::statement("delete from matrixes");
+        \DB::statement("delete from user_schools");
+        \DB::statement("delete from schools");
+        \DB::statement("delete from users");
+        \DB::statement("delete from profiles");
+        
+        \App\Models\Profile::insert([
+            [
+                'id' => 1,
+                'name' => 'ADMIN'
+            ],
+            [
+                'id' => 2,
+                'name' => 'COACH'
+            ],
+            [
+                'id' => 3,
+                'name' => 'TEACHER'
+            ]
+        ]);
+        
+        \App\Models\User::insert([
+            [
+                'id' => 1,
+                'name' => 'USER 1 - ADMIN',
+                'email' => 'user1@email.com',
+                'profile_id' => 1,
+                'password' => bcrypt('pass123'),
+                'image_url' => 'https://www.tenforums.com/attachments/tutorials/146359d1501443008-change-default-account-picture-windows-10-a-user.png',
+                'subject' => null
+            ],
+            [
+                'id' => 2,
+                'name' => 'Marcos Soledade',
+                'email' => 'user2@email.com',
+                'profile_id' => 2,
+                'password' => bcrypt('pass123'),
+                'image_url' => 'http://www.lamedichi.info/wp-content/uploads/2020/12/TAW9U8HJ5-UAW9UCKMX-e8b2706043e3-512.jpeg',
+                'subject' => null
+            ],
+            [
+                'id' => 3,
+                'name' => 'Guilherme Fernandes',
+                'email' => 'user3@email.com',
+                'profile_id' => 3,
+                'password' => bcrypt('pass123'),
+                'image_url' => 'http://www.lamedichi.info/wp-content/uploads/2020/07/E3AF0638-C511-4394-88E1-34514FB4F698.png',
+                'subject' => 'Português'
+            ],
+            [
+                'id' => 4,
+                'name' => 'Josias Nascimento',
+                'email' => 'user4@email.com',
+                'profile_id' => 3,
+                'password' => bcrypt('pass123'),
+                'image_url' => 'http://www.lamedichi.info/wp-content/uploads/2020/12/josias-cunha.png',
+                'subject' => 'Matemática'
+            ],
+            [
+                'id' => 5,
+                'name' => 'Janderson Souza',
+                'email' => 'user5@email.com',
+                'profile_id' => 2,
+                'password' => bcrypt('pass123'),
+                'image_url' => 'http://www.lamedichi.info/wp-content/uploads/2020/12/13595853.jpg',
+                'subject' => null
+            ]
+        ]);
+
+        \App\Models\School::insert([
+            [
+                'id' => 1,
+                'name' => 'Cheerful Beginnings',
+                'image_url' => 'https://media.istockphoto.com/vectors/black-and-white-illustration-of-a-school-logo-vector-id1136343416?k=20&m=1136343416&s=170667a&w=0&h=0oxnn5rS1hMyMc2qt0qtD5u6JRPD1vAAA_D_iyXRbF4='
+            ],
+            [
+                'id' => 2,
+                'name' => 'Shining Stars',
+                'image_url' => 'https://i.pinimg.com/originals/ad/a0/6a/ada06a90a694a6995f6273c99ee8eb35.jpg'
+            ],
+            [
+                'id' => 3,
+                'name' => 'Morning Roots School',
+                'image_url' => 'https://t4.ftcdn.net/jpg/03/48/08/57/360_F_348085725_K5q0WeP3GZyooO5w0vkEDN1vOJWqefTo.jpg'
+            ],
+        ]);
+
+        \App\Models\UserSchool::insert([
+            [
+                'id' => 1,
+                'user_id' => 3,
+                'school_id' => 1
+            ],
+            [
+                'id' => 2,
+                'user_id' => 4,
+                'school_id' => 1
+            ],
+            [
+                'id' => 3,
+                'user_id' => 3,
+                'school_id' => 2
+            ],
+            [
+                'id' => 4,
+                'user_id' => 4,
+                'school_id' => 3
+            ]
+        ]);
 
         \App\Models\Questionnaire::insert([
             [
@@ -276,6 +313,20 @@ class DatabaseSeeder extends Seeder
                 'coach_id' => 2,
                 'teacher_id' => 4,
                 'school_id' => 1
+            ],
+            [
+                'id' => 3,
+                'questionnaire_id' => 1,
+                'coach_id' => 2,
+                'teacher_id' => 3,
+                'school_id' => 2
+            ],
+            [
+                'id' => 4,
+                'questionnaire_id' => 1,
+                'coach_id' => 2,
+                'teacher_id' => 4,
+                'school_id' => 3
             ]
         ]);
 
