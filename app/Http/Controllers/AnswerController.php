@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Answers\StoreRequest;
 
 use App\Models\Answer;
+use App\Models\QuestionnaireApplication;
 
 class AnswerController extends Controller
 {
@@ -44,6 +45,10 @@ class AnswerController extends Controller
                     $model->save();
                 }
             }
+
+            $application = QuestionnaireApplication::find($request->questionnaire_application_id);
+            $application->status = 'PENDING_FEEDBACK';
+            $application->update();
 
             \DB::commit();
             return 'true';
