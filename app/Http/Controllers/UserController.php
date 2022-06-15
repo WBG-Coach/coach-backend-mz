@@ -36,7 +36,13 @@ class UserController extends Controller
 
     public function lastAnswers(LastAnswerRequest $request)
     {
-        $lastApplication = QuestionnaireApplication::where('teacher_id', $request->teacher_id)->orderBy('id', 'desc')->first();
+        $lastApplication = QuestionnaireApplication::where('teacher_id', $request->teacher_id)
+        ->where("status", '!=', 'PENDING_RESPONSE')
+        ->orderBy('id', 'desc')
+        ->first();
+        if (!$lastApplication) {
+            abort(500, 'Questionnaire Application not found from this Teacher');
+        }
         return Answer::with('option.question')->where('questionnaire_application_id', $lastApplication->id)->get();
     }
 

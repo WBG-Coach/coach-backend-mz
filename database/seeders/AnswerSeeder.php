@@ -13,6 +13,10 @@ class AnswerSeeder extends Seeder
      */
     public function run()
     {
+        $application = \App\Models\QuestionnaireApplication::find(1);
+        $application->status = 'PENDING_FEEDBACK';
+        $application->update();
+
         \App\Models\Answer::insert([
             [
                 'id' => 1,
