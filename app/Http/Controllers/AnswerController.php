@@ -38,17 +38,21 @@ class AnswerController extends Controller
 
         try {
             if ($request->questionnaire_application_id && $request->answers) {
-                foreach ($request->answers as $answer) {
-                    $model = new Answer();
-                    $model->fill($answer);
-                    $model->questionnaire_application_id = $request->questionnaire_application_id;
-                    $model->save();
+                $application = QuestionnaireApplication::find($request->questionnaire_application_id);
+                if ($application->status == 'PENDING_RESPONSE') {
+                    foreach ($request->answers as $answer) {
+                        $model = new Answer();
+                        $model->fill($answer);
+                        $model->questionnaire_application_id = $request->questionnaire_application_id;
+                        $model->save();
+                    }
+
+                    $application->status = 'PENDING_FEEDBACK';
+                    $application->update();
                 }
+                
             }
 
-            $application = QuestionnaireApplication::find($request->questionnaire_application_id);
-            $application->status = 'PENDING_FEEDBACK';
-            $application->update();
 
             \DB::commit();
             return 'true';
