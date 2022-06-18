@@ -60,4 +60,9 @@ class QuestionnaireApplication extends Model
     {
         return $this->belongsTo('App\Models\User', 'teacher_id', 'id');
     }
+
+    public function notes()
+    {
+        return $this->hasMany('App\Models\Note', 'questionnaire_application_id', 'id');
+    }
 }

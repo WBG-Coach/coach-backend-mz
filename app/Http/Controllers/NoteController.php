@@ -15,8 +15,8 @@ class NoteController extends Controller
         }
 
         $search = Note::select('*');
-        if($request->answer_id) {
-            $search->where('answer_id', $request->answer_id);
+        if($request->questionnaire_application_id) {
+            $search->where('questionnaire_application_id', $request->questionnaire_application_id);
         }
         if($request->text) {
             $search->whereRaw("text like '%".$request->text."%'");

@@ -22,6 +22,6 @@ class Note extends Model
      */
     protected $fillable = [
         'text',
-        'answer_id'
+        'questionnaire_application_id'
     ];
 }
