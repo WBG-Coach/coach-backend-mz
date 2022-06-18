@@ -118,3 +118,11 @@ Route::controller(AnswerController::class)->group(function () {
     Route::post('/answers/search', 'search');
     Route::post('/answers', 'save');
 });
+
+use App\Http\Controllers\NoteController;
+Route::controller(NoteController::class)->group(function () {
+    Route::post('/notes/search', 'search');
+    Route::post('/notes', 'save');
+    Route::put('/notes', 'update');
+    Route::delete('/notes/{id}', 'delete');
+});

@@ -23,7 +23,6 @@ class Answer extends Model
     protected $fillable = [
         'questionnaire_application_id',
         'questionnaire_question_id',
-        'notes',
         'option_id'
     ];
 
@@ -35,6 +34,11 @@ class Answer extends Model
     public function option()
     {
         return $this->belongsTo('App\Models\Option', 'option_id', 'id');
+    }
+
+    public function notes()
+    {
+        return $this->hasMany('App\Models\Note', 'answer_id', 'id');
     }
 
 }
