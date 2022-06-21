@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Answers\StoreRequest;
 
 use App\Models\Answer;
+use App\Models\AnswerFile;
 use App\Models\QuestionnaireApplication;
 
 class AnswerController extends Controller
@@ -13,10 +14,10 @@ class AnswerController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return Answer::find($request->id);
+            return Answer::with('option.question.competence', 'files')->find($request->id);
         }
 
-        $search = Answer::with('option.question.competence')->select('*');
+        $search = Answer::with('option.question.competence', 'files')->select('*');
         if($request->questionnaire_application_id) {
             $search->where('questionnaire_application_id', $request->questionnaire_application_id);
         }
@@ -45,6 +46,17 @@ class AnswerController extends Controller
                         $model->fill($answer);
                         $model->questionnaire_application_id = $request->questionnaire_application_id;
                         $model->save();
+
+                        if (isset($answer['files'])) {
+
+                            foreach ($answer['files'] as $answerFile) {
+                                $file = new AnswerFile();
+                                $file->answer_id = $model->id;
+                                $file->url = $answerFile['url'];
+                                $file->save();
+                            }
+
+                        }
                     }
 
                     $application->status = 'PENDING_FEEDBACK';

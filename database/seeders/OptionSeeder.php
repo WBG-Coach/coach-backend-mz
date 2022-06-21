@@ -17,14 +17,14 @@ class OptionSeeder extends Seeder
             [
                 'id' => 1,
                 'question_id' => 1,
-                'text' => '1.1: Introdução as expressões de saudação "Bom dia" e "Boa noite"',
+                'text' => 'Introdução as expressões de saudação "Bom dia" e "Boa noite"',
                 'selected_color' => null,
                 'selected_icon' => null
             ],
             [
                 'id' => 2,
                 'question_id' => 1,
-                'text' => '1.1: Introdução as expressões de saudação "Boa tarde" e "Olá"',
+                'text' => 'Introdução as expressões de saudação "Boa tarde" e "Olá"',
                 'selected_color' => null,
                 'selected_icon' => null
             ],
@@ -99,5 +99,20 @@ class OptionSeeder extends Seeder
                 'selected_icon' => 'thumbs-down'
             ]
         ]);
+
+        for ($i=0; $i < 65; $i++) { 
+            \App\Models\Option::create([
+                'question_id' => 1,
+                'text' => 'Introdução as expressões de saudação "Bom dia" e "Boa noite"',
+                'selected_color' => null,
+                'selected_icon' => null
+            ]);
+            \App\Models\Option::create([
+                'question_id' => 1,
+                'text' => 'Introdução as expressões de saudação "Boa tarde" e "Olá"',
+                'selected_color' => null,
+                'selected_icon' => null
+            ]);
+        }
     }
 }

@@ -36,4 +36,9 @@ class Answer extends Model
         return $this->belongsTo('App\Models\Option', 'option_id', 'id');
     }
 
+    public function files()
+    {
+        return $this->hasMany('App\Models\AnswerFile', 'answer_id', 'id');
+    }
+
 }

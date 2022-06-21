@@ -22,7 +22,8 @@ class Question extends Model
      */
     protected $fillable = [
         'competency_id',
-        'text'
+        'text',
+        'type'
     ];
 
     public function competence()

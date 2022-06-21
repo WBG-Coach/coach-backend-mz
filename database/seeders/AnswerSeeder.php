@@ -61,5 +61,32 @@ class AnswerSeeder extends Seeder
                 'option_id' => 12
             ]
         ]);
+
+        \App\Models\AnswerFile::insert([
+            [
+                'answer_id' => 1,
+                'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
+            ],
+            [
+                'answer_id' => 1,
+                'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
+            ],
+            [
+                'answer_id' => 2,
+                'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
+            ],
+            [
+                'answer_id' => 2,
+                'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
+            ],
+            [
+                'answer_id' => 2,
+                'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
+            ],
+            [
+                'answer_id' => 3,
+                'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
+            ]
+        ]);
     }
 }
