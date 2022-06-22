@@ -22,6 +22,7 @@ class AnswerFile extends Model
      */
     protected $fillable = [
         'answer_id',
+        'name',
         'url'
     ];
 

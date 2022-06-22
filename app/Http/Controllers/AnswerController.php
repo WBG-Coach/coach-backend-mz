@@ -52,6 +52,7 @@ class AnswerController extends Controller
                             foreach ($answer['files'] as $answerFile) {
                                 $file = new AnswerFile();
                                 $file->answer_id = $model->id;
+                                $file->name = $answerFile['name'];
                                 $file->url = $answerFile['url'];
                                 $file->save();
                             }

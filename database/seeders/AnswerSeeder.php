@@ -65,26 +65,32 @@ class AnswerSeeder extends Seeder
         \App\Models\AnswerFile::insert([
             [
                 'answer_id' => 1,
+                'name' => 'File 1',
                 'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
             ],
             [
                 'answer_id' => 1,
+                'name' => 'File 2',
                 'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
             ],
             [
                 'answer_id' => 2,
+                'name' => 'File 3',
                 'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
             ],
             [
                 'answer_id' => 2,
+                'name' => 'File 4',
                 'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
             ],
             [
                 'answer_id' => 2,
+                'name' => 'File 5',
                 'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
             ],
             [
                 'answer_id' => 3,
+                'name' => 'File 6',
                 'url' => 'https://marciookabe.com.br/wp-content/uploads/2016/01/coaching-digital.jpg'
             ]
         ]);
