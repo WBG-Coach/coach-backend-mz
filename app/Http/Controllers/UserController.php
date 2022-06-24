@@ -43,7 +43,7 @@ class UserController extends Controller
         if (!$lastApplication) {
             abort(500, 'Questionnaire Application not found from this Teacher');
         }
-        return Answer::with('option.question')->where('questionnaire_application_id', $lastApplication->id)->get();
+        return Answer::with('option.question.competence')->where('questionnaire_application_id', $lastApplication->id)->get();
     }
 
     public function save(StoreRequest $request)
