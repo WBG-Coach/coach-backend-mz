@@ -24,4 +24,9 @@ class ContentGuide extends Model
     protected $fillable = [
         'text'
     ];
+
+    public function options()
+    {
+        return $this->hasMany('App\Models\Option', 'content_guide_id', 'id');
+    }
 }

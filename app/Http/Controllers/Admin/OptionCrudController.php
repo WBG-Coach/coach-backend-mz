@@ -62,11 +62,11 @@ class OptionCrudController extends CrudController
     {
         CRUD::setValidation(OptionRequest::class);
 
-        CRUD::field('question_id');
+        CRUD::addField(['label' => 'Question', 'name' => 'question_id', 'type' => 'select', 'model' => "App\Models\Question", 'attribute' => 'text']); 
         CRUD::field('text');
         CRUD::field('selected_color');
         CRUD::field('selected_icon');
-        CRUD::field('content_guide_id');
+        CRUD::addField(['label' => 'Content Guide', 'name' => 'content_guide_id', 'type' => 'select', 'model' => "App\Models\ContentGuide", 'attribute' => 'text']); 
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
