@@ -16,6 +16,7 @@ class ClearAll extends Seeder
         \DB::statement("delete from answer_files");
         \DB::statement("delete from answers");
         \DB::statement("delete from questionnaire_questions");
+        \DB::statement("delete from content_guides");
         \DB::statement("delete from options");
         \DB::statement("delete from questions");
         \DB::statement("delete from notes");
