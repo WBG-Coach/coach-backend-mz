@@ -27,9 +27,13 @@ class QuestionnaireApplication extends Model
         'school_id',
         'application_date',
         'status',
-        'feedback_questionnaire_id',
-        'review_questionnaire_id'
+        'feedback_questionnaire_id'
     ];
+
+    public function answers()
+    {
+        return $this->hasMany('App\Models\Answer', 'questionnaire_application_id', 'id');
+    }
 
     public function school()
     {
@@ -41,14 +45,14 @@ class QuestionnaireApplication extends Model
         return $this->belongsTo('App\Models\Questionnaire', 'questionnaire_id', 'id');
     }
 
-    public function review()
-    {
-        return $this->belongsTo('App\Models\Questionnaire', 'review_questionnaire_id', 'id');
-    }
-
-    public function feedback()
+    public function feedbackQuestionnaire()
     {
         return $this->belongsTo('App\Models\Questionnaire', 'feedback_questionnaire_id', 'id');
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany('App\Models\Feedback', 'questionnaire_application_id', 'id');
     }
 
     public function coach()

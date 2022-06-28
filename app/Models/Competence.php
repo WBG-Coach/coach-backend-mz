@@ -27,6 +27,11 @@ class Competence extends Model
         'matrix_id'
     ];
 
+    public function feedbacks()
+    {
+        return $this->hasMany('App\Models\Feedback', 'competence_id', 'id');
+    }
+
     public function matrix()
     {
         return $this->belongsTo('App\Models\Matrix', 'matrix_id', 'id');

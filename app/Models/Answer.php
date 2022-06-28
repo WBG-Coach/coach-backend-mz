@@ -26,6 +26,12 @@ class Answer extends Model
         'option_id'
     ];
 
+    
+    public function feedbacks()
+    {
+        return $this->hasMany('App\Models\Feedback', 'answer_id', 'id');
+    }
+
     public function question()
     {
         return $this->belongsTo('App\Models\QuestionnaireQuestion', 'questionnaire_question_id', 'id');

@@ -126,3 +126,11 @@ Route::controller(NoteController::class)->group(function () {
     Route::put('/notes', 'update');
     Route::delete('/notes/{id}', 'delete');
 });
+
+use App\Http\Controllers\FeedbackController;
+Route::controller(FeedbackController::class)->group(function () {
+    Route::post('/feedbacks/search', 'search');
+    Route::post('/feedbacks', 'save');
+    Route::put('/feedbacks', 'update');
+    Route::delete('/feedbacks/{id}', 'delete');
+});
