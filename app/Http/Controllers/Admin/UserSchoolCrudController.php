@@ -39,8 +39,8 @@ class UserSchoolCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('school_id');
-        CRUD::column('user_id');
+        CRUD::addColumn(['label' => 'School', 'name' => 'school_id', 'type' => 'select', 'model' => "App\Models\School", 'attribute' => 'name', 'entity' => 'school']);
+        CRUD::addColumn(['label' => 'User', 'name' => 'user_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name', 'entity' => 'user']);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -59,8 +59,8 @@ class UserSchoolCrudController extends CrudController
     {
         CRUD::setValidation(UserSchoolRequest::class);
 
-        CRUD::field('school_id');
-        CRUD::field('user_id');
+        CRUD::addField(['label' => 'School', 'name' => 'school_id', 'type' => 'select', 'model' => "App\Models\School", 'attribute' => 'name']); 
+        CRUD::addField(['label' => 'User', 'name' => 'user_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name']); 
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

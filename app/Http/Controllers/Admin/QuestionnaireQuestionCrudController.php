@@ -39,7 +39,7 @@ class QuestionnaireQuestionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('question_id');
+        CRUD::addColumn(['label' => 'Question', 'name' => 'question_id', 'type' => 'select', 'model' => "App\Models\Question", 'attribute' => 'text', 'entity' => 'question']);
         CRUD::column('questionnaire_id');
         CRUD::column('order');
 
@@ -60,7 +60,7 @@ class QuestionnaireQuestionCrudController extends CrudController
     {
         CRUD::setValidation(QuestionnaireQuestionRequest::class);
 
-        CRUD::field('question_id');
+        CRUD::addField(['label' => 'Question', 'name' => 'question_id', 'type' => 'select', 'model' => "App\Models\Question", 'attribute' => 'text']);
         CRUD::field('questionnaire_id');
         CRUD::field('order');
 

@@ -31,4 +31,9 @@ class QuestionnaireQuestion extends Model
     {
         return $this->belongsTo('App\Models\Question', 'question_id', 'id');
     }
+
+    public function questionnaire()
+    {
+        return $this->belongsTo('App\Models\Questionnaire', 'questionnaire_id', 'id');
+    }
 }

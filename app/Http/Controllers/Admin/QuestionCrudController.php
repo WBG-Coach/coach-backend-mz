@@ -39,7 +39,7 @@ class QuestionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('competency_id');
+        CRUD::addColumn(['label' => 'Competency', 'name' => 'competency_id', 'type' => 'select', 'model' => "App\Models\Competence", 'attribute' => 'title', 'entity' => 'competence']);
         CRUD::column('text');
         CRUD::column('type');
 
@@ -60,7 +60,7 @@ class QuestionCrudController extends CrudController
     {
         CRUD::setValidation(QuestionRequest::class);
 
-        CRUD::field('competency_id');
+        CRUD::addField(['label' => 'Competency', 'name' => 'competency_id', 'type' => 'select', 'model' => "App\Models\Competence", 'attribute' => 'title']);
         CRUD::field('text');
         CRUD::field('type');
 

@@ -40,12 +40,12 @@ class QuestionnaireApplicationCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('questionnaire_id');
-        CRUD::column('coach_id');
-        CRUD::column('teacher_id');
+        CRUD::addColumn(['label' => 'Coach', 'name' => 'coach_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name', 'entity' => 'coach']);
+        CRUD::addColumn(['label' => 'Teacher', 'name' => 'teacher_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name', 'entity' => 'teacher']);
         CRUD::column('school_id');
         CRUD::column('application_date');
         CRUD::column('status');
-        CRUD::column('feedback_questionnaire_id');
+        CRUD::addColumn(['label' => 'Feedback Questionnaire', 'name' => 'feedback_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title', 'entity' => 'feedbackQuestionnaire']);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -65,12 +65,12 @@ class QuestionnaireApplicationCrudController extends CrudController
         CRUD::setValidation(QuestionnaireApplicationRequest::class);
 
         CRUD::field('questionnaire_id');
-        CRUD::field('coach_id');
-        CRUD::field('teacher_id');
+        CRUD::addField(['label' => 'Coach', 'name' => 'coach_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name']);
+        CRUD::addField(['label' => 'Teacher', 'name' => 'teacher_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name']);
         CRUD::field('school_id');
         CRUD::field('application_date');
         CRUD::field('status');
-        CRUD::field('feedback_questionnaire_id');
+        CRUD::addField(['label' => 'Feedback Questionnaire', 'name' => 'feedback_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title']);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
