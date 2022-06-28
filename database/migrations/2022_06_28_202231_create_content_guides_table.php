@@ -14,7 +14,8 @@ class CreateContentGuidesTable extends Migration
     public function up()
     {
         Schema::create('content_guides', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->text('text', 10000);
             $table->timestamps();
         });
     }

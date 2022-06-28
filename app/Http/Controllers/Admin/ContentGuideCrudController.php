@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\OptionRequest;
+use App\Http\Requests\ContentGuideRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class OptionCrudController
+ * Class ContentGuideCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class OptionCrudController extends CrudController
+class ContentGuideCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class OptionCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Option::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/option');
-        CRUD::setEntityNameStrings('option', 'options');
+        CRUD::setModel(\App\Models\ContentGuide::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/content-guide');
+        CRUD::setEntityNameStrings('content guide', 'content guides');
     }
 
     /**
@@ -39,11 +39,7 @@ class OptionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('question_id');
         CRUD::column('text');
-        CRUD::column('selected_color');
-        CRUD::column('selected_icon');
-        CRUD::column('content_guide_id');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -60,13 +56,9 @@ class OptionCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(OptionRequest::class);
+        CRUD::setValidation(ContentGuideRequest::class);
 
-        CRUD::field('question_id');
         CRUD::field('text');
-        CRUD::field('selected_color');
-        CRUD::field('selected_icon');
-        CRUD::field('content_guide_id');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

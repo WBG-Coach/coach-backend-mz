@@ -25,11 +25,17 @@ class Option extends Model
         'question_id',
         'text',
         'selected_color',
-        'selected_icon'
+        'selected_icon',
+        'content_guide_id'
     ];
 
     public function question()
     {
         return $this->belongsTo('App\Models\Question', 'question_id', 'id');
+    }
+
+    public function contentGuide()
+    {
+        return $this->belongsTo('App\Models\ContentGuide', 'content_guide_id', 'id');
     }
 }

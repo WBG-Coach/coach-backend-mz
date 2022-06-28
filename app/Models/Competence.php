@@ -25,7 +25,8 @@ class Competence extends Model
         'title',
         'subtitle',
         'description',
-        'matrix_id'
+        'matrix_id',
+        'content_guide_id'
     ];
 
     public function feedbacks()
@@ -41,5 +42,10 @@ class Competence extends Model
     public function questions()
     {
         return $this->hasMany('App\Models\Question', 'competency_id', 'id');
+    }
+
+    public function contentGuide()
+    {
+        return $this->belongsTo('App\Models\ContentGuide', 'content_guide_id', 'id');
     }
 }

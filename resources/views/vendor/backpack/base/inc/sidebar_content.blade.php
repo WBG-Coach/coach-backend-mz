@@ -3,6 +3,7 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('answer') }}'><i class='nav-icon la la-question'></i> Answers</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('answer-file') }}'><i class='nav-icon la la-question'></i> Answer files</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('competence') }}'><i class='nav-icon la la-question'></i> Competences</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('content-guide') }}'><i class='nav-icon la la-question'></i> Content guides</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('feedback') }}'><i class='nav-icon la la-question'></i> Feedback</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('feedback-answer') }}'><i class='nav-icon la la-question'></i> Feedback answers</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('matrix') }}'><i class='nav-icon la la-question'></i> Matrices</a></li>

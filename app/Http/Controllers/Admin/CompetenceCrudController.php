@@ -43,6 +43,7 @@ class CompetenceCrudController extends CrudController
         CRUD::column('subtitle');
         CRUD::column('description');
         CRUD::column('matrix_id');
+        CRUD::column('content_guide_id');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -65,6 +66,7 @@ class CompetenceCrudController extends CrudController
         CRUD::field('subtitle');
         CRUD::field('description');
         CRUD::field('matrix_id');
+        CRUD::field('content_guide_id');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
