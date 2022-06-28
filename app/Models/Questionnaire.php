@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Questionnaire extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     /**
      * The table associated with the model.
