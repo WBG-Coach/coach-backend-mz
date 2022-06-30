@@ -11,7 +11,7 @@ class CompetenceController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return Competence::find($request->id);
+            return Competence::with('contentGuide')->find($request->id);
         }
 
         $search = Competence::select('*');
