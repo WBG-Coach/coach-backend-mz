@@ -13,7 +13,7 @@ class FeedbackController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return Feedback::find($request->id);
+            return Feedback::with('feedbackAnswers')->find($request->id);
         }
 
         $search = Feedback::select('*');

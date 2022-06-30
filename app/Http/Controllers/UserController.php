@@ -7,6 +7,7 @@ use App\Http\Requests\Users\StoreRequest;
 use App\Http\Requests\Users\UpdateRequest;
 use App\Http\Requests\Users\LastAnswerRequest;
 use App\Http\Requests\Users\LastFeedbackRequest;
+use App\Http\Requests\Users\LastApplicationRequest;
 use App\Models\User;
 use App\Models\QuestionnaireApplication;
 use App\Models\Answer;
@@ -49,6 +50,16 @@ class UserController extends Controller
     }
 
     public function lastFeedbacks(LastFeedbackRequest $request)
+    {
+        return Feedback::with('feedbackAnswers.questionnaireQuestion.question.competence')
+        -> whereRaw("questionnaire_application_id in (select qa.id 
+                                                        from questionnaire_applications qa 
+                                                       where qa.status != 'DONE' 
+                                                         and qa.teacher_id = '.$request->teacher_id.')")
+        -> get();
+    }
+
+    public function lastApplications(LastApplicationRequest $request)
     {
         return Feedback::with('feedbackAnswers.questionnaireQuestion.question.competence')
         -> whereRaw("questionnaire_application_id in (select qa.id 
