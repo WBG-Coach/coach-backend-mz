@@ -39,6 +39,7 @@ class SchoolCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('name');
         CRUD::column('image_url');
         CRUD::column('address');

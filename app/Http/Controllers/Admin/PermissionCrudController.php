@@ -39,6 +39,7 @@ class PermissionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('profile_id');
         CRUD::column('funcion_code');
 

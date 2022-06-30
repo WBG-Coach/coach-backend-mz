@@ -39,6 +39,7 @@ class ProfileCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('name');
         CRUD::column('external_role_id');
 

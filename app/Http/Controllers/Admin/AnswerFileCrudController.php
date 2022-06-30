@@ -39,6 +39,7 @@ class AnswerFileCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('answer_id');
         CRUD::column('name');
         CRUD::column('url');

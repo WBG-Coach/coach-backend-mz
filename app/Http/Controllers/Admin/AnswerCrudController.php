@@ -39,6 +39,7 @@ class AnswerCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('questionnaire_application_id');
         CRUD::column('questionnaire_question_id');
         CRUD::column('option_id');

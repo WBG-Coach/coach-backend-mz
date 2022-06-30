@@ -39,6 +39,7 @@ class QuestionnaireApplicationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('questionnaire_id');
         CRUD::addColumn(['label' => 'Coach', 'name' => 'coach_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name', 'entity' => 'coach']);
         CRUD::addColumn(['label' => 'Teacher', 'name' => 'teacher_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name', 'entity' => 'teacher']);

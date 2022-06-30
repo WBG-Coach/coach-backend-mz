@@ -39,6 +39,7 @@ class FeedbackAnswerCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('feedback_id');
         CRUD::column('notes');
         CRUD::column('questionnaire_question_id');

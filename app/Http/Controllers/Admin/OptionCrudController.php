@@ -39,6 +39,7 @@ class OptionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::addColumn(['label' => 'Question', 'name' => 'question_id', 'type' => 'select', 'model' => "App\Models\Question", 'attribute' => 'text']); 
         CRUD::column('text');
         CRUD::column('selected_color');

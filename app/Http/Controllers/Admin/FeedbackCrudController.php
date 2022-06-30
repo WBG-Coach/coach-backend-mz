@@ -39,6 +39,7 @@ class FeedbackCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('questionnaire_application_id');
         CRUD::column('answer_id');
         CRUD::column('competence_id');

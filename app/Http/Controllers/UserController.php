@@ -9,6 +9,7 @@ use App\Http\Requests\Users\LastAnswerRequest;
 use App\Models\User;
 use App\Models\QuestionnaireApplication;
 use App\Models\Answer;
+use App\Models\Feedback;
 
 class UserController extends Controller
 {
@@ -44,6 +45,13 @@ class UserController extends Controller
             abort(500, 'Questionnaire Application not found from this Teacher');
         }
         return Answer::with('option.question.competence')->where('questionnaire_application_id', $lastApplication->id)->get();
+    }
+
+    public function lastFeedbacks(Request $request)
+    {
+        $feedbacks = Feedback::with('feedbackAnswers');
+
+        return $feedbacks->get();
     }
 
     public function save(StoreRequest $request)

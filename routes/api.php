@@ -41,6 +41,8 @@ Route::controller(UserController::class)->group(function () {
     Route::put('/users', 'update');
     Route::delete('/users/{id}', 'delete');
     Route::post('/users/lastAnswers', 'lastAnswers');
+    Route::post('/users/lastFeedbacks', 'lastFeedbacks');
+    Route::post('/users/lastApplications', 'lastApplications');
 });
 
 use App\Http\Controllers\SchoolController;

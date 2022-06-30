@@ -39,6 +39,7 @@ class NoteCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('text');
         CRUD::column('questionnaire_application_id');
 

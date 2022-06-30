@@ -39,6 +39,7 @@ class ContentGuideCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('text');
 
         /**

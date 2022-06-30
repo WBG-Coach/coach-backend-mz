@@ -39,6 +39,7 @@ class UserSchoolCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::addColumn(['label' => 'School', 'name' => 'school_id', 'type' => 'select', 'model' => "App\Models\School", 'attribute' => 'name', 'entity' => 'school']);
         CRUD::addColumn(['label' => 'User', 'name' => 'user_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name', 'entity' => 'user']);
 
