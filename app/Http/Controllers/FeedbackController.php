@@ -32,13 +32,18 @@ class FeedbackController extends Controller
         \DB::beginTransaction();
 
         try {
+            $answer = Answer::with('question.question')->find($request->answer_id);
+
             $feedback = new Feedback();
-            $feedback->fill($request->all());
+            $feedback->questionnaire_application_id = $answer->questionnaire_application_id;
+            $feedback->answer_id = $request->answer_id;
+            $feedback->competence_id = $answer->question->question->competency_id;
             $feedback->save();
 
             foreach ($request->feedback_answers as $feedbackAnswer) {
                 $fa = new FeedbackAnswer();
                 $fa->fill($feedbackAnswer);
+                $fa->feedback_id = $feedback->id;
                 $fa->save();
             }
 
