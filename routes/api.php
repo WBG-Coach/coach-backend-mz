@@ -42,7 +42,6 @@ Route::controller(UserController::class)->group(function () {
     Route::delete('/users/{id}', 'delete');
     Route::post('/users/lastAnswers', 'lastAnswers');
     Route::post('/users/lastFeedbacks', 'lastFeedbacks');
-    Route::post('/users/lastApplications', 'lastApplications');
 });
 
 use App\Http\Controllers\SchoolController;
@@ -104,7 +103,6 @@ Route::controller(QuestionnaireApplicationController::class)->group(function () 
 use App\Http\Controllers\CoachController;
 Route::controller(CoachController::class)->group(function () {
     Route::post('/coaches/questionnaire-applications/schools', 'questionnaireSchools');
-    Route::post('/coaches/questionnaire-applications/teachers', 'questionnaireTeachers');
 });
 
 use App\Http\Controllers\OptionController;

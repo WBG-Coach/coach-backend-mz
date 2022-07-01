@@ -59,16 +59,6 @@ class UserController extends Controller
         -> get();
     }
 
-    public function lastApplications(LastApplicationRequest $request)
-    {
-        return Feedback::with('feedbackAnswers.questionnaireQuestion.question.competence')
-        -> whereRaw("questionnaire_application_id in (select qa.id 
-                                                        from questionnaire_applications qa 
-                                                       where qa.status != 'DONE' 
-                                                         and qa.teacher_id = ".$request->teacher_id.")")
-        -> get();
-    }
-
     public function save(StoreRequest $request)
     {
         \DB::beginTransaction();
