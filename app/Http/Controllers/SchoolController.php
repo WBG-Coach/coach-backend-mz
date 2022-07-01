@@ -7,13 +7,32 @@ use App\Http\Requests\Schools\StoreRequest;
 use App\Http\Requests\Schools\UpdateRequest;
 
 use App\Models\School;
+use App\Models\QuestionnaireApplication;
+use App\Models\Answer;
 
 class SchoolController extends Controller
 {
     public function search(Request $request)
     {
         if ($request->id) {
-            return School::with('users.user')->find($request->id);
+            $schools = School::with('users.user')->find($request->id);
+
+            foreach ($schools as $school) {
+                if (isset($school['users'])) {
+                    dd('opa');
+                    $lastApplication = QuestionnaireApplication::where('teacher_id', $school['users']['user']['id'])
+                    ->where("status", '!=', 'PENDING_RESPONSE')
+                    ->orderBy('id', 'desc')
+                    ->first();
+                    
+                    if (!$lastApplication) {
+                        $school['users']['user']['answers'] = Answer::with('option.question.competence')->where('questionnaire_application_id', $lastApplication->id)->get();
+                    }
+                }
+            }
+            
+
+            return $schools;
         }
 
         $search = School::select('*');

@@ -38,4 +38,5 @@ class School extends Model
     {
         return $this->hasMany('App\Models\UserSchool', 'school_id', 'id');
     }
+    
 }
