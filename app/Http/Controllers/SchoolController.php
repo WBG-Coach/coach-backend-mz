@@ -17,16 +17,15 @@ class SchoolController extends Controller
         if ($request->id) {
             $schools = School::with('users.user')->find($request->id);
 
-            foreach ($schools as $school) {
-                if (isset($school['users'])) {
-                    dd('opa');
-                    $lastApplication = QuestionnaireApplication::where('teacher_id', $school['users']['user']['id'])
+            foreach ($schools['users'] as $userSchool) {
+                if (isset($userSchool)) {
+                    $lastApplication = QuestionnaireApplication::where('teacher_id', $userSchool['user']['id'])
                     ->where("status", '!=', 'PENDING_RESPONSE')
                     ->orderBy('id', 'desc')
                     ->first();
                     
-                    if (!$lastApplication) {
-                        $school['users']['user']['answers'] = Answer::with('option.question.competence')->where('questionnaire_application_id', $lastApplication->id)->get();
+                    if ($lastApplication) {
+                        $userSchool['user']['answers'] = Answer::with('option.question.competence')->where('questionnaire_application_id', $lastApplication->id)->get();
                     }
                 }
             }
