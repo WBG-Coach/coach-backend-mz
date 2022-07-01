@@ -67,7 +67,7 @@ class OptionCrudController extends CrudController
         CRUD::field('text');
         CRUD::field('selected_color');
         CRUD::field('selected_icon');
-        CRUD::addField(['label' => 'Content Guide', 'name' => 'content_guide_id', 'type' => 'select', 'model' => "App\Models\ContentGuide", 'attribute' => 'text']); 
+        CRUD::addField(['label' => 'Content Guide', 'name' => 'content_guide_id', 'type' => 'select', 'model' => "App\Models\ContentGuide", 'attribute' => 'id']); 
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
