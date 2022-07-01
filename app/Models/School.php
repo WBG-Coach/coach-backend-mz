@@ -33,4 +33,9 @@ class School extends Model
         'district',
         'external_group_id'
     ];
+
+    public function userSchool()
+    {
+        return $this->hashMany('App\Models\UserSchool', 'school_id', 'id');
+    }
 }

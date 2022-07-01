@@ -13,7 +13,7 @@ class SchoolController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return School::find($request->id);
+            return School::with('userSchool.user')->find($request->id);
         }
 
         $search = School::select('*');
