@@ -136,3 +136,8 @@ Route::controller(FeedbackController::class)->group(function () {
     Route::put('/feedbacks', 'update');
     Route::delete('/feedbacks/{id}', 'delete');
 });
+
+use App\Http\Controllers\ContentGuideController;
+Route::controller(ContentGuideController::class)->group(function () {
+    Route::post('/content_guides/search', 'search');
+});
