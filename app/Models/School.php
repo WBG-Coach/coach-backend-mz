@@ -34,8 +34,8 @@ class School extends Model
         'external_group_id'
     ];
 
-    public function userSchool()
+    public function users()
     {
-        return $this->hashMany('App\Models\UserSchool', 'school_id', 'id');
+        return $this->hasMany('App\Models\UserSchool', 'school_id', 'id');
     }
 }
