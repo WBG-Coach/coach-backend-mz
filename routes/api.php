@@ -139,5 +139,5 @@ Route::controller(FeedbackController::class)->group(function () {
 
 use App\Http\Controllers\ContentGuideController;
 Route::controller(ContentGuideController::class)->group(function () {
-    Route::post('/content_guides/search', 'search');
+    Route::post('/content-guides/search', 'search');
 });

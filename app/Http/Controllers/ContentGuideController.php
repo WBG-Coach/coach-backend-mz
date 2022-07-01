@@ -11,7 +11,7 @@ class ContentGuideController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return ContentGuide::with('feedbackAnswers')->find($request->id);
+            return ContentGuide::find($request->id);
         }
     }
 }
