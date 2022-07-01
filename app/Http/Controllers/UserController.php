@@ -51,7 +51,7 @@ class UserController extends Controller
 
     public function lastFeedbacks(LastFeedbackRequest $request)
     {
-        return Feedback::with('feedbackAnswers.questionnaireQuestion.question.competence')
+        return Feedback::with('competence')
         -> whereRaw("questionnaire_application_id in (select qa.id 
                                                         from questionnaire_applications qa 
                                                        where qa.status != 'DONE' 
