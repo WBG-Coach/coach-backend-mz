@@ -65,7 +65,7 @@ class UserController extends Controller
         -> whereRaw("questionnaire_application_id in (select qa.id 
                                                         from questionnaire_applications qa 
                                                        where qa.status != 'DONE' 
-                                                         and qa.teacher_id = '.$request->teacher_id.')")
+                                                         and qa.teacher_id = ".$request->teacher_id.")")
         -> get();
     }
 
