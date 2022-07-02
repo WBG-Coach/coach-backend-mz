@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -21,7 +22,8 @@ class UserSeeder extends Seeder
                 'profile_id' => 1,
                 'password' => bcrypt('pass123'),
                 'image_url' => 'https://www.tenforums.com/attachments/tutorials/146359d1501443008-change-default-account-picture-windows-10-a-user.png',
-                'subject' => null
+                'subject' => null,
+                'api_token' => Str::random(80)
             ],
             [
                 'id' => 2,
@@ -30,7 +32,8 @@ class UserSeeder extends Seeder
                 'profile_id' => 2,
                 'password' => bcrypt('pass123'),
                 'image_url' => 'http://www.lamedichi.info/wp-content/uploads/2020/12/TAW9U8HJ5-UAW9UCKMX-e8b2706043e3-512.jpeg',
-                'subject' => null
+                'subject' => null,
+                'api_token' => Str::random(80)
             ],
             [
                 'id' => 3,
@@ -39,7 +42,8 @@ class UserSeeder extends Seeder
                 'profile_id' => 3,
                 'password' => bcrypt('pass123'),
                 'image_url' => 'http://www.lamedichi.info/wp-content/uploads/2020/07/E3AF0638-C511-4394-88E1-34514FB4F698.png',
-                'subject' => 'Português'
+                'subject' => 'Português',
+                'api_token' => Str::random(80)
             ],
             [
                 'id' => 4,
@@ -48,7 +52,8 @@ class UserSeeder extends Seeder
                 'profile_id' => 3,
                 'password' => bcrypt('pass123'),
                 'image_url' => 'http://www.lamedichi.info/wp-content/uploads/2020/12/josias-cunha.png',
-                'subject' => 'Matemática'
+                'subject' => 'Matemática',
+                'api_token' => Str::random(80)
             ],
             [
                 'id' => 5,
@@ -57,7 +62,8 @@ class UserSeeder extends Seeder
                 'profile_id' => 2,
                 'password' => bcrypt('pass123'),
                 'image_url' => 'http://www.lamedichi.info/wp-content/uploads/2020/12/13595853.jpg',
-                'subject' => null
+                'subject' => null,
+                'api_token' => Str::random(80)
             ]
         ]);
     }

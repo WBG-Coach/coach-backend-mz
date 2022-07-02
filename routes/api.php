@@ -18,124 +18,127 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+use App\Http\Controllers\LoginController; 
+Route::post('/auth', [LoginController::class, 'getToken']);
+
 use App\Http\Controllers\ProfileController;
 Route::controller(ProfileController::class)->group(function () {
-    Route::post('/profiles/search', 'search');
-    Route::post('/profiles', 'save');
-    Route::put('/profiles', 'update');
-    Route::delete('/profiles/{id}', 'delete');
+    Route::middleware('auth:api')->post('/profiles/search', 'search');
+    Route::middleware('auth:api')->post('/profiles', 'save');
+    Route::middleware('auth:api')->put('/profiles', 'update');
+    Route::middleware('auth:api')->delete('/profiles/{id}', 'delete');
 });
 
 use App\Http\Controllers\PermissionController;
 Route::controller(PermissionController::class)->group(function () {
-    Route::post('/permissions/search', 'search');
-    Route::post('/permissions', 'save');
-    Route::put('/permissions', 'update');
-    Route::delete('/permissions/{id}', 'delete');
+    Route::middleware('auth:api')->post('/permissions/search', 'search');
+    Route::middleware('auth:api')->post('/permissions', 'save');
+    Route::middleware('auth:api')->put('/permissions', 'update');
+    Route::middleware('auth:api')->delete('/permissions/{id}', 'delete');
 });
 
 use App\Http\Controllers\UserController;
 Route::controller(UserController::class)->group(function () {
-    Route::post('/users/search', 'search');
-    Route::post('/users', 'save');
-    Route::put('/users', 'update');
-    Route::delete('/users/{id}', 'delete');
-    Route::post('/users/lastAnswers', 'lastAnswers');
-    Route::post('/users/lastFeedbacks', 'lastFeedbacks');
+    Route::middleware('auth:api')->post('/users/search', 'search');
+    Route::middleware('auth:api')->post('/users', 'save');
+    Route::middleware('auth:api')->put('/users', 'update');
+    Route::middleware('auth:api')->delete('/users/{id}', 'delete');
+    Route::middleware('auth:api')->post('/users/lastAnswers', 'lastAnswers');
+    Route::middleware('auth:api')->post('/users/lastFeedbacks', 'lastFeedbacks');
 });
 
 use App\Http\Controllers\SchoolController;
 Route::controller(SchoolController::class)->group(function () {
-    Route::post('/schools/search', 'search');
-    Route::post('/schools', 'save');
-    Route::put('/schools', 'update');
-    Route::delete('/schools/{id}', 'delete');
+    Route::middleware('auth:api')->post('/schools/search', 'search');
+    Route::middleware('auth:api')->post('/schools', 'save');
+    Route::middleware('auth:api')->put('/schools', 'update');
+    Route::middleware('auth:api')->delete('/schools/{id}', 'delete');
 });
 
 use App\Http\Controllers\MatrixController;
 Route::controller(MatrixController::class)->group(function () {
-    Route::post('/matrixes/search', 'search');
-    Route::post('/matrixes', 'save');
-    Route::put('/matrixes', 'update');
-    Route::delete('/matrixes/{id}', 'delete');
+    Route::middleware('auth:api')->post('/matrixes/search', 'search');
+    Route::middleware('auth:api')->post('/matrixes', 'save');
+    Route::middleware('auth:api')->put('/matrixes', 'update');
+    Route::middleware('auth:api')->delete('/matrixes/{id}', 'delete');
 });
 
 use App\Http\Controllers\CompetenceController;
 Route::controller(CompetenceController::class)->group(function () {
-    Route::post('/competencies/search', 'search');
-    Route::post('/competencies', 'save');
-    Route::put('/competencies', 'update');
-    Route::delete('/competencies/{id}', 'delete');
+    Route::middleware('auth:api')->post('/competencies/search', 'search');
+    Route::middleware('auth:api')->post('/competencies', 'save');
+    Route::middleware('auth:api')->put('/competencies', 'update');
+    Route::middleware('auth:api')->delete('/competencies/{id}', 'delete');
 });
 
 use App\Http\Controllers\QuestionnaireController;
 Route::controller(QuestionnaireController::class)->group(function () {
-    Route::post('/questionnaires/search', 'search');
-    Route::post('/questionnaires', 'save');
-    Route::put('/questionnaires', 'update');
-    Route::delete('/questionnaires/{id}', 'delete');
+    Route::middleware('auth:api')->post('/questionnaires/search', 'search');
+    Route::middleware('auth:api')->post('/questionnaires', 'save');
+    Route::middleware('auth:api')->put('/questionnaires', 'update');
+    Route::middleware('auth:api')->delete('/questionnaires/{id}', 'delete');
 });
 
 use App\Http\Controllers\QuestionController;
 Route::controller(QuestionController::class)->group(function () {
-    Route::post('/questions/search', 'search');
-    Route::post('/questions', 'save');
-    Route::put('/questions', 'update');
-    Route::delete('/questions/{id}', 'delete');
+    Route::middleware('auth:api')->post('/questions/search', 'search');
+    Route::middleware('auth:api')->post('/questions', 'save');
+    Route::middleware('auth:api')->put('/questions', 'update');
+    Route::middleware('auth:api')->delete('/questions/{id}', 'delete');
 });
 
 use App\Http\Controllers\QuestionnaireQuestionsController;
 Route::controller(QuestionnaireQuestionsController::class)->group(function () {
-    Route::post('/questionnaire-questions/search', 'search');
-    Route::post('/questionnaire-questions', 'save');
-    Route::put('/questionnaire-questions', 'update');
-    Route::delete('/questionnaire-questions/{id}', 'delete');
+    Route::middleware('auth:api')->post('/questionnaire-questions/search', 'search');
+    Route::middleware('auth:api')->post('/questionnaire-questions', 'save');
+    Route::middleware('auth:api')->put('/questionnaire-questions', 'update');
+    Route::middleware('auth:api')->delete('/questionnaire-questions/{id}', 'delete');
 });
 
 use App\Http\Controllers\QuestionnaireApplicationController;
 Route::controller(QuestionnaireApplicationController::class)->group(function () {
-    Route::post('/questionnaire-applications/search', 'search');
-    Route::post('/questionnaire-applications', 'save');
-    Route::put('/questionnaire-applications', 'update');
-    Route::delete('/questionnaire-applications/{id}', 'delete');
+    Route::middleware('auth:api')->post('/questionnaire-applications/search', 'search');
+    Route::middleware('auth:api')->post('/questionnaire-applications', 'save');
+    Route::middleware('auth:api')->put('/questionnaire-applications', 'update');
+    Route::middleware('auth:api')->delete('/questionnaire-applications/{id}', 'delete');
 });
 
 use App\Http\Controllers\CoachController;
 Route::controller(CoachController::class)->group(function () {
-    Route::post('/coaches/questionnaire-applications/schools', 'questionnaireSchools');
+    Route::middleware('auth:api')->post('/coaches/questionnaire-applications/schools', 'questionnaireSchools');
 });
 
 use App\Http\Controllers\OptionController;
 Route::controller(OptionController::class)->group(function () {
-    Route::post('/options/search', 'search');
-    Route::post('/options', 'save');
-    Route::put('/options', 'update');
-    Route::delete('/options/{id}', 'delete');
+    Route::middleware('auth:api')->post('/options/search', 'search');
+    Route::middleware('auth:api')->post('/options', 'save');
+    Route::middleware('auth:api')->put('/options', 'update');
+    Route::middleware('auth:api')->delete('/options/{id}', 'delete');
 });
 
 use App\Http\Controllers\AnswerController;
 Route::controller(AnswerController::class)->group(function () {
-    Route::post('/answers/search', 'search');
-    Route::post('/answers', 'save');
+    Route::middleware('auth:api')->post('/answers/search', 'search');
+    Route::middleware('auth:api')->post('/answers', 'save');
 });
 
 use App\Http\Controllers\NoteController;
 Route::controller(NoteController::class)->group(function () {
-    Route::post('/notes/search', 'search');
-    Route::post('/notes', 'save');
-    Route::put('/notes', 'update');
-    Route::delete('/notes/{id}', 'delete');
+    Route::middleware('auth:api')->post('/notes/search', 'search');
+    Route::middleware('auth:api')->post('/notes', 'save');
+    Route::middleware('auth:api')->put('/notes', 'update');
+    Route::middleware('auth:api')->delete('/notes/{id}', 'delete');
 });
 
 use App\Http\Controllers\FeedbackController;
 Route::controller(FeedbackController::class)->group(function () {
-    Route::post('/feedbacks/search', 'search');
-    Route::post('/feedbacks', 'save');
-    Route::put('/feedbacks', 'update');
-    Route::delete('/feedbacks/{id}', 'delete');
+    Route::middleware('auth:api')->post('/feedbacks/search', 'search');
+    Route::middleware('auth:api')->post('/feedbacks', 'save');
+    Route::middleware('auth:api')->put('/feedbacks', 'update');
+    Route::middleware('auth:api')->delete('/feedbacks/{id}', 'delete');
 });
 
 use App\Http\Controllers\ContentGuideController;
 Route::controller(ContentGuideController::class)->group(function () {
-    Route::post('/content-guides/search', 'search');
+    Route::middleware('auth:api')->post('/content-guides/search', 'search');
 });
