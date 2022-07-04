@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function getToken(GetTokenRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return ['api_token' => User::where('email', $request->email)->first()->api_token];
+            return \Auth::user();
         }
 
         return response()->json([
