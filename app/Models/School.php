@@ -36,7 +36,7 @@ class School extends Model
 
     public function users()
     {
-        return $this->hasMany('App\Models\UserSchool', 'school_id', 'id');
+        return $this->hasMany('App\Models\UserSchool', 'school_id', 'id')->whereRaw("user_schools.user_id in (select u.id from users u where u.profile_id in (select p.id from profiles p where p.name = 'COACH'))");
     }
     
 }
