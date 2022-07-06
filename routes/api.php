@@ -45,7 +45,7 @@ Route::controller(UserController::class)->group(function () {
     Route::middleware('auth:api')->delete('/users/{id}', 'delete');
     Route::middleware('auth:api')->post('/users/lastAnswers', 'lastAnswers');
     Route::middleware('auth:api')->post('/users/lastFeedbacks', 'lastFeedbacks');
-    Route::middleware('auth:api')->post('/createCoach', 'createCoach');
+    Route::post('/createCoach', 'createCoach');
     Route::middleware('auth:api')->post('/createTeacher', 'createTeacher');
 });
 
