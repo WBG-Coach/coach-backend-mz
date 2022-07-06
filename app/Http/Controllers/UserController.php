@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Users\StoreRequest;
+use App\Http\Requests\Users\StoreCoachRequest;
+use App\Http\Requests\Users\StoreTeacherRequest;
 use App\Http\Requests\Users\UpdateRequest;
 use App\Http\Requests\Users\LastAnswerRequest;
 use App\Http\Requests\Users\LastFeedbackRequest;
 use App\Http\Requests\Users\LastApplicationRequest;
 use App\Models\User;
+use App\Models\UserSchool;
+use App\Models\Profile;
 use App\Models\QuestionnaireApplication;
 use App\Models\Answer;
 use App\Models\Feedback;
@@ -68,6 +72,53 @@ class UserController extends Controller
             $user->fill($request->all());
             $user->password = bcrypt($request->password);
             $user->save();
+
+            \DB::commit();
+            return $user->id;
+        } catch (\Exception $e) {
+            \DB::rollback();
+            abort(500, $e);
+        }
+    }
+
+    public function createCoach(StoreCoachRequest $request)
+    {
+        \DB::beginTransaction();
+
+        try {
+            $profile = Profile::where('name', 'COACH')->first();
+
+            $user = new User();
+            $user->fill($request->all());
+            $user->password = bcrypt($request->password);
+            $user->profile_id = $profile->id;
+            $user->save();
+
+            \DB::commit();
+            return $user->id;
+        } catch (\Exception $e) {
+            \DB::rollback();
+            abort(500, $e);
+        }
+    }
+
+    public function createTeacher(StoreTeacherRequest $request)
+    {
+        \DB::beginTransaction();
+
+        try {
+            $profile = Profile::where('name', 'TEACHER')->first();
+
+            $user = new User();
+            $user->fill($request->all());
+            $user->password = bcrypt('pass123');
+            $user->profile_id = $profile->id;
+            $user->save();
+
+            $userSchool = new UserSchool();
+            $userSchool->school_id = $request->school_id;
+            $userSchool->user_id = $user->id;
+            $userSchool->save();
 
             \DB::commit();
             return $user->id;
