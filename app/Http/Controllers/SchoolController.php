@@ -7,6 +7,7 @@ use App\Http\Requests\Schools\StoreRequest;
 use App\Http\Requests\Schools\UpdateRequest;
 
 use App\Models\School;
+use App\Models\UserSchool;
 use App\Models\QuestionnaireApplication;
 use App\Models\Answer;
 
@@ -52,6 +53,11 @@ class SchoolController extends Controller
             $school = new School();
             $school->fill($request->all());
             $school->save();
+
+            $userSchool = new UserSchool();
+            $userSchool->user_id = \Auth::user()->id;
+            $userSchool->school_id = $school->id;
+            $userSchool->save();
 
             \DB::commit();
             return $school->id;
