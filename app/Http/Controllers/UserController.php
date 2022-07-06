@@ -17,6 +17,8 @@ use App\Models\QuestionnaireApplication;
 use App\Models\Answer;
 use App\Models\Feedback;
 
+use Illuminate\Support\Str;
+
 class UserController extends Controller
 {
     public function search(Request $request)
@@ -71,6 +73,7 @@ class UserController extends Controller
             $user = new User();
             $user->fill($request->all());
             $user->password = bcrypt($request->password);
+            $user->api_token = Str::random(80);
             $user->save();
 
             \DB::commit();
@@ -92,6 +95,7 @@ class UserController extends Controller
             $user->fill($request->all());
             $user->password = bcrypt($request->password);
             $user->profile_id = $profile->id;
+            $user->api_token = Str::random(80);
             $user->save();
 
             \DB::commit();
@@ -113,6 +117,7 @@ class UserController extends Controller
             $user->fill($request->all());
             $user->password = bcrypt('pass123');
             $user->profile_id = $profile->id;
+            $user->api_token = Str::random(80);
             $user->save();
 
             $userSchool = new UserSchool();
