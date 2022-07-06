@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Feedback;
 use App\Models\FeedbackAnswer;
 use App\Models\Answer;
+use App\Models\QuestionnaireApplication;
 
 class FeedbackController extends Controller
 {
@@ -48,6 +49,10 @@ class FeedbackController extends Controller
                 $fa->feedback_id = $feedback->id;
                 $fa->save();
             }
+
+            $application = QuestionnaireApplication::find($answer->questionnaire_application_id);
+            $application->status = 'PENDING_MEET';
+            $application->update();
 
             \DB::commit();
             return $feedback->id;
