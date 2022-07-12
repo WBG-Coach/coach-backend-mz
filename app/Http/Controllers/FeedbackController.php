@@ -24,9 +24,17 @@ class FeedbackController extends Controller
         if($request->answer_id) {
             $search->where("answer_id", $request->answer_id);
         }
+        if($request->teacher_id) {
+            $search->whereRaw("questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.teacher_id = ".$request->teacher_id.")");
+        }
         if ($request->competence_id) {
             $search->where("competence_id", $request->competence_id);
         }
+
+        if ($request->count) {
+            return ['quantity' => $search->count()];
+        }
+
         return $search->get();
     }
 
