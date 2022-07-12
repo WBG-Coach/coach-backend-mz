@@ -138,6 +138,7 @@ Route::controller(FeedbackController::class)->group(function () {
     Route::middleware('auth:api')->post('/feedbacks', 'save');
     Route::middleware('auth:api')->put('/feedbacks', 'update');
     Route::middleware('auth:api')->delete('/feedbacks/{id}', 'delete');
+    Route::middleware('auth:api')->post('/feedbacks/countByCompetence', 'countByCompetence');
 });
 
 use App\Http\Controllers\ContentGuideController;

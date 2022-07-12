@@ -104,4 +104,9 @@ class FeedbackController extends Controller
             abort(500, $e);
         }
     }
+
+    public function countByCompetence(Request $request)
+    {
+        # code...
+    }
 }

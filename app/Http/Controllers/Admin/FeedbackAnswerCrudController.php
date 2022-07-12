@@ -43,6 +43,8 @@ class FeedbackAnswerCrudController extends CrudController
         CRUD::column('feedback_id');
         CRUD::column('notes');
         CRUD::column('questionnaire_question_id');
+        CRUD::column('latitude');
+        CRUD::column('longitude');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -64,6 +66,8 @@ class FeedbackAnswerCrudController extends CrudController
         CRUD::field('feedback_id');
         CRUD::field('notes');
         CRUD::field('questionnaire_question_id');
+        CRUD::field('latitude');
+        CRUD::field('longitude');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

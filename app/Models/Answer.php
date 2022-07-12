@@ -24,7 +24,9 @@ class Answer extends Model
     protected $fillable = [
         'questionnaire_application_id',
         'questionnaire_question_id',
-        'option_id'
+        'option_id',
+        'latitude',
+        'longitude'
     ];
 
     

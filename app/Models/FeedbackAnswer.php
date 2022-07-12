@@ -24,7 +24,9 @@ class FeedbackAnswer extends Model
     protected $fillable = [
         'feedback_id',
         'notes',
-        'questionnaire_question_id'
+        'questionnaire_question_id',
+        'latitude',
+        'longitude'
     ];
 
     public function questionnaireQuestion()
