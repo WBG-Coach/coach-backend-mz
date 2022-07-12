@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Questionnaire;
 use App\Models\QuestionnaireQuestion;
+use App\Models\QuestionnaireApplication;
+
+use App\Models\Answer;
 
 class QuestionnaireQuestionsController extends Controller
 {
@@ -16,10 +18,18 @@ class QuestionnaireQuestionsController extends Controller
         }
 
         $search = QuestionnaireQuestion::with('question.competence')->select('*');
-        if($request->questionnaire_id) {
+        if($request->questionnaire_application_id) {
+            $questionnaireApplication = QuestionnaireApplication::with('questionnaire')->find($request->questionnaire_application_id);
+            $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $questionnaireApplication->questionnaire_id)->orderBy('order')->get();
+
+            foreach ($questionnaireQuestions as $questionnaireQuestion) {
+                $answers = Answer::where('questionnaire_question_id', $questionnaireQuestion['id'])->whereRaw("questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.teacher_id = ".$questionnaireApplication->teacher_id.")")->get();
+                $questionnaireQuestion['question']['last_answers'] = $answers;
+            }
+
             return [
-                'questions' => QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $request->questionnaire_id)->orderBy('order')->get(),
-                'questionnaire' => Questionnaire::find($request->questionnaire_id)
+                'questions' => $questionnaireQuestions,
+                'questionnaire' => $questionnaireApplication->questionnaire
             ];
         }
         if ($request->pagination) {
