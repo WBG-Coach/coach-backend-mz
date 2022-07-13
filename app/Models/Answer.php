@@ -25,6 +25,7 @@ class Answer extends Model
         'questionnaire_application_id',
         'questionnaire_question_id',
         'option_id',
+        'notes',
         'latitude',
         'longitude'
     ];

@@ -22,6 +22,10 @@ class QuestionnaireQuestionsController extends Controller
             $questionnaireApplication = QuestionnaireApplication::with('questionnaire')->find($request->questionnaire_application_id);
             $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $questionnaireApplication->questionnaire_id)->orderBy('order')->get();
 
+            if ($request->feedback) {
+                $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $questionnaireApplication->feedback_questionnaire_id)->orderBy('order')->get();
+            }
+
             foreach ($questionnaireQuestions as $questionnaireQuestion) {
                 $answers = Answer::with('option.question.competence')->where('questionnaire_question_id', $questionnaireQuestion['id'])->whereRaw("questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.teacher_id = ".$questionnaireApplication->teacher_id.")")->get();
                 $questionnaireQuestion['question']['last_answers'] = $answers;
