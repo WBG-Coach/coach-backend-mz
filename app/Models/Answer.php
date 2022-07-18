@@ -36,6 +36,11 @@ class Answer extends Model
         return $this->hasMany('App\Models\Feedback', 'answer_id', 'id');
     }
 
+    public function questionnaireApplication()
+    {
+        return $this->belongsTo('App\Models\QuestionnaireApplication', 'questionnaire_application_id', 'id');
+    }
+
     public function question()
     {
         return $this->belongsTo('App\Models\QuestionnaireQuestion', 'questionnaire_question_id', 'id');
