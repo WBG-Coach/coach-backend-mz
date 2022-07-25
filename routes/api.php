@@ -23,10 +23,10 @@ Route::post('/auth', [LoginController::class, 'getToken']);
 
 use App\Http\Controllers\ProjectController;
 Route::controller(ProjectController::class)->group(function () {
-    Route::post('/project-users/search', 'search');
-    Route::middleware('auth:api')->post('/project-users', 'save');
-    Route::middleware('auth:api')->put('/project-users', 'update');
-    Route::middleware('auth:api')->delete('/project-users/{id}', 'delete');
+    Route::post('/projects/search', 'search');
+    Route::middleware('auth:api')->post('/projects', 'save');
+    Route::middleware('auth:api')->put('/projects', 'update');
+    Route::middleware('auth:api')->delete('/projects/{id}', 'delete');
 });
 
 use App\Http\Controllers\ProfileController;
