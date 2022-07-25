@@ -25,7 +25,8 @@ class GetTokenRequest extends FormRequest
     {
         return [
             'email' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'project_id' => 'required'
         ];
     }
 }

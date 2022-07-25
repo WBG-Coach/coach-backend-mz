@@ -15,8 +15,13 @@ class LoginController extends Controller
     {
         $profile = Profile::where('name', 'COACH')->first();
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'profile_id' => $profile->id])) {
-            return \Auth::user();
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (ProjectUser::where('user_id', $user->id)->where('project_id', $request->project_id)->exists()) {
+                if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'profile_id' => $profile->id])) {
+                    return \Auth::user();
+                }
+            }
         }
 
         return response()->json([
