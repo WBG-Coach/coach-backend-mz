@@ -37,4 +37,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function projectUser()
+    {
+        return $this->hasMany('App\Models\ProjectUser', 'user_id', 'id');
+    }
+
 }

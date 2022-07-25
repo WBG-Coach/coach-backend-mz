@@ -12,6 +12,7 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('permission') }}'><i class='nav-icon la la-question'></i> Permissions</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('profile') }}'><i class='nav-icon la la-question'></i> Profiles</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('project') }}'><i class='nav-icon la la-question'></i> Projects</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('project-user') }}'><i class='nav-icon la la-question'></i> Project Users</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('question') }}'><i class='nav-icon la la-question'></i> Questions</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('questionnaire') }}'><i class='nav-icon la la-question'></i> Questionnaires</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('questionnaire-application') }}'><i class='nav-icon la la-question'></i> Questionnaire applications</a></li>

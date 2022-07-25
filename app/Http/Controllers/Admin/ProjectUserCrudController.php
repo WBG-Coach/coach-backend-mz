@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ProjectRequest;
+use App\Http\Requests\ProjectUserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class ProjectCrudController
+ * Class ProjectUserCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class ProjectCrudController extends CrudController
+class ProjectUserCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class ProjectCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Project::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/project');
-        CRUD::setEntityNameStrings('project', 'projects');
+        CRUD::setModel(\App\Models\ProjectUser::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/project-user');
+        CRUD::setEntityNameStrings('project users', 'projects users');
     }
 
     /**
@@ -40,8 +40,8 @@ class ProjectCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('id');
-        CRUD::column('name');
-        CRUD::column('image_url');
+        CRUD::column('user_id');
+        CRUD::column('project_id');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -58,10 +58,10 @@ class ProjectCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ProjectRequest::class);
+        CRUD::setValidation(ProjectUserRequest::class);
 
-        CRUD::field('name');
-        CRUD::field('image_url');
+        CRUD::addField(['label' => 'User', 'name' => 'user_id', 'type' => 'select', 'model' => "App\Models\User", 'attribute' => 'name']); 
+        CRUD::addField(['label' => 'Project', 'name' => 'project_id', 'type' => 'select', 'model' => "App\Models\Project", 'attribute' => 'name']); 
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
