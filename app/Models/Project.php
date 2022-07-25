@@ -25,4 +25,9 @@ class Project extends Model
         'name',
         'image_url'
     ];
+
+    public function users()
+    {
+        return $this->hasMany('App\Models\ProjectUser', 'project_id', 'id');
+    }
 }

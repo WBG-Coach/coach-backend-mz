@@ -21,6 +21,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController; 
 Route::post('/auth', [LoginController::class, 'getToken']);
 
+use App\Http\Controllers\ProjectController;
+Route::controller(ProjectController::class)->group(function () {
+    Route::post('/project-users/search', 'search');
+    Route::middleware('auth:api')->post('/project-users', 'save');
+    Route::middleware('auth:api')->put('/project-users', 'update');
+    Route::middleware('auth:api')->delete('/project-users/{id}', 'delete');
+});
+
 use App\Http\Controllers\ProfileController;
 Route::controller(ProfileController::class)->group(function () {
     Route::middleware('auth:api')->post('/profiles/search', 'search');
