@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Login\GetTokenRequest;
 
 use App\Models\User;
+use App\Models\ProjectUser;
 use App\Models\Profile;
 
 class LoginController extends Controller

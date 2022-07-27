@@ -23,7 +23,9 @@ class Project extends Model
      */
     protected $fillable = [
         'name',
-        'image_url'
+        'image_url',
+        'primary_color',
+        'country'
     ];
 
     public function users()

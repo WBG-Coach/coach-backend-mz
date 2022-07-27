@@ -42,6 +42,8 @@ class ProjectCrudController extends CrudController
         CRUD::column('id');
         CRUD::column('name');
         CRUD::column('image_url');
+        CRUD::column('primary_color');
+        CRUD::column('country');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -62,6 +64,8 @@ class ProjectCrudController extends CrudController
 
         CRUD::field('name');
         CRUD::field('image_url');
+        CRUD::field('primary_color');
+        CRUD::field('country');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
