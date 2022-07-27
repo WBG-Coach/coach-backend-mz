@@ -29,7 +29,8 @@ class StoreRequest extends FormRequest
             'password' => 'required|max:255',
             'image_url' => 'max:255',
             'profile_id' => 'required|exists:profiles,id',
-            'subject' => 'max:255'
+            'subject' => 'max:255',
+            'project_id' => 'required|exists:projects,id'
         ];
     }
 }

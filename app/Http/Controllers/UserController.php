@@ -16,6 +16,7 @@ use App\Models\Profile;
 use App\Models\QuestionnaireApplication;
 use App\Models\Answer;
 use App\Models\Feedback;
+use App\Models\ProjectUser;
 
 use Illuminate\Support\Str;
 
@@ -75,6 +76,13 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
             $user->api_token = Str::random(80);
             $user->save();
+
+            if ($request->project_id) {
+                $pu = new ProjectUser();
+                $pu->user_id = $user->id;
+                $pu->project_id = $request->project_id;
+                $pu->save();
+            }
 
             \DB::commit();
             return $user->id;
