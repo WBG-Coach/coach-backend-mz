@@ -54,6 +54,7 @@ Route::controller(UserController::class)->group(function () {
     Route::middleware('auth:api')->post('/users/lastAnswers', 'lastAnswers');
     Route::middleware('auth:api')->post('/users/lastFeedbacks', 'lastFeedbacks');
     Route::post('/createCoach', 'createCoach');
+    Route::post('/changePassword', 'changePassword');
     Route::middleware('auth:api')->post('/createTeacher', 'createTeacher');
 });
 

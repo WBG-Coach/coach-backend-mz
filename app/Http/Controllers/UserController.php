@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\Users\StoreRequest;
 use App\Http\Requests\Users\StoreCoachRequest;
 use App\Http\Requests\Users\StoreTeacherRequest;
@@ -10,6 +12,8 @@ use App\Http\Requests\Users\UpdateRequest;
 use App\Http\Requests\Users\LastAnswerRequest;
 use App\Http\Requests\Users\LastFeedbackRequest;
 use App\Http\Requests\Users\LastApplicationRequest;
+use App\Http\Requests\Users\ChangePasswordRequest;
+
 use App\Models\User;
 use App\Models\UserSchool;
 use App\Models\Profile;
@@ -77,13 +81,6 @@ class UserController extends Controller
             $user->api_token = Str::random(80);
             $user->save();
 
-            if ($request->project_id) {
-                $pu = new ProjectUser();
-                $pu->user_id = $user->id;
-                $pu->project_id = $request->project_id;
-                $pu->save();
-            }
-
             \DB::commit();
             return $user->id;
         } catch (\Exception $e) {
@@ -105,6 +102,13 @@ class UserController extends Controller
             $user->profile_id = $profile->id;
             $user->api_token = Str::random(80);
             $user->save();
+
+            if ($request->project_id) {
+                $pu = new ProjectUser();
+                $pu->user_id = $user->id;
+                $pu->project_id = $request->project_id;
+                $pu->save();
+            }
 
             \DB::commit();
             return $user->id;
@@ -158,6 +162,28 @@ class UserController extends Controller
             return $request->id;
         } catch (\Exception $e) {
             \DB::rollback();
+            abort(500, $e);
+        }
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        \DB::beginTransaction();
+
+        try {
+
+            if (\Auth::attempt(['email' => \Auth::guard('api')->user()->email, 'password' => $request->old_password])) {
+                $user = User::find(\Auth::guard('api')->user()->id);
+                $user->password = bcrypt($request->new_password);
+                $user->update();
+            }
+
+            \DB::commit();
+
+            return \Auth::user();
+        } catch (\Exception $e) {
+            \DB::rollback();
+            dd($e);
             abort(500, $e);
         }
     }
