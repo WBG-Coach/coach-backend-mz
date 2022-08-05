@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController; 
 Route::post('/auth', [LoginController::class, 'getToken']);
+Route::post('/authAdmin', [LoginController::class, 'getTokenAdmin']);
 
 use App\Http\Controllers\ProjectController;
 Route::controller(ProjectController::class)->group(function () {
