@@ -35,7 +35,11 @@ class SchoolController extends Controller
             return $schools;
         }
 
-        $search = School::select('*')->whereRaw("schools.id in (select us.school_id from user_schools us where us.user_id = ".\Auth::user()->id.")");
+        if (\Auth::check()) {
+            $search = School::select('*')->whereRaw("schools.id in (select us.school_id from user_schools us where us.user_id = ".\Auth::user()->id.")");
+        } else {
+            $search = School::select('*');
+        }
 
         if ($request->name) {
             $search->whereRaw("name like '%".$request->name."%'");
