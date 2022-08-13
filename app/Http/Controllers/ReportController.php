@@ -44,7 +44,8 @@ class ReportController extends Controller
             foreach ($data as $dataValues) {
                 if (count($dataValues) == 0) {
                     array_push($processedData, [
-                        'percent' => null,
+                        'percentYes' => 0,
+                        'percentNo' => 0,
                         'yes' => 0,
                         'no' => 0,
                         'total' => 0
