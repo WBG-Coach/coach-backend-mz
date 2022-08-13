@@ -24,7 +24,7 @@ class ReportController extends Controller
                     competencies c
                 where 
                     year(a.created_at) = '".$request->year."'
-                    c.id = q.competency_id
+                    and c.id = q.competency_id
                     and a.option_id = o.id
                     and qq.id = a.questionnaire_question_id
                     and q.id = qq.question_id";
