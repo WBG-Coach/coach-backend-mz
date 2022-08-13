@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Reports\CompetenceEvolutionRequest;
 
 use App\Models\Competence;
 
 class ReportController extends Controller
 {
-    public function competenceEvolutions(Request $request)
+    public function competenceEvolutions(CompetenceEvolutionRequest $request)
     {
         $sql = "select
                     c.id competence_id,
@@ -21,7 +22,8 @@ class ReportController extends Controller
                     answers a,
                     options o,
                     competencies c
-                where
+                where 
+                    year(a.created_at) = '".$request->year."'
                     c.id = q.competency_id
                     and a.option_id = o.id
                     and qq.id = a.questionnaire_question_id
