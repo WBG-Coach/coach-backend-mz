@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Competence;
+
 class ReportController extends Controller
 {
     public function competenceEvolutions(Request $request)
@@ -28,25 +30,15 @@ class ReportController extends Controller
         $competencies = [];
 
         foreach (Competence::all() as $competence) {
-            $competencies[$competence->title]['1'] = [];
-            $competencies[$competence->title]['2'] = [];
-            $competencies[$competence->title]['3'] = [];
-            $competencies[$competence->title]['4'] = [];
-            $competencies[$competence->title]['5'] = [];
-            $competencies[$competence->title]['6'] = [];
-            $competencies[$competence->title]['7'] = [];
-            $competencies[$competence->title]['8'] = [];
-            $competencies[$competence->title]['9'] = [];
-            $competencies[$competence->title]['10'] = [];
-            $competencies[$competence->title]['11'] = [];
-            $competencies[$competence->title]['12'] = [];
+            $competencies[$competence->title] = [[],[],[],[],[],[],[],[],[],[],[],[]];
         }
 
         foreach (\DB::select($sql) as $sqlResponse) {
-            array_push($competencies[$sqlResponse['competence_title']][$sqlResponse['month']], $sqlResponse['selected_option']);
+            array_push($competencies[$sqlResponse->competence_title][$sqlResponse->month - 1], $sqlResponse->selected_option);
         }
 
         return $competencies;
+        
     }
 
 }
