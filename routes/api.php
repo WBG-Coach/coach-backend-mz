@@ -154,3 +154,8 @@ use App\Http\Controllers\ContentGuideController;
 Route::controller(ContentGuideController::class)->group(function () {
     Route::middleware('auth:api')->post('/content-guides/search', 'search');
 });
+
+use App\Http\Controllers\ReportController;
+Route::controller(ReportController::class)->group(function () {
+    Route::post('/reports/competence_evolutions', 'competenceEvolutions');
+});
