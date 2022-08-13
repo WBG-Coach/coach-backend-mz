@@ -60,7 +60,8 @@ class ReportController extends Controller
                     }
 
                     array_push($processedData, [
-                        'percent' => $yesCounter/$total,
+                        'percentYes' => $yesCounter/$total,
+                        'percentNo' => ($total-$yesCounter)/$total,
                         'yes' => $yesCounter,
                         'no' => $total-$yesCounter,
                         'total' => $total
