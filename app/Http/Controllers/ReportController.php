@@ -37,7 +37,44 @@ class ReportController extends Controller
             array_push($competencies[$sqlResponse->competence_title][$sqlResponse->month - 1], $sqlResponse->selected_option);
         }
 
-        return $competencies;
+        $result = [];
+        foreach ($competencies as $competence => $data) {
+            $processedData = [];
+
+            foreach ($data as $dataValues) {
+                if (count($dataValues) == 0) {
+                    array_push($processedData, [
+                        'percent' => null,
+                        'yes' => 0,
+                        'no' => 0,
+                        'total' => 0
+                    ]);
+                } else {
+                    $total = count($dataValues);
+                    $yesCounter = 0;
+                    
+                    foreach ($dataValues as $dataValue) {
+                        if (strtoupper($dataValue) == 'SIM') {
+                            $yesCounter++;
+                        }
+                    }
+
+                    array_push($processedData, [
+                        'percent' => $yesCounter/$total,
+                        'yes' => $yesCounter,
+                        'no' => $total-$yesCounter,
+                        'total' => $total
+                    ]);
+                }
+            }
+
+            array_push($result, [
+                'name' => $competence,
+                'data' => $processedData
+            ]);
+        }
+
+        return $result;
         
     }
 
