@@ -12,7 +12,6 @@ class ReportController extends Controller
     public function competenceEvolutions(CompetenceEvolutionRequest $request)
     {
         $sql = "select
-                    c.id competence_id,
                     c.title competence_title,
                     o.text selected_option,
                     month(a.created_at) month
@@ -25,9 +24,9 @@ class ReportController extends Controller
                 where 
                     year(a.created_at) = '".$request->year."'
                     and c.id = q.competency_id
-                    and a.option_id = o.id
+                    and q.id = qq.question_id
                     and qq.id = a.questionnaire_question_id
-                    and q.id = qq.question_id";
+                    and a.option_id = o.id";
 
         $competencies = [];
 
@@ -80,6 +79,80 @@ class ReportController extends Controller
 
         return $result;
         
+    }
+    public function competenceWithFeedbacks(Request $request)
+    {
+        $sql = "select
+                    c.title competence_title,
+                    o.text selected_option
+                from
+                    questions q,
+                    questionnaire_questions qq,
+                    answers a,
+                    options o,
+                    competencies c
+                where 
+                    (
+                        a.created_at >=  '".$request->start_date."'
+                        and a.created_at >=  '".$request->end_date."'
+                    )
+                    and c.id = q.competency_id
+                    and q.id = qq.question_id
+                    and qq.id = a.questionnaire_question_id
+                    and a.option_id = o.id";
+
+        $competencies = [];
+
+        foreach (Competence::all() as $competence) {
+            $competencies[$competence->title] = [];
+        }
+
+        foreach (\DB::select($sql) as $sqlResponse) {
+            array_push($competencies[$sqlResponse->competence_title], $sqlResponse->selected_option);
+        }
+
+        $result = [];
+        foreach ($competencies as $competenceData) {
+
+            dd($competenceData);
+            $processedData = [];
+
+            foreach ($data as $dataValues) {
+                if (count($dataValues) == 0) {
+                    array_push($processedData, [
+                        'percentYes' => 0,
+                        'percentNo' => 0,
+                        'yes' => 0,
+                        'no' => 0,
+                        'total' => 0
+                    ]);
+                } else {
+                    $total = count($dataValues);
+                    $yesCounter = 0;
+                    
+                    foreach ($dataValues as $dataValue) {
+                        if (strtoupper($dataValue) == 'SIM') {
+                            $yesCounter++;
+                        }
+                    }
+
+                    array_push($processedData, [
+                        'percentYes' => $yesCounter/$total,
+                        'percentNo' => ($total-$yesCounter)/$total,
+                        'yes' => $yesCounter,
+                        'no' => $total-$yesCounter,
+                        'total' => $total
+                    ]);
+                }
+            }
+
+            array_push($result, [
+                'name' => $competence,
+                'data' => $processedData
+            ]);
+        }
+
+        return $result;
     }
 
 }
