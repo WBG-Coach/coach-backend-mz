@@ -159,5 +159,5 @@ use App\Http\Controllers\ReportController;
 Route::controller(ReportController::class)->group(function () {
     Route::middleware('auth:api')->post('/reports/competence_evolutions', 'competenceEvolutions');
     Route::middleware('auth:api')->post('/reports/competence-with-feedbacks', 'competenceWithFeedbacks');
-    Route::post('/reports/dashboard', 'dashboard');
+    Route::middleware('auth:api')->post('/reports/dashboard', 'dashboard');
 });
