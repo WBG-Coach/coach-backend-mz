@@ -98,10 +98,10 @@ class ReportController extends Controller
                     options o,
                     competencies c
                 where 
-                    (
+                    /*(
                         a.created_at >=  '".$request->start_date."'
                         and a.created_at >=  '".$request->end_date."'
-                    )
+                    )*/
                     and c.id = q.competency_id
                     and q.id = qq.question_id
                     and qq.id = a.questionnaire_question_id
@@ -118,43 +118,22 @@ class ReportController extends Controller
         }
 
         $result = [];
-        foreach ($competencies as $competenceData) {
+        foreach ($competencies as $competence => $competenceData) {
 
-            dd($competenceData);
-            $processedData = [];
+            $total = count($competenceData);
+            $yesCounter = 0;
 
-            foreach ($data as $dataValues) {
-                if (count($dataValues) == 0) {
-                    array_push($processedData, [
-                        'percentYes' => 0,
-                        'percentNo' => 0,
-                        'yes' => 0,
-                        'no' => 0,
-                        'total' => 0
-                    ]);
-                } else {
-                    $total = count($dataValues);
-                    $yesCounter = 0;
-                    
-                    foreach ($dataValues as $dataValue) {
-                        if (strtoupper($dataValue) == 'SIM') {
-                            $yesCounter++;
-                        }
-                    }
-
-                    array_push($processedData, [
-                        'percentYes' => $yesCounter/$total,
-                        'percentNo' => ($total-$yesCounter)/$total,
-                        'yes' => $yesCounter,
-                        'no' => $total-$yesCounter,
-                        'total' => $total
-                    ]);
+            foreach ($competenceData as $dataValue) {
+                if (strtoupper($dataValue) == 'SIM') {
+                    $yesCounter++;
                 }
             }
 
             array_push($result, [
                 'name' => $competence,
-                'data' => $processedData
+                'yes' => $yesCounter,
+                'no' => $total-$yesCounter,
+                'total' => $total
             ]);
         }
 
