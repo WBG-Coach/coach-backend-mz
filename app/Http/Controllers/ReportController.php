@@ -151,7 +151,7 @@ class ReportController extends Controller
         $competencies = [];
         foreach(Competence::all() as $competence) {
             array_push($competencies, [
-                'name' => $competence->name,
+                'name' => $competence->title,
                 'quantity' => Feedback::whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->where('competence_id', $competence->id)->count()
             ]);
         }
@@ -162,8 +162,8 @@ class ReportController extends Controller
             "coaches_qty" => User::where('profile_id', $coachProfileId)->whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
             "teachers_qty" => User::where('profile_id', $teacherProfileId)->whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
             "teacher_most_sessions" => [
-                'user': User::find($teacherInMostSessions->teacher_id),
-                'quantity': $teacherInMostSessions->quantidade
+                'user' => User::find($teacherInMostSessions->teacher_id),
+                'quantity' => $teacherInMostSessions->quantidade
             ],
             "coach_most_sessions" => [
                'user' => User::find($coachInMostSessions->coach_id),
