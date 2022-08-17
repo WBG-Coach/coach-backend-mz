@@ -163,7 +163,7 @@ class ReportController extends Controller
             "teachers_qty" => User::where('profile_id', $teacherProfileId)->whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
             "teacher_most_sessions" => [
                 'user' => User::find($teacherInMostSessions->teacher_id),
-                'quantity' => $teacherInMostSessions->quantidade
+                'quantity' => $teacherInMostSessions->quantity
             ],
             "coach_most_sessions" => [
                'user' => User::find($coachInMostSessions->coach_id),
