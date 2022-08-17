@@ -4,8 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Reports\CompetenceEvolutionRequest;
+use App\Http\Requests\Reports\DashboardRequest;
 
 use App\Models\Competence;
+use App\Models\QuestionnaireApplication;
+use App\Models\School;
+use App\Models\User;
+use App\Models\Profile;
+use App\Models\Feedback;
 
 class ReportController extends Controller
 {
@@ -153,6 +159,39 @@ class ReportController extends Controller
         }
 
         return $result;
+    }
+
+    public function dashboard(DashboardRequest $request)
+    {
+        $coachProfileId = Profile::where('name', 'COACH')->first()->id;
+        $teacherProfileId = Profile::where('name', 'TEACHER')->first()->id;
+
+        $teacherInMostSessions = QuestionnaireApplication::select('teacher_id', \DB::raw("count(teacher_id) quantity"))->whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")->groupBy('teacher_id')->orderBy('quantity', 'desc')->first();
+        $coachInMostSessions = QuestionnaireApplication::select('coach_id', \DB::raw("count(coach_id) quantity"))->whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")->groupBy('coach_id')->orderBy('quantity', 'desc')->first();
+
+        $competencies = [];
+        foreach(Competence::all() as $competence) {
+            array_push($competencies, [
+                'name' => $competence->name,
+                'quantity' => Feedback::whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->where('competence_id', $competence->id)->count()
+            ]);
+        }
+
+        return [
+            "questionnaire_applications_qty" => QuestionnaireApplication::whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")->count(),
+            "schools_qty" => School::whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
+            "coaches_qty" => User::where('profile_id', $coachProfileId)->whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
+            "teachers_qty" => User::where('profile_id', $teacherProfileId)->whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
+            "teacher_most_sessions" => [
+                'user': User::find($teacherInMostSessions->teacher_id),
+                'quantity': $teacherInMostSessions->quantidade
+            ],
+            "coach_most_sessions" => [
+               'user' => User::find($coachInMostSessions->coach_id),
+               'quantity' => $coachInMostSessions->quantity
+            ],
+            "competencies" => $competencies
+        ];
     }
 
 }
