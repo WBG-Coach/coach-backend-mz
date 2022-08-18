@@ -98,10 +98,10 @@ class ReportController extends Controller
                     options o,
                     competencies c
                 where 
-                    /*(
+                    (
                         a.created_at >=  '".$request->start_date."'
-                        and a.created_at >=  '".$request->end_date."'
-                    )*/
+                        and a.created_at <=  '".$request->end_date."'
+                    )
                     and c.id = q.competency_id
                     and q.id = qq.question_id
                     and qq.id = a.questionnaire_question_id
