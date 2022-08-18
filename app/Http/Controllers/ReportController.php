@@ -162,12 +162,12 @@ class ReportController extends Controller
             "coaches_qty" => User::where('profile_id', $coachProfileId)->whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
             "teachers_qty" => User::where('profile_id', $teacherProfileId)->whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
             "teacher_most_sessions" => [
-                'user' => User::find($teacherInMostSessions->teacher_id),
-                'quantity' => $teacherInMostSessions->quantity
+                'user' => $teacherInMostSessions?User::find($teacherInMostSessions->teacher_id):null,
+                'quantity' => $teacherInMostSessions?$teacherInMostSessions->quantity:0
             ],
             "coach_most_sessions" => [
-               'user' => User::find($coachInMostSessions->coach_id),
-               'quantity' => $coachInMostSessions->quantity
+               'user' => $coachInMostSessions?User::find($coachInMostSessions->coach_id):null,
+               'quantity' => $coachInMostSessions?$coachInMostSessions->quantity:0
             ],
             "competencies" => $competencies
         ];
