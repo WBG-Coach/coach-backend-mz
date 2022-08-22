@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
-{
+{// TODO: criar o project_id e retornar no login
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

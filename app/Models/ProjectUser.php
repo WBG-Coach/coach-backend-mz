@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectUser extends Model
 {
+    // TODO: deletar e criar o project_id direto no "users"
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     /**

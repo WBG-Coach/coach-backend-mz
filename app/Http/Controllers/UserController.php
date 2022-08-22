@@ -137,6 +137,8 @@ class UserController extends Controller
             $userSchool->user_id = $user->id;
             $userSchool->save();
 
+            // TODO: pegar o project id do usuario que esta cadastrando e criar o vinculo
+
             \DB::commit();
             return $user->id;
         } catch (\Exception $e) {

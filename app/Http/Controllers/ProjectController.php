@@ -14,7 +14,10 @@ class ProjectController extends Controller
             return Project::with('users')->find($request->id);
         }
 
-        $search = Project::select('id', 'name', 'image_url');
+        $search = Project::select('id', 'name'
+                    ,'image_url'
+                    ,'primary_color'
+                    ,'country');
         if($request->name) {
             $search->whereRaw("name like '%".$request->name."%'");
         }
