@@ -43,6 +43,9 @@ class SchoolController extends Controller
         if ($request->name) {
             $search->whereRaw("name like '%".$request->name."%'");
         }
+        if ($request->project_id) {
+            $search->where("project_id", $request->project_id);
+        }
         if ($request->pagination) {
             return $search->paginate($request->pagination);
         }

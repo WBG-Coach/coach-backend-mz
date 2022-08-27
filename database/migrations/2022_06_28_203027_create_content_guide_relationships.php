@@ -34,7 +34,7 @@ class CreateContentGuideRelationships extends Migration
             $table->dropForeign('options_content_guide_id_foreign');
         });
         Schema::table('competencies', function (Blueprint $table) {
-            $table->dropForeign('options_content_guide_id_foreign');
+            $table->dropForeign('competencies_content_guide_id_foreign');
         });
         Schema::table('options', function (Blueprint $table) {
             $table->dropColumn('content_guide_id');

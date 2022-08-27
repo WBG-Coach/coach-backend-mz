@@ -29,6 +29,7 @@ class ClearAll extends Seeder
         \DB::statement("delete from schools");
         \DB::statement("delete from users");
         \DB::statement("delete from profiles");
+        \DB::statement("delete from projects");
         \DB::statement("delete from content_guides");
     }
 }

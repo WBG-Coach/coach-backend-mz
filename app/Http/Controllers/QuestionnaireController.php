@@ -21,6 +21,9 @@ class QuestionnaireController extends Controller
         if($request->type) {
             $search->whereRaw("type like '%".$request->type."%'");
         }
+        if($request->project_id) {
+            $search->where("project_id", $request->project_id);
+        }
         if ($request->pagination) {
             return $search->paginate($request->pagination);
         }

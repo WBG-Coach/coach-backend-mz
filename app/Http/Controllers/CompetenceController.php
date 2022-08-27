@@ -18,6 +18,9 @@ class CompetenceController extends Controller
         if($request->matrix_id) {
             $search->where("matrix_id", $request->matrix_id);
         }
+        if($request->project_id) {
+            $search->where("project_id", $request->project_id);
+        }
         if($request->title) {
             $search->whereRaw("title like '%".$request->title."%'");
         }

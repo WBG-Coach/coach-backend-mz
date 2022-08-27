@@ -26,7 +26,8 @@ class Competence extends Model
         'subtitle',
         'description',
         'matrix_id',
-        'content_guide_id'
+        'content_guide_id',
+        'project_id'
     ];
 
     public function feedbacks()
@@ -37,6 +38,11 @@ class Competence extends Model
     public function matrix()
     {
         return $this->belongsTo('App\Models\Matrix', 'matrix_id', 'id');
+    }
+
+    public function project()
+    {
+        return $this->belongsTo('App\Models\Project', 'project_id', 'id');
     }
 
     public function questions()

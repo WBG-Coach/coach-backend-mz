@@ -8,7 +8,6 @@ use App\Http\Requests\Login\GetTokenRequest;
 use App\Http\Requests\Login\GetTokenAdminRequest;
 
 use App\Models\User;
-use App\Models\ProjectUser;
 use App\Models\Profile;
 
 class LoginController extends Controller
@@ -17,13 +16,8 @@ class LoginController extends Controller
     {
         $profile = Profile::where('name', 'COACH')->first();
 
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            if (ProjectUser::where('user_id', $user->id)->where('project_id', $request->project_id)->exists()) {
-                if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'profile_id' => $profile->id])) {
-                    return \Auth::user();
-                }
-            }
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'profile_id' => $profile->id, 'project_id' => $request->project_id])) {
+            return \Auth::user();
         }
 
         return response()->json([

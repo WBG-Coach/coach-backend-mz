@@ -23,8 +23,14 @@ class Questionnaire extends Model
      */
     protected $fillable = [
         'title',
-        'type'
+        'type',
+        'project_id'
     ];
+
+    public function project()
+    {
+        return $this->belongsTo('App\Models\Project', 'project_id', 'id');
+    }
 
     public function applications()
     {

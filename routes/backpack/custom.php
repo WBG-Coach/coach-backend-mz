@@ -27,7 +27,6 @@ Route::group([
     Route::crud('permission', 'PermissionCrudController');
     Route::crud('profile', 'ProfileCrudController');
     Route::crud('project', 'ProjectCrudController');
-    Route::crud('project-user', 'ProjectUserCrudController');
     Route::crud('question', 'QuestionCrudController');
     Route::crud('questionnaire', 'QuestionnaireCrudController');
     Route::crud('questionnaire-application', 'QuestionnaireApplicationCrudController');

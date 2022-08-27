@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
-{// TODO: criar o project_id e retornar no login
+{
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'image_url',
         'profile_id',
+        'project_id',
         'subject'
     ];
 
@@ -37,9 +38,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function projectUser()
+    public function project()
     {
-        return $this->hasMany('App\Models\ProjectUser', 'user_id', 'id');
+        return $this->belongsTo('App\Models\Project', 'project_id', 'id');
     }
 
 }

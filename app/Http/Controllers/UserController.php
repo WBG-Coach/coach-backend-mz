@@ -20,7 +20,6 @@ use App\Models\Profile;
 use App\Models\QuestionnaireApplication;
 use App\Models\Answer;
 use App\Models\Feedback;
-use App\Models\ProjectUser;
 
 use Illuminate\Support\Str;
 
@@ -41,6 +40,9 @@ class UserController extends Controller
         }
         if ($request->profile_id) {
             $search->where("profile_id", $request->profile_id);
+        }
+        if ($request->project_id) {
+            $search->where("project_id", $request->project_id);
         }
         if ($request->pagination) {
             return $search->paginate($request->pagination);
@@ -100,15 +102,9 @@ class UserController extends Controller
             $user->fill($request->all());
             $user->password = bcrypt($request->password);
             $user->profile_id = $profile->id;
+            $user->project_id = $request->project_id;
             $user->api_token = Str::random(80);
             $user->save();
-
-            if ($request->project_id) {
-                $pu = new ProjectUser();
-                $pu->user_id = $user->id;
-                $pu->project_id = $request->project_id;
-                $pu->save();
-            }
 
             \DB::commit();
             return $user->id;
@@ -136,8 +132,6 @@ class UserController extends Controller
             $userSchool->school_id = $request->school_id;
             $userSchool->user_id = $user->id;
             $userSchool->save();
-
-            // TODO: pegar o project id do usuario que esta cadastrando e criar o vinculo
 
             \DB::commit();
             return $user->id;

@@ -25,7 +25,8 @@ class DashboardRequest extends FormRequest
     {
         return [
             'start_date' => 'required',
-            'end_date' => 'required'
+            'end_date' => 'required',
+            'project_id' => 'required'
         ];
     }
 }

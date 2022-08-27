@@ -30,6 +30,6 @@ class Project extends Model
 
     public function users()
     {
-        return $this->hasMany('App\Models\ProjectUser', 'project_id', 'id');
+        return $this->hasMany('App\Models\User', 'project_id', 'id');
     }
 }
