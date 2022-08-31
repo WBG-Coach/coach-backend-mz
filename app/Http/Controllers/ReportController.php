@@ -191,8 +191,8 @@ class ReportController extends Controller
         $response = [];
 
         foreach (School::all() as $school) {
-            $sessions = QuestionnaireApplication::with('answers.option')->whereRaw("questionnaire_id in (select id from questionnaires q where q.project_id = ".$project_id.")")
-            ->whereRaw("application_date >= '".$start_date."' and application_date <= '".$end_date."'")
+            $sessions = QuestionnaireApplication::with('answers.option')->whereRaw("questionnaire_id in (select id from questionnaires q where q.project_id = ".$request->project_id.")")
+            ->whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")
             ->where('school_id', $school['id']);
 
             $yesCounter = 0;
@@ -213,6 +213,84 @@ class ReportController extends Controller
 
             array_push($response, [
                 'school' => $school,
+                'sessions_qty' => $sessions->count(),
+                'yes_qty' => $yesCounter,
+                'no_qty' => $noCounter,
+                'feedback_qty' => $feedbackQty
+            ]);
+        }
+
+        return $response;
+    }
+
+    public function sessionsByCoach(Request $request)
+    {
+        $response = [];
+
+        $coachProfileId = Profile::where('name', 'COACH')->first()->id;
+
+        foreach (User::where('profile_id', $coachProfileId)->get() as $coach) {
+            $sessions = QuestionnaireApplication::with('answers.option')->whereRaw("questionnaire_id in (select id from questionnaires q where q.project_id = ".$request->project_id.")")
+            ->whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")
+            ->where('coach_id', $coach['id']);
+
+            $yesCounter = 0;
+            $noCounter = 0;
+            $feedbackQty = 0;
+            foreach ($sessions->get() as $session) {
+                foreach ($session['answers'] as $answer) {
+                    if (mb_strtoupper($answer['option']['text']) == 'SIM') {
+                        $yesCounter++;
+                    }
+                    if (mb_strtoupper($answer['option']['text']) == 'NÃO') {
+                        $noCounter++;
+                    }
+                }
+
+                $feedbackQty += Feedback::where('questionnaire_application_id', $session['id'])->count();
+            }
+
+            array_push($response, [
+                'coach' => $coach,
+                'sessions_qty' => $sessions->count(),
+                'yes_qty' => $yesCounter,
+                'no_qty' => $noCounter,
+                'feedback_qty' => $feedbackQty
+            ]);
+        }
+
+        return $response;
+    }
+
+    public function sessionsByTeacher(Request $request)
+    {
+        $response = [];
+
+        $teacherProfileId = Profile::where('name', 'TEACHER')->first()->id;
+
+        foreach (User::where('profile_id', $teacherProfileId)->get() as $teacher) {
+            $sessions = QuestionnaireApplication::with('answers.option')->whereRaw("questionnaire_id in (select id from questionnaires q where q.project_id = ".$request->project_id.")")
+            ->whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")
+            ->where('teacher_id', $teacher['id']);
+
+            $yesCounter = 0;
+            $noCounter = 0;
+            $feedbackQty = 0;
+            foreach ($sessions->get() as $session) {
+                foreach ($session['answers'] as $answer) {
+                    if (mb_strtoupper($answer['option']['text']) == 'SIM') {
+                        $yesCounter++;
+                    }
+                    if (mb_strtoupper($answer['option']['text']) == 'NÃO') {
+                        $noCounter++;
+                    }
+                }
+
+                $feedbackQty += Feedback::where('questionnaire_application_id', $session['id'])->count();
+            }
+
+            array_push($response, [
+                'teacher' => $teacher,
                 'sessions_qty' => $sessions->count(),
                 'yes_qty' => $yesCounter,
                 'no_qty' => $noCounter,

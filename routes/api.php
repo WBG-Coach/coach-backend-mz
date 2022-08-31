@@ -161,4 +161,6 @@ Route::controller(ReportController::class)->group(function () {
     Route::middleware('auth:api')->post('/reports/competence-with-feedbacks', 'competenceWithFeedbacks');
     Route::middleware('auth:api')->post('/reports/dashboard', 'dashboard');
     Route::middleware('auth:api')->post('/reports/sessionsBySchool', 'sessionsBySchool');
+    Route::middleware('auth:api')->post('/reports/sessionsByCoach', 'sessionsByCoach');
+    Route::middleware('auth:api')->post('/reports/sessionsByTeacher', 'sessionsByTeacher');
 });
