@@ -186,4 +186,41 @@ class ReportController extends Controller
         ];
     }
 
+    public function sessionsBySchool(Request $request)
+    {
+        $response = [];
+
+        foreach (School::all() as $school) {
+            $sessions = QuestionnaireApplication::with('answers.option')->whereRaw("questionnaire_id in (select id from questionnaires q where q.project_id = ".$project_id.")")
+            ->whereRaw("application_date >= '".$start_date."' and application_date <= '".$end_date."'")
+            ->where('school_id', $school['id']);
+
+            $yesCounter = 0;
+            $noCounter = 0;
+            $feedbackQty = 0;
+            foreach ($sessions->get() as $session) {
+                foreach ($session['answers'] as $answer) {
+                    if (mb_strtoupper($answer['option']['text']) == 'SIM') {
+                        $yesCounter++;
+                    }
+                    if (mb_strtoupper($answer['option']['text']) == 'NÃO') {
+                        $noCounter++;
+                    }
+                }
+
+                $feedbackQty += Feedback::where('questionnaire_application_id', $session['id'])->count();
+            }
+
+            array_push($response, [
+                'school' => $school,
+                'sessions_qty' => $sessions->count(),
+                'yes_qty' => $yesCounter,
+                'no_qty' => $noCounter,
+                'feedback_qty' => $feedbackQty
+            ]);
+        }
+
+        return $response;
+    }
+
 }
