@@ -31,7 +31,8 @@ class School extends Model
         'town',
         'village',
         'district',
-        'external_group_id'
+        'external_group_id',
+        'project_id'
     ];
 
     public function users()

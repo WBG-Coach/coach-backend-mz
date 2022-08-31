@@ -41,6 +41,7 @@ class SchoolCrudController extends CrudController
     {
         CRUD::column('id');
         CRUD::column('name');
+        CRUD::column('project_id');
         CRUD::column('image_url');
         CRUD::column('address');
         CRUD::column('country');
@@ -69,6 +70,7 @@ class SchoolCrudController extends CrudController
         CRUD::setValidation(SchoolRequest::class);
 
         CRUD::field('name');
+        CRUD::field('project_id');
         CRUD::field('image_url');
         CRUD::field('address');
         CRUD::field('country');
