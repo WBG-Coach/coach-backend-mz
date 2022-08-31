@@ -20,3 +20,4 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('questionnaire-question') }}'><i class='nav-icon la la-question'></i> Questionnaire questions</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('school') }}'><i class='nav-icon la la-question'></i> Schools</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('user-school') }}'><i class='nav-icon la la-question'></i> User schools</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('user') }}'><i class='nav-icon la la-question'></i> Users</a></li>

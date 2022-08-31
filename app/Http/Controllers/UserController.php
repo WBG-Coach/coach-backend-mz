@@ -79,7 +79,7 @@ class UserController extends Controller
         try {
             $user = new User();
             $user->fill($request->all());
-            $user->password = bcrypt($request->password);
+            $user->password = $request->password;
             $user->api_token = Str::random(80);
             $user->save();
 
@@ -100,7 +100,7 @@ class UserController extends Controller
 
             $user = new User();
             $user->fill($request->all());
-            $user->password = bcrypt($request->password);
+            $user->password = $request->password;
             $user->profile_id = $profile->id;
             $user->project_id = $request->project_id;
             $user->api_token = Str::random(80);
@@ -123,7 +123,7 @@ class UserController extends Controller
 
             $user = new User();
             $user->fill($request->all());
-            $user->password = bcrypt('pass123');
+            $user->password = 'pass123';
             $user->profile_id = $profile->id;
             $user->api_token = Str::random(80);
             $user->save();
@@ -150,7 +150,7 @@ class UserController extends Controller
             $user = User::find($request->id);
             $user->fill($request->all());
             if ($request->password) {
-                $user->password = bcrypt($request->password);
+                $user->password = $request->password;
             }
             $user->update();
 
@@ -170,7 +170,7 @@ class UserController extends Controller
 
             if (\Auth::attempt(['email' => \Auth::guard('api')->user()->email, 'password' => $request->old_password])) {
                 $user = User::find(\Auth::guard('api')->user()->id);
-                $user->password = bcrypt($request->new_password);
+                $user->password = $request->new_password;
                 $user->update();
             }
 

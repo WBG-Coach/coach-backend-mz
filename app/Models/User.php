@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -41,6 +42,11 @@ class User extends Authenticatable
     public function project()
     {
         return $this->belongsTo('App\Models\Project', 'project_id', 'id');
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
 }
