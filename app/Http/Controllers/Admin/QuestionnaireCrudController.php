@@ -41,6 +41,7 @@ class QuestionnaireCrudController extends CrudController
     {
         CRUD::column('id');
         CRUD::column('title');
+        CRUD::column('project_id');
         CRUD::column('type');
 
         /**
@@ -61,6 +62,7 @@ class QuestionnaireCrudController extends CrudController
         CRUD::setValidation(QuestionnaireRequest::class);
 
         CRUD::field('title');
+        CRUD::field('project_id');
         CRUD::field('type');
 
         /**
