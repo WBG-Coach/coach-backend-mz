@@ -25,7 +25,8 @@ class Project extends Model
         'name',
         'image_url',
         'primary_color',
-        'country'
+        'country',
+        'is_active'
     ];
 
     public function users()
