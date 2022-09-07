@@ -41,6 +41,7 @@ class ProjectCrudController extends CrudController
     {
         CRUD::column('id');
         CRUD::column('name');
+        CRUD::column('is_active');
         CRUD::column('image_url');
         CRUD::column('primary_color');
         CRUD::column('country');
@@ -63,6 +64,7 @@ class ProjectCrudController extends CrudController
         CRUD::setValidation(ProjectRequest::class);
 
         CRUD::field('name');
+        CRUD::field('is_active');
         CRUD::field('image_url');
         CRUD::field('primary_color');
         CRUD::field('country');
