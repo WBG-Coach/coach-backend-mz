@@ -190,7 +190,7 @@ class ReportController extends Controller
     {
         $response = [];
 
-        foreach (School::all() as $school) {
+        foreach (School::where('project_id', $request->project_id)->get() as $school) {
             $sessions = QuestionnaireApplication::with('answers.option')->whereRaw("questionnaire_id in (select id from questionnaires q where q.project_id = ".$request->project_id.")")
             ->whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")
             ->where('school_id', $school['id']);
@@ -229,7 +229,7 @@ class ReportController extends Controller
 
         $coachProfileId = Profile::where('name', 'COACH')->first()->id;
 
-        foreach (User::where('profile_id', $coachProfileId)->get() as $coach) {
+        foreach (User::where('profile_id', $coachProfileId)->where('project_id', $request->project_id)->get() as $coach) {
             $sessions = QuestionnaireApplication::with('answers.option')->whereRaw("questionnaire_id in (select id from questionnaires q where q.project_id = ".$request->project_id.")")
             ->whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")
             ->where('coach_id', $coach['id']);
@@ -268,7 +268,7 @@ class ReportController extends Controller
 
         $teacherProfileId = Profile::where('name', 'TEACHER')->first()->id;
 
-        foreach (User::where('profile_id', $teacherProfileId)->get() as $teacher) {
+        foreach (User::where('profile_id', $teacherProfileId)->where('project_id', $request->project_id)->get() as $teacher) {
             $sessions = QuestionnaireApplication::with('answers.option')->whereRaw("questionnaire_id in (select id from questionnaires q where q.project_id = ".$request->project_id.")")
             ->whereRaw("application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."'")
             ->where('teacher_id', $teacher['id']);
