@@ -87,7 +87,8 @@ class ReportController extends Controller
         return $result;
         
     }
-    public function competenceWithFeedbacks(Request $request)
+
+    public function competences(Request $request)
     {
         $sql = "select
                     c.title competence_title,
@@ -299,6 +300,59 @@ class ReportController extends Controller
         }
 
         return $response;
+    }
+
+    public function competencesBySchool(Request $request)
+    {
+
+        $sql = "select
+                    c.title competence_title,
+                    o.text selected_option
+                from
+                    questions q,
+                    questionnaire_questions qq,
+                    answers a,
+                    options o,
+                    competencies c
+                where c.id = q.competency_id
+                    and q.id = qq.question_id
+                    and qq.id = a.questionnaire_question_id
+                    and c.project_id = ".$request->project_id."
+                    and a.option_id = o.id";
+
+        $competencies = [];
+
+        foreach (Competence::where('project_id', $request->project_id)->get() as $competence) {
+            $competencies[$competence->title] = [];
+        }
+
+        foreach (\DB::select($sql) as $sqlResponse) {
+            array_push($competencies[$sqlResponse->competence_title], $sqlResponse->selected_option);
+        }
+
+        $result = [];
+        foreach ($competencies as $competence => $competenceData) {
+            $total = count($competenceData);
+            $yesCounter = 0;
+
+            foreach ($competenceData as $dataValue) {
+                if (strtoupper($dataValue) == 'SIM') {
+                    $yesCounter++;
+                }
+            }
+
+            array_push($result, [
+                'name' => $competence,
+                'yes' => $yesCounter,
+                'no' => $total-$yesCounter,
+                'total' => $total,
+                'feedbacks_quantity' => Feedback::whereRaw("competence_id in (select c.id from competencies c where c.title = '".$competence."')")
+                                        ->whereRaw("questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.school_id = ".$request->school_id.")")
+                                        ->count()
+            ]);
+        }
+
+        return $result;
     }
 
 }

@@ -157,10 +157,11 @@ Route::controller(ContentGuideController::class)->group(function () {
 
 use App\Http\Controllers\ReportController;
 Route::controller(ReportController::class)->group(function () {
-    Route::middleware('auth:api')->post('/reports/competence_evolutions', 'competenceEvolutions');
-    Route::middleware('auth:api')->post('/reports/competence-with-feedbacks', 'competenceWithFeedbacks');
+    Route::middleware('auth:api')->post('/reports/competence-evolutions', 'competenceEvolutions');
+    Route::middleware('auth:api')->post('/reports/competences', 'competences');
     Route::middleware('auth:api')->post('/reports/dashboard', 'dashboard');
-    Route::middleware('auth:api')->post('/reports/sessionsBySchool', 'sessionsBySchool');
-    Route::middleware('auth:api')->post('/reports/sessionsByCoach', 'sessionsByCoach');
-    Route::middleware('auth:api')->post('/reports/sessionsByTeacher', 'sessionsByTeacher');
+    Route::middleware('auth:api')->post('/reports/sessions-by-school', 'sessionsBySchool');
+    Route::middleware('auth:api')->post('/reports/sessions-by-coach', 'sessionsByCoach');
+    Route::middleware('auth:api')->post('/reports/sessions-by-teacher', 'sessionsByTeacher');
+    Route::middleware('auth:api')->post('/reports/competences-by-school', 'competencesBySchool');
 });
