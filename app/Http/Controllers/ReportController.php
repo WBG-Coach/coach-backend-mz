@@ -221,6 +221,7 @@ class ReportController extends Controller
             ]);
         }
 
+	usort($response, function ($a, $b) {return $a['sessions_qty'] < $b['sessions_qty'];});
         return $response;
     }
 
@@ -260,6 +261,7 @@ class ReportController extends Controller
             ]);
         }
 
+	usort($response, function ($a, $b) {return $a['sessions_qty'] < $b['sessions_qty'];});
         return $response;
     }
 
@@ -299,6 +301,7 @@ class ReportController extends Controller
             ]);
         }
 
+	usort($response, function ($a, $b) {return $a['sessions_qty'] < $b['sessions_qty'];});
         return $response;
     }
 
