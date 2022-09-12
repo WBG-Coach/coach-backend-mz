@@ -355,4 +355,192 @@ class ReportController extends Controller
         return $result;
     }
 
+    public function sessionsByYear(CompetenceEvolutionRequest $request)
+    {
+
+        return [
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '1'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '1'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '2'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '2'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '3'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '3'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '4'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '4'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '5'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '5'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '6'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '6'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '7'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '7'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '8'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '8'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '9'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '9'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '10'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '10'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '11'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '11'
+                                                                                        )")->count()
+            ],
+            [
+                'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                            ->whereRaw("YEAR(application_date) = '".$request->year."'")
+                                                            ->whereRaw("MONTH(application_date) = '12'")
+                                                            ->count(),
+                'feedback_qty' => Feedback::whereRaw("questionnaire_application_id in (select qa.id 
+                                                                                            from questionnaire_applications qa 
+                                                                                            where qa.questionnaire_id in (select q.id 
+                                                                                                                            from questionnaires q 
+                                                                                                                            where q.project_id = ".$request->project_id."
+                                                                                                                        )
+                                                                                            and YEAR(qa.application_date) = '".$request->year."'
+                                                                                            and MONTH(qa.application_date) = '12'
+                                                                                        )")->count()
+            ]
+        ];
+        
+    }
+
 }
