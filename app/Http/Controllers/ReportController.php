@@ -543,4 +543,18 @@ class ReportController extends Controller
         
     }
 
+    public function sessionsQtyByProject(Request $request)
+    {
+
+        return [
+            'sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                    -> whereRaw("(application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."')")
+                                                    -> count(),
+            'pending_feedback_sessions_qty' => QuestionnaireApplication::whereRaw("questionnaire_id in (select q.id from questionnaires q where q.project_id = ".$request->project_id.")")
+                                                    -> whereRaw("(application_date >= '".$request->start_date."' and application_date <= '".$request->end_date."')")
+                                                    -> where('status', 'PENDING_FEEDBACK')
+                                                    -> count()
+        ];
+    }
+
 }

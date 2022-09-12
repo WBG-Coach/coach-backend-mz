@@ -165,4 +165,5 @@ Route::controller(ReportController::class)->group(function () {
     Route::middleware('auth:api')->post('/reports/sessions-by-teacher', 'sessionsByTeacher');
     Route::middleware('auth:api')->post('/reports/competences-by-school', 'competencesBySchool');
     Route::middleware('auth:api')->post('/reports/sessions-by-year', 'sessionsByYear');
+    Route::middleware('auth:api')->post('/reports/sessions-qty-by-project', 'sessionsQtyByProject');
 });
