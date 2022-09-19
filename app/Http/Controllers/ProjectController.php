@@ -11,7 +11,6 @@ class ProjectController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            // TODO: mandar os questionarios
             return Project::with('users', 'observationQuestionnaire', 'feedbackQuestionnaire')->find($request->id);
         }
 
@@ -20,7 +19,7 @@ class ProjectController extends Controller
                     ,'primary_color'
                     ,'country'
                     ,'is_active');
-                    
+
         if($request->name) {
             $search->whereRaw("name like '%".$request->name."%'");
         }

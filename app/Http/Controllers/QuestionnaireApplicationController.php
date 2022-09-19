@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\QuestionnaireApplication;
+use App\Models\Project;
 
 class QuestionnaireApplicationController extends Controller
 {
@@ -43,6 +44,11 @@ class QuestionnaireApplicationController extends Controller
         try {
             $application = new QuestionnaireApplication();
             $application->fill($request->all());
+            if ($request->project_id) {
+                $project = Project::find($request->project_id);
+                $application->questionnaire_id = $project->observation_questionnaire_id;
+                $application->feedback_questionnaire_id = $project->feedback_questionnaire_id;
+            }
             $application->save();
 
             \DB::commit();
