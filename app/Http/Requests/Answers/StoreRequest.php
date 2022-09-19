@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'questionnaire_application_id' => 'required|exists:questionnaire_applications,id',
+            'questionnaire_application_id' => 'exists:questionnaire_applications,id',
             'answers' => 'array'
         ];
     }

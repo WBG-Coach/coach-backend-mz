@@ -7,6 +7,7 @@ use App\Http\Requests\Answers\StoreRequest;
 
 use App\Models\Answer;
 use App\Models\AnswerFile;
+use App\Models\Project;
 use App\Models\QuestionnaireApplication;
 
 class AnswerController extends Controller
@@ -38,9 +39,24 @@ class AnswerController extends Controller
         \DB::beginTransaction();
 
         try {
-            // TODO: cenario onde sera enviado o QuestionnaireApplication para criação do questionario ja com as respostas
-            if ($request->questionnaire_application_id && $request->answers) {
-                $application = QuestionnaireApplication::find($request->questionnaire_application_id);
+            if (($request->questionnaire_application_id || $request->questionnaire_application) && $request->answers) {
+                if ($request->questionnaire_application_id) {
+                    $application = QuestionnaireApplication::find($request->questionnaire_application_id);
+                } else {
+                    $application = new QuestionnaireApplication();
+                    $application->coach_id = $request->questionnaire_application['coach_id'];
+                    $application->teacher_id = $request->questionnaire_application['teacher_id'];
+                    $application->school_id = $request->questionnaire_application['school_id'];
+                    $application->application_date = $request->questionnaire_application['application_date'];
+                    $application->status = 'PENDING_RESPONSE';
+                    if ($request->project_id) {
+                        $project = Project::find($request->project_id);
+                        $application->questionnaire_id = $project->observation_questionnaire_id;
+                        $application->feedback_questionnaire_id = $project->feedback_questionnaire_id;
+                    }
+                    $application->save();
+                }
+
                 if ($application->status == 'PENDING_RESPONSE') {
                     foreach ($request->answers as $answer) {
                         $model = new Answer();
