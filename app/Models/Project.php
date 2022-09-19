@@ -26,11 +26,23 @@ class Project extends Model
         'image_url',
         'primary_color',
         'country',
-        'is_active'
+        'is_active',
+        'observation_questionnaire_id', 
+        'feedback_questionnaire_id'
     ];
 
     public function users()
     {
         return $this->hasMany('App\Models\User', 'project_id', 'id');
+    }
+
+    public function observationQuestionnaire()
+    {
+        return $this->belongsTo('App\Models\Questionnaire', 'observation_questionnaire_id', 'id');
+    }
+
+    public function feedbackQuestionnaire()
+    {
+        return $this->belongsTo('App\Models\Questionnaire', 'feedback_questionnaire_id', 'id');
     }
 }

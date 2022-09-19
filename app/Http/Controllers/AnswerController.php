@@ -38,6 +38,7 @@ class AnswerController extends Controller
         \DB::beginTransaction();
 
         try {
+            // TODO: cenario onde sera enviado o QuestionnaireApplication para criação do questionario ja com as respostas
             if ($request->questionnaire_application_id && $request->answers) {
                 $application = QuestionnaireApplication::find($request->questionnaire_application_id);
                 if ($application->status == 'PENDING_RESPONSE') {

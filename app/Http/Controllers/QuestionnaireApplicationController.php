@@ -27,7 +27,7 @@ class QuestionnaireApplicationController extends Controller
         if($request->school_id) {
             $search->where('school_id', $request->school_id);
         }
-        if($request->project_id) { //TODO: project_id
+        if($request->project_id) {
             $search->whereRaw('project_id', $request->project_id);
         }
         if ($request->pagination) {
