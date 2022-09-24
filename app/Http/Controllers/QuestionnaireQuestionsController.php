@@ -18,9 +18,14 @@ class QuestionnaireQuestionsController extends Controller
         }
 
         $search = QuestionnaireQuestion::with('question.competence')->select('*');
-        if($request->questionnaire_application_id) {
-            $questionnaireApplication = QuestionnaireApplication::with('questionnaire')->find($request->questionnaire_application_id);
-            $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $questionnaireApplication->questionnaire_id)->orderBy('order')->get();
+        if($request->questionnaire_application_id || $request->questionnaire_id) {
+
+            if ($request->questionnaire_id) {
+                $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $request->questionnaire_id)->orderBy('order')->get();
+            } else {
+                $questionnaireApplication = QuestionnaireApplication::with('questionnaire')->find($request->questionnaire_application_id);
+                $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $questionnaireApplication->questionnaire_id)->orderBy('order')->get();
+            }
 
             if ($request->feedback) {
                 $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $questionnaireApplication->feedback_questionnaire_id)->orderBy('order')->get();
