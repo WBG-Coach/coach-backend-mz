@@ -14,11 +14,7 @@ class ProjectController extends Controller
             return Project::with('users', 'observationQuestionnaire', 'feedbackQuestionnaire')->find($request->id);
         }
 
-        $search = Project::with('observationQuestionnaire', 'feedbackQuestionnaire')->select('id', 'name'
-                    ,'image_url'
-                    ,'primary_color'
-                    ,'country'
-                    ,'is_active');
+        $search = Project::with('observationQuestionnaire', 'feedbackQuestionnaire')->select('*');
 
         if($request->name) {
             $search->whereRaw("name like '%".$request->name."%'");
