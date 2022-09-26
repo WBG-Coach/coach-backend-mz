@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Questionnaire;
 use App\Models\QuestionnaireQuestion;
 use App\Models\QuestionnaireApplication;
 
@@ -22,8 +23,10 @@ class QuestionnaireQuestionsController extends Controller
 
             if ($request->questionnaire_id) {
                 $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $request->questionnaire_id)->orderBy('order')->get();
+                $questionnaire = Questionnaire::find($request->questionnaire_id);
             } else {
-                $questionnaireApplication = QuestionnaireApplication::with('questionnaire')->find($request->questionnaire_application_id);
+                $questionnaireApplication = QuestionnaireApplication::find($request->questionnaire_application_id);
+                $questionnaire = Questionnaire::find($questionnaireApplication->questionnaire_id);
                 $questionnaireQuestions = QuestionnaireQuestion::with('question.competence', 'question.options')->select('*')->where('questionnaire_id', $questionnaireApplication->questionnaire_id)->orderBy('order')->get();
             }
 
@@ -38,7 +41,7 @@ class QuestionnaireQuestionsController extends Controller
 
             return [
                 'questions' => $questionnaireQuestions,
-                'questionnaire' => $questionnaireApplication->questionnaire
+                'questionnaire' => $questionnaire
             ];
         }
         if ($request->pagination) {
