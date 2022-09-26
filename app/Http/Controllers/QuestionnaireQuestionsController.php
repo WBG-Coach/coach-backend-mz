@@ -35,7 +35,11 @@ class QuestionnaireQuestionsController extends Controller
             }
 
             foreach ($questionnaireQuestions as $questionnaireQuestion) {
-                $answers = Answer::with('option.question.competence', 'questionnaireApplication')->where('questionnaire_question_id', $questionnaireQuestion['id'])->whereRaw("questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.teacher_id = ".$questionnaireApplication->teacher_id.")")->get();
+                if ($request->teacher_id) {
+                    $answers = Answer::with('option.question.competence', 'questionnaireApplication')->where('questionnaire_question_id', $questionnaireQuestion['id'])->whereRaw("questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.teacher_id = ".$request->teacher_id.")")->get();
+                } else {
+                    $answers = Answer::with('option.question.competence', 'questionnaireApplication')->where('questionnaire_question_id', $questionnaireQuestion['id'])->whereRaw("questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.teacher_id = ".$questionnaireApplication->teacher_id.")")->get();
+                }
                 $questionnaireQuestion['question']['last_answers'] = $answers;
             }
 
