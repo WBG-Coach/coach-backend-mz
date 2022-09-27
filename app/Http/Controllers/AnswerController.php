@@ -53,6 +53,7 @@ class AnswerController extends Controller
                         $project = Project::find($request->project_id);
                         $application->questionnaire_id = $project->observation_questionnaire_id;
                         $application->feedback_questionnaire_id = $project->feedback_questionnaire_id;
+                        $application->doc_questionnaire_id = $project->doc_questionnaire_id;
                     }
                     $application->order = QuestionnaireApplication::where('teacher_id', $application->teacher_id)->count()+1;
                     $application->save();

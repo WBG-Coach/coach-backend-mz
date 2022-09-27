@@ -48,6 +48,7 @@ class QuestionnaireApplicationCrudController extends CrudController
         CRUD::column('application_date');
         CRUD::column('status');
         CRUD::addColumn(['label' => 'Feedback Questionnaire', 'name' => 'feedback_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title', 'entity' => 'feedbackQuestionnaire']);
+        CRUD::addColumn(['label' => 'Documentation Questionnaire', 'name' => 'doc_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title', 'entity' => 'docQuestionnaire']);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -74,6 +75,7 @@ class QuestionnaireApplicationCrudController extends CrudController
         CRUD::field('application_date');
         CRUD::field('status');
         CRUD::addField(['label' => 'Feedback Questionnaire', 'name' => 'feedback_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title']);
+        CRUD::addField(['label' => 'Documentation Questionnaire', 'name' => 'doc_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title']);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

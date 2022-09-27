@@ -29,7 +29,8 @@ class QuestionnaireApplication extends Model
         'school_id',
         'application_date',
         'status',
-        'feedback_questionnaire_id'
+        'feedback_questionnaire_id',
+        'doc_questionnaire_id'
     ];
 
     public function answers()
@@ -50,6 +51,11 @@ class QuestionnaireApplication extends Model
     public function feedbackQuestionnaire()
     {
         return $this->belongsTo('App\Models\Questionnaire', 'feedback_questionnaire_id', 'id');
+    }
+
+    public function docQuestionnaire()
+    {
+        return $this->belongsTo('App\Models\Questionnaire', 'doc_questionnaire_id', 'id');
     }
 
     public function feedbacks()

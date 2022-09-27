@@ -68,6 +68,9 @@ class ProjectCrudController extends CrudController
         CRUD::field('image_url');
         CRUD::field('primary_color');
         CRUD::field('country');
+        CRUD::addField(['label' => 'Observation Questionnaire', 'name' => 'observation_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title']);
+        CRUD::addField(['label' => 'Feedback Questionnaire', 'name' => 'feedback_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title']);
+        CRUD::addField(['label' => 'Documentation Questionnaire', 'name' => 'doc_questionnaire_id', 'type' => 'select', 'model' => "App\Models\Questionnaire", 'attribute' => 'title']);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

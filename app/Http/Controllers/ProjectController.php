@@ -11,10 +11,10 @@ class ProjectController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return Project::with('users', 'observationQuestionnaire', 'feedbackQuestionnaire')->find($request->id);
+            return Project::with('users', 'observationQuestionnaire', 'feedbackQuestionnaire', 'docQuestionnaire')->find($request->id);
         }
 
-        $search = Project::with('observationQuestionnaire', 'feedbackQuestionnaire')->select('*');
+        $search = Project::with('observationQuestionnaire', 'feedbackQuestionnaire', 'docQuestionnaire')->select('*');
 
         if($request->name) {
             $search->whereRaw("name like '%".$request->name."%'");
