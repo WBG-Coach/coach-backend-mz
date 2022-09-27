@@ -61,7 +61,7 @@ class AnswerController extends Controller
                     foreach ($request->answers as $answer) {
                         $model = new Answer();
                         $model->fill($answer);
-                        $model->questionnaire_application_id = $request->questionnaire_application_id;
+                        $model->questionnaire_application_id = $application->id;
                         $model->save();
 
                         if (isset($answer['files'])) {
