@@ -22,7 +22,7 @@ class QuestionnaireApplication extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'order',
         'questionnaire_id',
         'coach_id',
         'teacher_id',
