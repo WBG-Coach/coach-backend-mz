@@ -85,7 +85,7 @@ class AnswerController extends Controller
 
 
             \DB::commit();
-            return 'true';
+            return $application->id;
         } catch (\Exception $e) {
             \DB::rollback();
             abort(500, $e);
