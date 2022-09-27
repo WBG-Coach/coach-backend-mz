@@ -49,6 +49,7 @@ class QuestionnaireApplicationController extends Controller
                 $application->questionnaire_id = $project->observation_questionnaire_id;
                 $application->feedback_questionnaire_id = $project->feedback_questionnaire_id;
             }
+            $application->order = QuestionnaireApplication::where('teacher_id', $request->teacher_id)->count()+1;
             $application->save();
 
             \DB::commit();
