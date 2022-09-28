@@ -25,6 +25,9 @@ class AnswerController extends Controller
         if($request->questionnaire_question_id) {
             $search->where('questionnaire_question_id', $request->questionnaire_question_id);
         }
+        if($request->questionnaire_id) {
+            $search->where('questionnaire_id', $request->questionnaire_id);
+        }
         if($request->notes) {
             $search->whereRaw("notes like '%".$request->notes."%'");
         }
@@ -64,6 +67,7 @@ class AnswerController extends Controller
                         $model = new Answer();
                         $model->fill($answer);
                         $model->questionnaire_application_id = $application->id;
+                        $model->questionnaire_id = $application->questionnaire_id;
                         $model->save();
 
                         if (isset($answer['files'])) {

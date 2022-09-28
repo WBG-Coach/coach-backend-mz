@@ -27,7 +27,8 @@ class Answer extends Model
         'option_id',
         'notes',
         'latitude',
-        'longitude'
+        'longitude',
+        'questionnaire_id'
     ];
 
     

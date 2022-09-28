@@ -167,3 +167,8 @@ Route::controller(ReportController::class)->group(function () {
     Route::middleware('auth:api')->post('/reports/sessions-by-year', 'sessionsByYear');
     Route::middleware('auth:api')->post('/reports/sessions-qty-by-project', 'sessionsQtyByProject');
 });
+
+use App\Http\Controllers\DocumentQuestionnaireController;
+Route::controller(DocumentQuestionnaireController::class)->group(function () {
+    Route::middleware('auth:api')->post('/document-questionnaire', 'save');
+});
