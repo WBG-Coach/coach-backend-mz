@@ -11,7 +11,7 @@ use App\Models\AnswerFile;
 class DocumentQuestionnaireController extends Controller
 {
 
-    public function save(StoreRequest $request)
+    public function save(Request $request)
     {
         \DB::beginTransaction();
 
