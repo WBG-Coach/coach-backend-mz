@@ -318,7 +318,7 @@ class ReportController extends Controller
     {
 
         $sql = "select
-                    c.title competence_title,
+                    c.id competence_id,
                     o.text selected_option
                 from
                     questions q,
@@ -335,15 +335,15 @@ class ReportController extends Controller
         $competencies = [];
 
         foreach (Competence::where('project_id', $request->project_id)->get() as $competence) {
-            $competencies[$competence->title] = [];
+            $competencies[$competence->id] = [];
         }
 
         foreach (\DB::select($sql) as $sqlResponse) {
-            array_push($competencies[$sqlResponse->competence_title], $sqlResponse->selected_option);
+            array_push($competencies[$sqlResponse->competence_id], $sqlResponse->selected_option);
         }
 
         $result = [];
-        foreach ($competencies as $competence => $competenceData) {
+        foreach ($competencies as $competenceId => $competenceData) {
             $total = count($competenceData);
             $yesCounter = 0;
 
@@ -353,12 +353,14 @@ class ReportController extends Controller
                 }
             }
 
+            $competence = Competence::find($competenceId);
             array_push($result, [
-                'name' => $competence,
+                'title' => $competence->title,
+                'subtitle' => $competence->subtitle,
                 'yes' => $yesCounter,
                 'no' => $total-$yesCounter,
                 'total' => $total,
-                'feedbacks_quantity' => Feedback::whereRaw("competence_id in (select c.id from competencies c where c.title = '".$competence."')")
+                'feedbacks_quantity' => Feedback::where("competence_id", $competenceId)
                                         ->whereRaw("questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.school_id = ".$request->school_id.")")
                                         ->count()
             ]);
