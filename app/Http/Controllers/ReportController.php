@@ -201,11 +201,13 @@ class ReportController extends Controller
             $feedbackQty = 0;
             foreach ($sessions->get() as $session) {
                 foreach ($session['answers'] as $answer) {
-                    if (mb_strtoupper($answer['option']['text']) == 'SIM') {
-                        $yesCounter++;
-                    }
-                    if (mb_strtoupper($answer['option']['text']) == 'NÃO') {
-                        $noCounter++;
+                    if (isset($answer['option'])) {
+                        if (mb_strtoupper($answer['option']['text']) == 'SIM') {
+                            $yesCounter++;
+                        }
+                        if (mb_strtoupper($answer['option']['text']) == 'NÃO') {
+                            $noCounter++;
+                        }
                     }
                 }
 
