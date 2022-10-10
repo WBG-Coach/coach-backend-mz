@@ -133,10 +133,13 @@ class ReportController extends Controller
                 }
             }
 
+            $comp = Competence::where('project_id', $request->project_id)->where('title', $competence)->first();
+
             array_push($result, [
                 'name' => $competence,
                 'yes' => $yesCounter,
                 'no' => $total-$yesCounter,
+                'feedback_qty' => Feedback::where('competence_id', $comp->id)->count(),
                 'total' => $total
             ]);
         }
