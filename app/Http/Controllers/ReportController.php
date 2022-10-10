@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Reports\CompetenceEvolutionRequest;
 use App\Http\Requests\Reports\DashboardRequest;
 
+use App\Models\Answer;
 use App\Models\Competence;
 use App\Models\QuestionnaireApplication;
 use App\Models\School;
@@ -569,6 +570,57 @@ class ReportController extends Controller
                                                     -> where('status', 'PENDING_FEEDBACK')
                                                     -> count()
         ];
+    }
+
+    public function teacherCompetences(Request $request)
+    {
+        $response = ['headers' => [], 'data' => []];
+
+        if ($request->teacher_id) {
+            $teacher = User::find($request->teacher_id);
+            $sessions = QuestionnaireApplication::where('teacher_id', $teacher->id)->get();
+
+            // headers definition
+            array_push($response['headers'], null);
+            array_push($response['headers'], ...$sessions);
+
+            // data definition
+            foreach (Competence::where('project_id', $teacher->project_id)->get() as $competence) {
+                $row = [];
+                
+                array_push($row, $competence);
+
+                foreach($sessions as $session) {
+                    
+                    $answer = Answer::with('option')->where('questionnaire_application_id', $session->id)
+                    ->whereRaw("option_id in (select o.id from options o where o.question_id in (select q.id from questions q where q.competency_id = ".$competence->id."))")
+                    ->first();
+                    
+                    if (isset($answer->option)) {
+                        // check answer response
+                        if (strtoupper($answer->option->text) == 'SIM') {
+                            $type = 'Y';
+                        } else {
+                            $type = 'N';
+                        }
+
+                        // check if answer has a feedback
+                        $feedbackQty = Feedback::where('answer_id', $answer->id)->count();
+                        if ($feedbackQty > 0) {
+                            $type .= '_F';
+                        }
+
+                        array_push($row, ['type' => $type]);
+                    } else {
+                        array_push($row, null);
+                    }
+
+                }
+                array_push($response['data'], $row);
+            }
+        }
+
+        return $response;
     }
 
 }
