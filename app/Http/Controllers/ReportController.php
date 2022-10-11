@@ -92,7 +92,7 @@ class ReportController extends Controller
     public function competences(Request $request)
     {
         $sql = "select
-                    c.title competence_title,
+                    c.id competence_id,
                     o.text selected_option
                 from
                     questions q,
@@ -114,15 +114,15 @@ class ReportController extends Controller
         $competencies = [];
 
         foreach (Competence::where('project_id', $request->project_id)->get() as $competence) {
-            $competencies[$competence->title] = [];
+            $competencies[$competence->id] = [];
         }
 
         foreach (\DB::select($sql) as $sqlResponse) {
-            array_push($competencies[$sqlResponse->competence_title], $sqlResponse->selected_option);
+            array_push($competencies[$sqlResponse->competence_id], $sqlResponse->selected_option);
         }
 
         $result = [];
-        foreach ($competencies as $competence => $competenceData) {
+        foreach ($competencies as $competenceId => $competenceData) {
 
             $total = count($competenceData);
             $yesCounter = 0;
@@ -133,13 +133,13 @@ class ReportController extends Controller
                 }
             }
 
-            $comp = Competence::where('project_id', $request->project_id)->where('title', $competence)->first();
+            $competence = Competence::find($competenceId);
 
             array_push($result, [
-                'name' => $competence,
+                'name' => $competence->subtitle,
                 'yes' => $yesCounter,
                 'no' => $total-$yesCounter,
-                'feedback_qty' => Feedback::where('competence_id', $comp->id)->count(),
+                'feedback_qty' => Feedback::where('competence_id', $competenceId)->count(),
                 'total' => $total
             ]);
         }
