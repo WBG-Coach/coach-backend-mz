@@ -28,8 +28,11 @@ class QuestionnaireApplicationController extends Controller
         if($request->school_id) {
             $search->where('school_id', $request->school_id);
         }
-        if($request->project_id) {
-            $search->whereRaw('project_id', $request->project_id);
+        if($request->teacher_project_id) {
+            $search->whereRaw("teacher_id in (select u.id from users u where u.project_id = ".$request->teacher_project_id.")");
+        }
+        if($request->coach_project_id) {
+            $search->whereRaw("coach_id in (select u.id from users u where u.project_id = ".$request->coach_project_id.")");
         }
         if ($request->pagination) {
             return $search->paginate($request->pagination);
