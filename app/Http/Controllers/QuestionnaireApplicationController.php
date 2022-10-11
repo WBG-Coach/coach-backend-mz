@@ -12,10 +12,10 @@ class QuestionnaireApplicationController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return QuestionnaireApplication::with('questionnaire', 'feedbackQuestionnaire', 'docQuestionnaire', 'teacher', 'notes')->find($request->id);
+            return QuestionnaireApplication::with('questionnaire', 'feedbackQuestionnaire', 'docQuestionnaire', 'teacher', 'notes', 'coach', 'school')->find($request->id);
         }
 
-        $search = QuestionnaireApplication::with('questionnaire', 'feedbackQuestionnaire', 'docQuestionnaire', 'teacher', 'notes')->select('*');
+        $search = QuestionnaireApplication::with('questionnaire', 'feedbackQuestionnaire', 'docQuestionnaire', 'teacher', 'notes', 'coach', 'school')->select('*');
         if($request->questionnaire_id) {
             $search->where('questionnaire_id', $request->questionnaire_id);
         }
