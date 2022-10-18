@@ -11,10 +11,10 @@ class QuestionnaireController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return Questionnaire::find($request->id);
+            return Questionnaire::select('questionnaires.*', \DB::raw("(select count(1) from questionnaire_questions where questionnaire_questions.questionnaire_id = questionnaires.id) as questions_qty"))->find($request->id);
         }
 
-        $search = Questionnaire::select('*');
+        $search = Questionnaire::select('questionnaires.*', \DB::raw("(select count(1) from questionnaire_questions where questionnaire_questions.questionnaire_id = questionnaires.id) as questions_qty"));
         if($request->title) {
             $search->whereRaw("title like '%".$request->title."%'");
         }
