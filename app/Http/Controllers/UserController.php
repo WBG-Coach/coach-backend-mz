@@ -28,10 +28,10 @@ class UserController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            return User::find($request->id);
+            return User::with('userSchools.school')->find($request->id);
         }
 
-        $search = User::select('*');
+        $search = User::with('userSchools.school')->select('*');
         if ($request->name) {
             $search->whereRaw("name like '%".$request->name."%'");
         }

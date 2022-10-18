@@ -39,6 +39,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function userSchools()
+    {
+        return $this->hasMany('App\Models\UserSchool', 'user_id', 'id');
+    }
+
     public function project()
     {
         return $this->belongsTo('App\Models\Project', 'project_id', 'id');
