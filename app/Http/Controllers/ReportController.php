@@ -626,4 +626,9 @@ class ReportController extends Controller
         return $response;
     }
 
+    public function answersByCity(Request $request)
+    {
+        return Answer::select('city', \DB::raw("count(id) as quantity"))->groupBy('city')->get();
+    }
+
 }
