@@ -28,6 +28,7 @@ class Answer extends Model
         'notes',
         'latitude',
         'longitude',
+        'city',
         'questionnaire_id'
     ];
 
