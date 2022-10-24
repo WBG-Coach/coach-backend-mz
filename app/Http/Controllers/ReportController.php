@@ -633,7 +633,6 @@ class ReportController extends Controller
 
     public function competencesBySchoolFromYear(Request $request)
     {
-        $request->year = 2022;
         $response = [];
 
         foreach (School::all() as $school) {
