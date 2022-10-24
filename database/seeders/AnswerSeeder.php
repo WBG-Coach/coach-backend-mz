@@ -23,42 +23,96 @@ class AnswerSeeder extends Seeder
                 'questionnaire_application_id' => 1,
                 'questionnaire_question_id' => 1,
                 'notes' => null,
-                'option_id' => 2
+                'option_id' => 2,
+                'city' => 'Fortaleza'
             ],
             [
                 'id' => 2,
                 'questionnaire_application_id' => 1,
                 'questionnaire_question_id' => 2,
                 'notes' => null,
-                'option_id' => 4
+                'option_id' => 4,
+                'city' => 'Fortaleza'
             ],
             [
                 'id' => 3,
                 'questionnaire_application_id' => 1,
                 'questionnaire_question_id' => 3,
                 'notes' => null,
-                'option_id' => 5
+                'option_id' => 5,
+                'city' => 'Eusebio'
             ],
             [
                 'id' => 4,
                 'questionnaire_application_id' => 1,
                 'questionnaire_question_id' => 4,
                 'notes' => null,
-                'option_id' => 8
+                'option_id' => 8,
+                'city' => 'Eusebio'
             ],
             [
                 'id' => 5,
                 'questionnaire_application_id' => 1,
                 'questionnaire_question_id' => 5,
                 'notes' => null,
-                'option_id' => 10
+                'option_id' => 10,
+                'city' => 'Fortaleza'
             ],
             [
                 'id' => 6,
                 'questionnaire_application_id' => 1,
                 'questionnaire_question_id' => 6,
                 'notes' => null,
-                'option_id' => 12
+                'option_id' => 12,
+                'city' => 'Fortaleza'
+            ],
+            [
+                'id' => 7,
+                'questionnaire_application_id' => 1,
+                'questionnaire_question_id' => 1,
+                'notes' => null,
+                'option_id' => 2,
+                'city' => 'Fortaleza'
+            ],
+            [
+                'id' => 8,
+                'questionnaire_application_id' => 1,
+                'questionnaire_question_id' => 2,
+                'notes' => null,
+                'option_id' => 4,
+                'city' => 'Fortaleza'
+            ],
+            [
+                'id' => 9,
+                'questionnaire_application_id' => 1,
+                'questionnaire_question_id' => 3,
+                'notes' => null,
+                'option_id' => 5,
+                'city' => 'Eusebio'
+            ],
+            [
+                'id' => 10,
+                'questionnaire_application_id' => 1,
+                'questionnaire_question_id' => 4,
+                'notes' => null,
+                'option_id' => 8,
+                'city' => 'Eusebio'
+            ],
+            [
+                'id' => 11,
+                'questionnaire_application_id' => 1,
+                'questionnaire_question_id' => 5,
+                'notes' => null,
+                'option_id' => 10,
+                'city' => 'Fortaleza'
+            ],
+            [
+                'id' => 12,
+                'questionnaire_application_id' => 1,
+                'questionnaire_question_id' => 6,
+                'notes' => null,
+                'option_id' => 12,
+                'city' => 'Fortaleza'
             ]
         ]);
 

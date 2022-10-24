@@ -631,4 +631,45 @@ class ReportController extends Controller
         return Answer::select('city', \DB::raw("count(id) as quantity"))->groupBy('city')->get();
     }
 
+    public function competencesBySchoolFromYear(Request $request)
+    {
+        $request->year = 2022;
+        $response = [];
+
+        foreach (School::all() as $school) {
+            $row = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+            $sql = "SELECT month(a.created_at) month, 
+                            year(a.created_at) year, 
+                            qa.school_id, 
+                            q.competency_id, 
+                            count(o.text) quantity 
+                        FROM questionnaire_applications qa, 
+                            answers as a, 
+                            options o, 
+                            questions q 
+                        where a.questionnaire_application_id = qa.id 
+                            and a.option_id = o.id 
+                            and q.id = o.question_id 
+                            and upper(o.text) = 'SIM' 
+                            and qa.school_id = ".$school->id."
+                            and year(a.created_at) = '".$request->year."'
+                            group by month(a.created_at), 
+                                year(a.created_at), 
+                                qa.school_id, 
+                                q.competency_id";
+
+            foreach (\DB::select($sql) as $sqlResponse) {
+                $row[$sqlResponse->month - 1] = $sqlResponse->quantity;
+            }
+
+            array_push($response, [
+                'school' => $school->name,
+                'data' => $row
+            ]);
+        }
+
+        return $response;
+    }
+
 }
