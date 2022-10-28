@@ -43,6 +43,7 @@ class AnswerCrudController extends CrudController
         CRUD::column('questionnaire_application_id');
         CRUD::column('questionnaire_question_id');
         CRUD::column('option_id');
+        CRUD::column('city');
         CRUD::column('latitude');
         CRUD::column('longitude');
 
@@ -66,6 +67,7 @@ class AnswerCrudController extends CrudController
         CRUD::field('questionnaire_application_id');
         CRUD::field('questionnaire_question_id');
         CRUD::field('option_id');
+        CRUD::field('city');
         CRUD::field('latitude');
         CRUD::field('longitude');
 
