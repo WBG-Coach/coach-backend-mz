@@ -761,4 +761,48 @@ class ReportController extends Controller
         ];
     }
 
+    public function teachersWithPerfectLastSession(Request $request)
+    {
+        $data = [];
+        
+        $teachers = User::where('project_id', $request->project_id)
+        ->whereRaw("id in (select qa.teacher_id from questionnaire_applications qa)")
+        ->get();
+        
+        $teachersQuantity = count($teachers);
+        $perfectLastSessionQty = 0;
+
+        foreach ($teachers as $teacher) {
+
+            $lastSession = QuestionnaireApplication::where('teacher_id', $teacher->id)
+            ->orderBy('application_date', 'desc')
+            ->first();
+
+            $flagCount = true;
+
+            // Check if any competence is negative
+            foreach (Competence::where('project_id', $request->project_id)->get() as $competence) {
+                $answer = Answer::with('option')->where('questionnaire_application_id', $lastSession->id)
+                ->whereRaw("option_id in (select o.id from options o where o.question_id in (select q.id from questions q where q.competency_id = ".$competence->id."))")
+                ->first();
+                
+                if (isset($answer->option)) {
+                    // check answer response
+                    if (strtoupper($answer->option->text) != 'SIM') {
+                        $flagCount = false;
+                    }
+                }
+            }
+
+            if ($flagCount) {
+                $perfectLastSessionQty++;
+            }
+        }
+
+        return [
+            'teachers_qty' => $teachersQuantity,
+            'perfect_last_sessions_qty' => $perfectLastSessionQty
+        ];
+    }
+
 }
