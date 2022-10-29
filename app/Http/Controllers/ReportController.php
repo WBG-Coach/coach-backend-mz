@@ -695,4 +695,70 @@ class ReportController extends Controller
         ];
     }
 
+    public function improvementByTeacher(Request $request)
+    {
+        $data = [];
+        $sessionsQty = 0;
+        
+        $teachers = User::where('project_id', $request->project_id)
+            ->whereRaw("id in (select qa.teacher_id from questionnaire_applications qa)")
+            ->get();
+
+        foreach ($teachers as $teacher) {
+
+            $sessions = QuestionnaireApplication::where('teacher_id', $teacher->id)->get();
+
+            $sessionsQty += count($sessions);
+
+            foreach (Competence::where('project_id', $request->project_id)->get() as $competence) {
+                $row = [];
+                
+                foreach($sessions as $session) {
+
+                    $answer = Answer::with('option')->where('questionnaire_application_id', $session->id)
+                    ->whereRaw("option_id in (select o.id from options o where o.question_id in (select q.id from questions q where q.competency_id = ".$competence->id."))")
+                    ->first();
+                    
+                    if (isset($answer->option)) {
+                        // check answer response
+                        if (strtoupper($answer->option->text) == 'SIM') {
+                            $type = 'Y';
+                        } else {
+                            $type = 'N';
+                        }
+
+                        // check if answer has a feedback
+                        $feedbackQty = Feedback::where('answer_id', $answer->id)->count();
+                        if ($feedbackQty > 0) {
+                            $type .= '_F';
+                        }
+
+                        array_push($row, ['type' => $type]);
+                    } else {
+                        array_push($row, null);
+                    }
+
+                }
+                array_push($data, $row);
+            }
+        }
+
+        $improvementQty = 0;
+        for ($i=0; $i < $sessionsQty; $i++) {
+            foreach ($data as $competence) {
+                if (($i < ($sessionsQty - 1)) && (
+                    (isset($competence[$i]['type']) && $competence[$i]['type'] == 'N_F') && 
+                    (isset($competence[$i+1]['type']) && $competence[$i+1]['type'] == 'S')
+                )) { 
+                    $improvementQty++;
+                }
+            }
+        }
+
+        return [
+            'sessions_qty' => $sessionsQty,
+            'improvement_qty' => $improvementQty
+        ];
+    }
+
 }
