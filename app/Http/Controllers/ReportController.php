@@ -13,6 +13,7 @@ use App\Models\School;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Feedback;
+use App\Models\UserSchool;
 
 class ReportController extends Controller
 {
@@ -803,6 +804,19 @@ class ReportController extends Controller
             'teachers_qty' => $teachersQuantity,
             'perfect_last_sessions_qty' => $perfectLastSessionQty
         ];
+    }
+
+    public function schools(Request $request)
+    {
+        $request->project_id = 1;
+
+        $schools = School::select("")->where('project_id', $request->project_id)->get();
+
+        foreach ($schools as $school) {
+            # code...
+        }
+
+        return $schools;
     }
 
 }

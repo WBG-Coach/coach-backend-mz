@@ -172,6 +172,7 @@ Route::controller(ReportController::class)->group(function () {
     Route::middleware('auth:api')->post('/reports/schools-by-session', 'schoolsBySession');
     Route::middleware('auth:api')->post('/reports/improvement-by-teacher', 'improvementByTeacher');
     Route::middleware('auth:api')->post('/reports/teachers-with-perfect-last-session', 'teachersWithPerfectLastSession');
+    Route::middleware('auth:api')->post('/reports/schools', 'schools');
 });
 
 use App\Http\Controllers\DocumentQuestionnaireController;
