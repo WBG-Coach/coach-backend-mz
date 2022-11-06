@@ -674,25 +674,9 @@ class ReportController extends Controller
 
     public function schoolsBySession(Request $request)
     {
-
-        $qty = 0;
-        foreach (School::all() as $shool) {
-            $teachersQuantity = UserSchool::where('school_id', $shool->id)
-                ->count();
-
-            $teachersQuantityWithoutSession = UserSchool::where('school_id', $shool->id)
-                ->whereRaw("user_id not in (select qa.teacher_id from questionnaire_applications qa)")
-                ->count();
-
-            if ($teachersQuantity/2 < $teachersQuantityWithoutSession) {
-                $qty++;
-            }
-        }
-
         return [
             'schools_quantity' => School::count(),
-            'schools_without_sessions' => School::whereRaw('schools.id not in (select qa.school_id from questionnaire_applications qa)')->count(),
-            'schools_with_50' => $qty
+            'schools_without_sessions' => School::whereRaw('schools.id not in (select qa.school_id from questionnaire_applications qa)')->count()
         ];
     }
 
