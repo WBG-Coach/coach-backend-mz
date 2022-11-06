@@ -792,12 +792,16 @@ class ReportController extends Controller
 
     public function schools(Request $request)
     {
-        $request->project_id = 1;
-
-        $schools = School::select("")->where('project_id', $request->project_id)->get();
+        $schools = School::select("*", 
+        \DB::raw("(select count(1) from user_schools us where us.school_id = schools.id) as teachers_qty"), 
+        \DB::raw("(select count(1) from questionnaire_applications qa where qa.school_id = schools.id) as sessions_qty"), 
+        \DB::raw("(select count(1) from feedbacks f where f.questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.school_id = schools.id)) as feedbacks_qty"))
+        ->where('project_id', $request->project_id)
+        ->get();
 
         foreach ($schools as $school) {
-            # code...
+            $coaches = \DB::select("SELECT coach_id FROM questionnaire_applications where school_id = ".$school->id." group by coach_id");
+            $school->coaches_qty = count($coaches);
         }
 
         return $schools;
