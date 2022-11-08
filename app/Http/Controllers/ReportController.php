@@ -793,9 +793,36 @@ class ReportController extends Controller
     public function schools(Request $request)
     {
         $schools = School::select("*", 
-        \DB::raw("(select count(1) from user_schools us where us.school_id = schools.id) as teachers_qty"), 
-        \DB::raw("(select count(1) from questionnaire_applications qa where qa.school_id = schools.id) as sessions_qty"), 
-        \DB::raw("(select count(1) from feedbacks f where f.questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.school_id = schools.id)) as feedbacks_qty"))
+            \DB::raw("(select count(1) from user_schools us where us.school_id = schools.id) as teachers_qty"), 
+            \DB::raw("(select count(1) from questionnaire_applications qa where qa.school_id = schools.id) as sessions_qty"), 
+            \DB::raw("(select count(1) from feedbacks f where f.questionnaire_application_id in (select qa.id from questionnaire_applications qa where qa.school_id = schools.id)) as feedbacks_qty"), 
+            \DB::raw("(
+                        (
+                            select count(1) 
+                                from answers a 
+                                where a.questionnaire_application_id in 
+                                (
+                                    select qa.id 
+                                        from questionnaire_applications qa 
+                                        where qa.school_id = schools.id
+                                ) and a.option_id in 
+                                (
+                                    select o.id 
+                                        from options o 
+                                        where upper(o.text) = 'SIM'
+                                )
+                        ) / (
+                            select count(1) 
+                                from answers a 
+                                where a.questionnaire_application_id in 
+                                (
+                                    select qa.id 
+                                        from questionnaire_applications qa 
+                                        where qa.school_id = schools.id
+                                )
+                        )
+                    ) * 100 as positive_percent")
+        )
         ->where('project_id', $request->project_id)
         ->get();
 

@@ -54,40 +54,49 @@ class SchoolController extends Controller
 
     public function getCoords($address)
     {
-        // Create a cURL handle
-        $ch = curl_init();
-
-        // define options
-        $optArray = array(
-            CURLOPT_URL => 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBJR-Qm19jraWkc52MXazoQfMp5uBnZkUg&address='.str_replace(' ', '%20', $address),
-            CURLOPT_RETURNTRANSFER => true
-        );
-
-        // apply those options
-        curl_setopt_array($ch, $optArray);
-
-        // Execute
-        $response = curl_exec($ch);
-
-        // Check HTTP status code
-        if (!curl_errno($ch)) {
-        switch ($http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
-            case 200:  # OK
-
-            break;
-            default:
+        try {
+            // Create a cURL handle
+            $ch = curl_init();
+    
+            // define options
+            $optArray = array(
+                CURLOPT_URL => 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBJR-Qm19jraWkc52MXazoQfMp5uBnZkUg&address='.str_replace(' ', '%20', $address),
+                CURLOPT_RETURNTRANSFER => true
+            );
+    
+            // apply those options
+            curl_setopt_array($ch, $optArray);
+    
+            // Execute
+            $response = curl_exec($ch);
+    
+            // Check HTTP status code
+            if (!curl_errno($ch)) {
+            switch ($http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+                case 200:  # OK
+    
+                break;
+                default:
+                // Close handle
+                curl_close($ch);
+                abort(500, 'Unexpected HTTP code: '.$http_code);
+            }
+            }
+    
             // Close handle
             curl_close($ch);
-            abort(500, 'Unexpected HTTP code: '.$http_code);
+
+            $result = json_decode($response);
+
+            if ($result->status == 'ZERO_RESULTS') {
+                return [null, null];
+            }
+            
+            $location = $result->results[0]->geometry->location;
+            return [$location->lat, $location->lng];
+        } catch (\Exception $e) {
+            return [null, null];
         }
-        }
-
-        // Close handle
-        curl_close($ch);
-
-        $location = json_decode($response)->results[0]->geometry->location;
-
-        return [$location->lat, $location->lng];
 
     }
 
