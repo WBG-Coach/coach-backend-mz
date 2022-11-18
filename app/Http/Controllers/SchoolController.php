@@ -16,7 +16,7 @@ class SchoolController extends Controller
     public function search(Request $request)
     {
         if ($request->id) {
-            $schools = School::with('users.user')->find($request->id);
+            $schools = School::with('users.user')->select('*', \DB::raw("(select count(1) from user_schools us where us.school_id = schools.id) users_count"))->find($request->id);
 
             foreach ($schools['users'] as $userSchool) {
                 if (isset($userSchool)) {
@@ -35,7 +35,7 @@ class SchoolController extends Controller
             return $schools;
         }
 
-        $search = School::select('*');
+        $search = School::select('*', \DB::raw("(select count(1) from user_schools us where us.school_id = schools.id) users_count"));
         
         if ($request->coach_id) {
             $search->whereRaw("schools.id in (select us.school_id from user_schools us where us.user_id = ".$request->coach_id.")");
