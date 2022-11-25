@@ -67,7 +67,7 @@ class DocumentQuestionnaireController extends Controller
                 foreach ($request->answers as $answer) {
                     $model = new Answer();
                     $model->fill($answer);
-                    if (isset($answer['latitude']) && isset($answer['longitude'])) {
+                    if (isset($answer['latitude']) && isset($answer['longitude']) && $answer['latitude'] != '0' && $answer['longitude'] != '0') {
                         $model->city = $this->getCity($answer['latitude'], $answer['longitude']);
                     }
                     $model->questionnaire_id = $application->doc_questionnaire_id;
