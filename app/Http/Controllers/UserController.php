@@ -38,6 +38,9 @@ class UserController extends Controller
         if ($request->email) {
             $search->whereRaw("email like '%".$request->email."%'");
         }
+        if ($request->level) {
+            $search->where("level", $request->level);
+        }
         if ($request->profile_id) {
             $search->where("profile_id", $request->profile_id);
         }

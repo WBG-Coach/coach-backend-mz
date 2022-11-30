@@ -43,6 +43,7 @@ class UserCrudController extends CrudController
         CRUD::column('email');
         CRUD::column('last_name');
         CRUD::column('image_url');
+        CRUD::column('level');
         CRUD::column('profile_id');
         CRUD::column('project_id');
         CRUD::column('subject');
@@ -69,6 +70,7 @@ class UserCrudController extends CrudController
         CRUD::field('last_name');
         CRUD::field('password');
         CRUD::field('image_url');
+        CRUD::field('level');
         CRUD::field('profile_id');
         CRUD::field('project_id');
         CRUD::field('subject');
