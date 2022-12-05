@@ -40,7 +40,7 @@ class ReportController extends Controller
         $competencies = [];
 
         foreach (Competence::where('project_id', $request->project_id)->get() as $competence) {
-            $competencies[$competence->title] = [[],[],[],[],[],[],[],[],[],[],[],[]];
+            $competencies[$competence->id] = [[],[],[],[],[],[],[],[],[],[],[],[]];
         }
 
         foreach (\DB::select($sql) as $sqlResponse) {
