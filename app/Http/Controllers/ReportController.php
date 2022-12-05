@@ -20,7 +20,7 @@ class ReportController extends Controller
     public function competenceEvolutions(CompetenceEvolutionRequest $request)
     {
         $sql = "select
-                    c.subtitle competence_title,
+                    c.id competence_id,
                     o.text selected_option,
                     month(a.created_at) month
                 from
@@ -44,7 +44,7 @@ class ReportController extends Controller
         }
 
         foreach (\DB::select($sql) as $sqlResponse) {
-            array_push($competencies[$sqlResponse->competence_title][$sqlResponse->month - 1], $sqlResponse->selected_option);
+            array_push($competencies[$sqlResponse->competence_id][$sqlResponse->month - 1], $sqlResponse->selected_option);
         }
 
         $result = [];
@@ -81,7 +81,7 @@ class ReportController extends Controller
             }
 
             array_push($result, [
-                'name' => $competence,
+                'name' => Competence::find($competence)->subtitle,
                 'data' => $processedData
             ]);
         }
