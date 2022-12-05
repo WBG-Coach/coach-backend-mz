@@ -20,7 +20,7 @@ class ReportController extends Controller
     public function competenceEvolutions(CompetenceEvolutionRequest $request)
     {
         $sql = "select
-                    c.title competence_title,
+                    c.subtitle competence_title,
                     o.text selected_option,
                     month(a.created_at) month
                 from
@@ -170,7 +170,7 @@ class ReportController extends Controller
         $competencies = [];
         foreach(Competence::where('project_id', $request->project_id)->get() as $competence) {
             array_push($competencies, [
-                'name' => $competence->title,
+                'name' => $competence->subtitle,
                 'quantity' => Feedback::whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->where('competence_id', $competence->id)->count()
             ]);
         }
