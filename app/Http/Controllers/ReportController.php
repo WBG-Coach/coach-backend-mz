@@ -19,74 +19,33 @@ class ReportController extends Controller
 {
     public function competenceEvolutions(CompetenceEvolutionRequest $request)
     {
-        $sql = "select
-                    c.id competence_id,
-                    o.text selected_option,
-                    month(a.created_at) month
-                from
-                    questions q,
-                    questionnaire_questions qq,
-                    answers a,
-                    options o,
-                    competencies c
-                where 
-                    year(a.created_at) = '".$request->year."'
-                    and c.id = q.competency_id
-                    and q.id = qq.question_id
-                    and qq.id = a.questionnaire_question_id
-                    and c.project_id = ".$request->project_id."
-                    and a.option_id = o.id";
-
         $competencies = [];
 
         foreach (Competence::where('project_id', $request->project_id)->get() as $competence) {
-            $competencies[$competence->id] = [[],[],[],[],[],[],[],[],[],[],[],[]];
-        }
+            $monthlyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        foreach (\DB::select($sql) as $sqlResponse) {
-            array_push($competencies[$sqlResponse->competence_id][$sqlResponse->month - 1], $sqlResponse->selected_option);
-        }
+            $months = 12;
+            for ($i=0; $i < $months; $i++) {
 
-        $result = [];
-        foreach ($competencies as $competence => $data) {
-            $processedData = [];
+                $startDate = date('Y-m-01', strtotime('-'.($months - $i).' month'));
+                $finalDate = date('Y-m-01', strtotime('-'.($months - $i - 1).' month'));
 
-            foreach ($data as $dataValues) {
-                if (count($dataValues) == 0) {
-                    array_push($processedData, [
-                        'percentYes' => 0,
-                        'percentNo' => 0,
-                        'yes' => 0,
-                        'no' => 0,
-                        'total' => 0
-                    ]);
-                } else {
-                    $total = count($dataValues);
-                    $yesCounter = 0;
-                    
-                    foreach ($dataValues as $dataValue) {
-                        if (strtoupper($dataValue) == 'SIM') {
-                            $yesCounter++;
-                        }
-                    }
-
-                    array_push($processedData, [
-                        'percentYes' => $yesCounter/$total,
-                        'percentNo' => ($total-$yesCounter)/$total,
-                        'yes' => $yesCounter,
-                        'no' => $total-$yesCounter,
-                        'total' => $total
-                    ]);
-                }
+                $feedbackQty = Feedback::where('competence_id', $competence->id)
+                        ->where("f.created_at", ">=", $startDate)
+                        ->where("f.created_at", "<", $finalDate)
+                        ->count();
+                
+                $monthlyData[$i] = ['month' => date('m/Y', strtotime('-'.($months - $i).' month')), 'qty' => $feedbackQty];
             }
 
-            array_push($result, [
-                'name' => Competence::find($competence)->subtitle,
-                'data' => $processedData
+            array_push($competencies, [
+                'name' => $competence->title,
+                'data' => $monthlyData
             ]);
+
         }
 
-        return $result;
+        return $competencies;
         
     }
 
@@ -140,7 +99,7 @@ class ReportController extends Controller
                 'name' => $competence->subtitle,
                 'yes' => $yesCounter,
                 'no' => $total-$yesCounter,
-                'feedback_qty' => Feedback::where('competence_id', $competenceId)->count(),
+                'feedback_qty' => Feedback::where('competence_id', $competenceId)->whereRaw("created_at >= '".$request->start_date." 00:00:00' and created_at <= '".$request->end_date." 23:59:59'")->count(),
                 'total' => $total
             ]);
         }

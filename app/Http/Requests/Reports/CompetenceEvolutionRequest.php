@@ -24,7 +24,6 @@ class CompetenceEvolutionRequest extends FormRequest
     public function rules()
     {
         return [
-            'year' => 'required',
             'project_id' => 'required'
         ];
     }
