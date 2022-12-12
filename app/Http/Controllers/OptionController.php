@@ -18,6 +18,9 @@ class OptionController extends Controller
         if ($request->name) {
             $search->whereRaw("name like '%".$request->name."%'");
         }
+        if($request->question_id) {
+            $search->where("question_id", $request->question_id);
+        }
         if ($request->pagination) {
             return $search->paginate($request->pagination);
         }
