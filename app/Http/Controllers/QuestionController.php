@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Question;
+use App\Models\QuestionnaireQuestion;
 
 class QuestionController extends Controller
 {
@@ -35,6 +36,13 @@ class QuestionController extends Controller
             $question = new Question();
             $question->fill($request->all());
             $question->save();
+
+            if ($request->questionnaire_id) {
+                $questionnaireQuestion = new QuestionnaireQuestion();
+                $questionnaireQuestion->question_id = $question->id;
+                $questionnaireQuestion->questionnaire_id = $request->questionnaire_id;
+                $questionnaireQuestion->save();
+            }
 
             \DB::commit();
             return $question->id;
