@@ -31,7 +31,7 @@ class ReportController extends Controller
                 $finalDate = date('Y-m-01', strtotime('-'.($months - $i - 1).' month'));
 
                 $feedbackQty = Feedback::where('competence_id', $competence->id)
-                        ->whereRaw("(f.created_at >= '" .$startDate." 00:00:00' and f.created_at < '".$finalDate." 00:00:00')")
+                        ->whereRaw("(created_at >= '" .$startDate." 00:00:00' and created_at < '".$finalDate." 00:00:00')")
                         ->count();
                 
                 $monthlyData[$i] = ['month' => date('m/Y', strtotime('-'.($months - $i).' month')), 'qty' => $feedbackQty];
