@@ -38,7 +38,7 @@ class ReportController extends Controller
             }
 
             array_push($competencies, [
-                'name' => $competence->title,
+                'name' => $competence->subtitle,
                 'data' => $monthlyData
             ]);
 
