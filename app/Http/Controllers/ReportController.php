@@ -690,7 +690,7 @@ class ReportController extends Controller
         for ($i=0; $i < $sessionsQty; $i++) {
             foreach ($data as $competence) {
                 if ((isset($competence[$i]['type']) && $competence[$i]['type'] == 'N_F') && 
-                    (isset($competence[$i+1]['type']) && $competence[$i+1]['type'] == 'S')
+                    (isset($competence[$i+1]['type']) && $competence[$i+1]['type'] == 'Y')
                 ) { 
                     $improvementQty++;
                 }
