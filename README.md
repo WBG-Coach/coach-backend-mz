@@ -44,6 +44,7 @@ If you preferee, its possible to execute this application by Docker image.
   6.2. create user called 'coach'
   6.3. set password for user 'coach' to 'coach_pass'
   7. php artisan migrate
+  7. php artisan db:seed
 ```
 
 
@@ -69,6 +70,23 @@ If you preferee, its possible to execute this application by Docker image.
   7. enter into WORKSPACE directory
   7.1. composer install
   7.2. php artisan key:generate
-  7.3. php artisan migrate
+  7.3. php artisan db:seed
 ```
+### Post Installation
+After performing the previous steps, enter the system with this credentials:
 
+```bash
+**Login as ADMIN**
+LOGIN: user1@email.com
+PASS: pass123
+
+
+**Login as COACH**
+LOGIN: user2@email.com
+PASS: pass123
+
+
+**Login as TEACHER**
+LOGIN: user3@email.com
+PASS: pass123
+```
