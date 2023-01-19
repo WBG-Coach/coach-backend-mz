@@ -1,5 +1,6 @@
 
 # Coach Digital - Backend
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/WBG-Coach/coach-admin/blob/main/LICENSE.md)
 
 This is the BACKEND of the "Aprender+" project, created by the World Bank to help evaluate teachers and manage improvements in teaching through feedback.
 
