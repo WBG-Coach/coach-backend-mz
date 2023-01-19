@@ -7,7 +7,7 @@ This is the BACKEND of the "Aprender+" project, created by the World Bank to hel
 
 ## DOCs
 
-See the [Wiki Documentation](https://github.com/WBG-Coach/coach-backend/wiki) to understand all services and End-Points.
+See the [Wiki Documentation](https://github.com/WBG-Coach/coach-backend-mz/wiki) to understand all services and End-Points.
 
 
 ## Technologies Used
@@ -29,8 +29,8 @@ If you preferee, its possible to execute this application by Docker image.
 ### Steps to run using configured server
 *** Assuming the server is already configured correctly ***
 ```bash
-  1. git clone https://github.com/WBG-Coach/coach-backend.git
-  2. cd coach-backend/
+  1. git clone https://github.com/WBG-Coach/coach-backend-mz.git
+  2. cd coach-backend-mz/
   3. cp .env.example .env
   3.1. set DB_HOST to 'mysql' into .env file
   3.2. set REDIS_HOST to 'mysql' into .env file
@@ -51,8 +51,8 @@ If you preferee, its possible to execute this application by Docker image.
 ### Steps to run using a docker image
 *** Assuming Docker is correctly instaled in your Server ***
 ```bash
-  1. git clone https://github.com/WBG-Coach/coach-backend.git
-  2. cd coach-backend/
+  1. git clone https://github.com/WBG-Coach/coach-backend-mz.git
+  2. cd coach-backend-mz/
   3. cp .env.example .env
   3.1. set DB_HOST to 'mysql' into .env file
   3.2. set REDIS_HOST to 'mysql' into .env file
