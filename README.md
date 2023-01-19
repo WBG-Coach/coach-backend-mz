@@ -77,16 +77,13 @@ After performing the previous steps, enter the system with this credentials:
 
 ```bash
 **Login as ADMIN**
+https://admin.coachdigital.org/
 LOGIN: user1@email.com
 PASS: pass123
 
 
 **Login as COACH**
+https://coachdigital.org/
 LOGIN: user2@email.com
-PASS: pass123
-
-
-**Login as TEACHER**
-LOGIN: user3@email.com
 PASS: pass123
 ```
