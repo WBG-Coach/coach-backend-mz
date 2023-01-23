@@ -1,64 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Coach Digital - Backend
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/WBG-Coach/coach-admin/blob/main/LICENSE.md)
 
-## About Laravel
+This is the BACKEND of the "Aprender+" project, created by the World Bank to help evaluate teachers and manage improvements in teaching through feedback.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## DOCs
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+See the [Wiki Documentation](https://github.com/WBG-Coach/coach-backend-mz/wiki) to understand all services and End-Points.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Technologies Used
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**PHP** (version: 8.0)
 
-## Laravel Sponsors
+**Laravel Framework** (version: ^8.75)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+**MySQL** (version: 5.7.34)
+## Authors
 
-### Premium Partners
+- [https://www.github.com/jmoreirafilho](https://www.github.com/jmoreirafilho)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Deploy
 
-## Contributing
+To deploy this application you just need a linux server with PHP, Database (mysql in this example) and Composer installed and configured. 
+If you preferee, its possible to execute this application by Docker image.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Steps to run using configured server
+*** Assuming the server is already configured correctly ***
+```bash
+  1. git clone https://github.com/WBG-Coach/coach-backend-mz.git
+  2. cd coach-backend-mz/
+  3. cp .env.example .env
+  3.1. set DB_HOST to 'mysql' into .env file
+  3.2. set REDIS_HOST to 'mysql' into .env file
+  3.3. set DB_DATABASE to 'coach' into .env file
+  3.4. set DB_USERNAME to 'coach' into .env file
+  3.5. set DB_PASSWORD to 'coach_pass' into .env file
+  4. composer install
+  5. php artisan key:generate
+  6. configure Database
+  6.1. create database called 'coach'
+  6.2. create user called 'coach'
+  6.3. set password for user 'coach' to 'coach_pass'
+  7. php artisan migrate
+  7. php artisan db:seed
+```
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Steps to run using a docker image
+*** Assuming Docker is correctly instaled in your Server ***
+```bash
+  1. git clone https://github.com/WBG-Coach/coach-backend-mz.git
+  2. cd coach-backend-mz/
+  3. cp .env.example .env
+  3.1. set DB_HOST to 'mysql' into .env file
+  3.2. set REDIS_HOST to 'mysql' into .env file
+  3.3. set DB_DATABASE to 'coach' into .env file
+  3.4. set DB_USERNAME to 'coach' into .env file
+  3.5. set DB_PASSWORD to 'coach_pass' into .env file
+  4. git clone https://github.com/Laradock/laradock.git
+  5. cd laradock/
+  6. cp .env.example .env
+  6.1. set COMPOSE_PROJECT_NAME to 'coach' into .env file
+  6.2. set PHP_VERSION to '7.4' into .env file
+  6.3. set MYSQL_DATABASE to 'coach' into .env file
+  6.4. set MYSQL_USER to 'coach' into .env file
+  6.5. set MYSQL_PASSWORD to 'coach_pass' into .env file
+  7. enter into WORKSPACE directory
+  7.1. composer install
+  7.2. php artisan key:generate
+  7.3. php artisan db:seed
+```
+### Post Installation
+After performing the previous steps, enter the system with this credentials:
 
-## Security Vulnerabilities
+```bash
+**Login as ADMIN**
+https://admin.coachdigital.org/
+LOGIN: user1@email.com
+PASS: pass123
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Login as COACH**
+https://coachdigital.org/
+LOGIN: user2@email.com
+PASS: pass123
+```
