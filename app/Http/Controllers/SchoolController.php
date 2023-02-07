@@ -52,53 +52,53 @@ class SchoolController extends Controller
         return $search->get();
     }
 
-    public function getCoords($address)
-    {
-        try {
-            // Create a cURL handle
-            $ch = curl_init();
+    // public function getCoords($address)
+    // {
+    //     try {
+    //         // Create a cURL handle
+    //         $ch = curl_init();
     
-            // define options
-            $optArray = array(
-                CURLOPT_URL => 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBJR-Qm19jraWkc52MXazoQfMp5uBnZkUg&address='.str_replace(' ', '%20', $address),
-                CURLOPT_RETURNTRANSFER => true
-            );
+    //         // define options
+    //         $optArray = array(
+    //             CURLOPT_URL => 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBJR-Qm19jraWkc52MXazoQfMp5uBnZkUg&address='.str_replace(' ', '%20', $address),
+    //             CURLOPT_RETURNTRANSFER => true
+    //         );
     
-            // apply those options
-            curl_setopt_array($ch, $optArray);
+    //         // apply those options
+    //         curl_setopt_array($ch, $optArray);
     
-            // Execute
-            $response = curl_exec($ch);
+    //         // Execute
+    //         $response = curl_exec($ch);
     
-            // Check HTTP status code
-            if (!curl_errno($ch)) {
-            switch ($http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
-                case 200:  # OK
+    //         // Check HTTP status code
+    //         if (!curl_errno($ch)) {
+    //         switch ($http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+    //             case 200:  # OK
     
-                break;
-                default:
-                // Close handle
-                curl_close($ch);
-                abort(500, 'Unexpected HTTP code: '.$http_code);
-            }
-            }
+    //             break;
+    //             default:
+    //             // Close handle
+    //             curl_close($ch);
+    //             abort(500, 'Unexpected HTTP code: '.$http_code);
+    //         }
+    //         }
     
-            // Close handle
-            curl_close($ch);
+    //         // Close handle
+    //         curl_close($ch);
 
-            $result = json_decode($response);
+    //         $result = json_decode($response);
 
-            if ($result->status == 'ZERO_RESULTS') {
-                return [null, null];
-            }
+    //         if ($result->status == 'ZERO_RESULTS') {
+    //             return [null, null];
+    //         }
             
-            $location = $result->results[0]->geometry->location;
-            return [$location->lat, $location->lng];
-        } catch (\Exception $e) {
-            return [null, null];
-        }
+    //         $location = $result->results[0]->geometry->location;
+    //         return [$location->lat, $location->lng];
+    //     } catch (\Exception $e) {
+    //         return [null, null];
+    //     }
 
-    }
+    // }
 
     public function save(StoreRequest $request)
     {
@@ -109,14 +109,14 @@ class SchoolController extends Controller
             $school->fill($request->all());
             $school->save();
 
-            try {
-                $coords = $this->getCoords($school->address);
-                $school->latitude = $coords[0];
-                $school->longitude = $coords[1];
-                $school->update();
-            } catch (\Exception $e) {
-                abort(500, $e);
-            }
+            // try {
+            //     $coords = $this->getCoords($school->address);
+            //     $school->latitude = $coords[0];
+            //     $school->longitude = $coords[1];
+            //     $school->update();
+            // } catch (\Exception $e) {
+            //     abort(500, $e);
+            // }
 
             $userSchool = new UserSchool();
             $userSchool->user_id = \Auth::user()->id;
@@ -141,14 +141,14 @@ class SchoolController extends Controller
             $school->fill($request->all());
             $school->update();
 
-            try {
-                $coords = $this->getCoords($school->address);
-                $school->latitude = $coords[0];
-                $school->longitude = $coords[1];
-                $school->update();
-            } catch (\Exception $e) {
-                abort(500, $e);
-            }
+            // try {
+            //     $coords = $this->getCoords($school->address);
+            //     $school->latitude = $coords[0];
+            //     $school->longitude = $coords[1];
+            //     $school->update();
+            // } catch (\Exception $e) {
+            //     abort(500, $e);
+            // }
 
             \DB::commit();
             return $request->id;
